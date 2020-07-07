@@ -56,7 +56,11 @@ SRCS_BASENAME		=	memset				\
 						lstdelone_bonus		\
 						lstclear_bonus		\
 						lstiter_bonus		\
-						lstmap_bonus
+						lstmap_bonus		\
+						btree_apply_suffix	\
+						btree_apply_infix	\
+						btree_apply_prefix	\
+						btree_create_node	\
 
 GNL_SRCS			=	get_next_line		\
 						get_next_line_utils

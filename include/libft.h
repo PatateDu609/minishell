@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:49:32 by gboucett          #+#    #+#             */
-/*   Updated: 2020/02/28 17:04:28 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/07 18:29:09 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,22 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+#include "get_next_line.h"
+#include "ft_printf.h"
+
 typedef struct		s_list
 {
 	struct s_list	*previous;
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_btree
+{
+	struct s_btree	*left;
+	struct s_btree	*right;
+	void			*item;
+}					t_btree;
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t len);
@@ -71,5 +81,10 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void*),
 		void (*del)(void*));
+
+t_btree				*ft_btree_create_node(void *item);
+void				ft_btree_apply_prefix(t_btree *root, void (*f)(void *));
+void				ft_btree_apply_infix(t_btree *root, void (*f)(void *));
+void				ft_btree_apply_suffix(t_btree *root, void (*f)(void *));
 
 #endif
