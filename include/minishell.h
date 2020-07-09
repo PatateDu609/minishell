@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbourgea <rbourgea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/09 13:48:28 by rbourgea         ###   ########.fr       */
+/*   Created: 2020/07/09 13:34:18 by rbourgea          #+#    #+#             */
+/*   Updated: 2020/07/09 13:46:16 by rbourgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-void	ctrl_c(int signal)
-{
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <libgen.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include "get_next_line.h"
+#include "ft_printf.h"
 
-}
-
-void	ctrl_q(int signal)
-{
-	
-}
-
-int		main()
-{
-	if (signal(SIGINT, ctrl_c) == SIG_ERR)
-	{
-		ft_printf("Invalid signal.");
-		return (-1);
-	}
-	if (signal(SIGQUIT, ctrl_q) == SIG_ERR)
-	{
-		ft_printf("Invalid signal.");
-		return (-1);
-	}
-	printf("Hello World !\n");
-	return (0);
-}
+#endif
