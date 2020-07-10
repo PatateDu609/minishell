@@ -77,13 +77,6 @@ all:				$(NAME)
 
 libft:				$(LIBFT)
 
-clean:
-					$(RM) $(OBJS)
-					make -C $(LIBFT_PATH) -f $(LIBFT_MAKE) clean
-
-fclean:				clean
-					make -C $(LIBFT_PATH) -f $(LIBFT_MAKE) fclean
-
 re:					fclean all
 
 .PHONY:				all clean fclean re libft

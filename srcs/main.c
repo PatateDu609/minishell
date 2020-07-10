@@ -6,20 +6,25 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/09 18:04:46 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:43:39 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef BONUS
+# include "minishell.h"
+#else
+# include "minishell_bonus.h"
+#endif
 
 void	ctrl_c(int signal)
 {
 	(void)signal;
 }
 
-void	ctrl_d(int signal)
+void	ctrl_d()
 {
-	(void)signal;
+	ft_printf("exit");
+	exit(0);
 }
 
 int		main()
@@ -29,11 +34,14 @@ int		main()
 		ft_printf("Invalid signal.");
 		return (-1);
 	}
-	if (signal(SIGQUIT, ctrl_d) == SIG_ERR)
+
+	char *result;
+
+	while(1)
 	{
-		ft_printf("Invalid signal.");
-		return (-1);
+		get_next_line(STDIN_FILENO, &result);
+		if (*result == 0)
+			ctrl_d();
 	}
-	printf("Hello World !\n");
 	return (0);
 }
