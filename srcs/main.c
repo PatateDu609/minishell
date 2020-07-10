@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/10 16:52:25 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:04:40 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	ctrl_d()
 	exit(0);
 }
 
+void	ctrl_q(int signal)
+{
+	(void)signal;
+}
+
 void minishell()
 {
 	char	*command;
@@ -42,18 +47,31 @@ void minishell()
 		get_next_line(STDIN_FILENO, &command);
 		if (*command == 0)
 			ctrl_d();
-		ft_exec(ft_parser(command));
+		// ft_exec(ft_parser(command));
 	}
 }
 
-int		main()
+int		main(int ac, char **av, char **env)
 {
-	if (signal(SIGINT, ctrl_c) == SIG_ERR)
-	{
-		ft_printf("Invalid signal.");
-		return (-1);
-	}
+	// (void) ac;
+	// (void) av;
+	// (void) env;
+	// if (signal(SIGINT, ctrl_c) == SIG_ERR)
+	// {
+	// 	ft_printf("Invalid signal.");
+	// 	return (-1);
+	// }
+	// if (signal(SIGQUIT, ctrl_q) == SIG_ERR)
+	// {
+	// 	ft_printf("Invalid signal.");
+	// 	return (-1);
+	// }
 
-	minishell();
+	// minishell();
+	(void) ac;
+	(void) av;
+	(void) env;
+
+	printf("%p\n", ft_get_major("cat"));
 	return (0);
 }

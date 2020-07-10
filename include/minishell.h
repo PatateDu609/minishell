@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 13:34:18 by rbourgea          #+#    #+#             */
-/*   Updated: 2020/07/10 15:57:37 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/10 18:55:22 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@
 # include <sys/stat.h>
 # include "libft.h"
 
-# define PARSER_TOKEN_CMD		0
-# define PARSER_TOKEN_ARGS		1
-# define PARSER_TOKEN_REDIRECT	2
-# define PARSER_TOKEN_PIPE		3
+# define PARSER_TOKEN_CMD			0
+# define PARSER_TOKEN_ARGS			1
+# define PARSER_TOKEN_REDIRECT		2
+# define PARSER_TOKEN_PIPE			3
+# define PARSER_TOKEN_SEPARATOR		4
 
 typedef struct		s_command
 {
@@ -49,5 +50,7 @@ typedef struct		s_token
 }					t_token;
 
 t_btree				*ft_parser(char *command);
+char				*ft_get_major(char *command);
+
 
 #endif

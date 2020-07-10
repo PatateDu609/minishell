@@ -79,8 +79,8 @@ PRINTF_SRCS			=	putptr		\
 ################################################################################
 #                             Commands and arguments                           #
 ################################################################################
-RM					=	rm -f
-GCC					=	gcc
+RM					=	@rm -f
+GCC					=	@gcc
 CFLAGS				=	-Wall -Wextra -Werror -I$(PATH_INCLUDES)
 
 ################################################################################
@@ -102,7 +102,7 @@ $(PATH_OBJS)/%.o:	$(PATH_SRCS)/%.c
 					$(GCC) $(CFLAGS) -D BUFFER_SIZE=32 -c $< -o $@
 
 $(NAME):			$(OBJS)
-					ar rcs $(NAME) $(OBJS)
+					@ar rcs $(NAME) $(OBJS)
 
 all:				$(NAME)
 
