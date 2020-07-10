@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/10 16:43:39 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:52:25 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,34 @@
 # include "minishell_bonus.h"
 #endif
 
+int		g_skip = 0;
+
 void	ctrl_c(int signal)
 {
 	(void)signal;
+	g_skip = 1;
 }
 
 void	ctrl_d()
 {
 	ft_printf("exit");
 	exit(0);
+}
+
+void minishell()
+{
+	char	*command;
+
+	while(1)
+	{
+		ft_printf("minishell :> ");
+		if (g_skip)
+			continue ;
+		get_next_line(STDIN_FILENO, &command);
+		if (*command == 0)
+			ctrl_d();
+		ft_exec(ft_parser(command));
+	}
 }
 
 int		main()
@@ -35,13 +54,6 @@ int		main()
 		return (-1);
 	}
 
-	char *result;
-
-	while(1)
-	{
-		get_next_line(STDIN_FILENO, &result);
-		if (*result == 0)
-			ctrl_d();
-	}
+	minishell();
 	return (0);
 }
