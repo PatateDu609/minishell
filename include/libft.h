@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:49:32 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/09 17:35:15 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/11 23:01:02 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-#include "get_next_line.h"
-#include "ft_printf.h"
+# include "get_next_line.h"
+# include "ft_printf.h"
 
 typedef struct		s_list
 {

@@ -23,7 +23,8 @@ LIBFT				=	$(PATH_LIBS)/libft.a
 ################################################################################
 PARSER_PATH			=	parser
 
-PARSER_SRCS			=	ft_parser	\
+PARSER_SRCS			=	ft_parser			\
+						ft_parser_utils		\
 
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
 SRCS_BASENAME		+=	main

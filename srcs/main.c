@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/10 19:04:40 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/11 23:27:11 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,35 @@ int		main(int ac, char **av, char **env)
 	// }
 
 	// minishell();
-	(void) ac;
-	(void) av;
 	(void) env;
 
-	printf("%p\n", ft_get_major("cat"));
+	if (ac < 2)
+	{
+		printf("pass an argument");
+		return (0);
+	}
+	char *cmd = av[1];
+	char *sep;
+	char *left;
+	char *right;
+	char *str;
+
+	str = ft_get_major(cmd, &sep);
+	left = ft_subcmd(cmd, sep, 0);
+	right = ft_subcmd(cmd, sep, 1);
+
+	printf("type = %s, semantic = \"%s\"\n", str, sep);
+
+	free(sep);
+	str = ft_get_major(left, &sep);
+	printf("left = \"%s\" (type = %s, semantic = \"%s\")\n", left, str, sep);
+
+	free(sep);
+	str = ft_get_major(right, &sep);
+	printf("right = \"%s\" (type = %s, semantic = \"%s\")\n", right, str, sep);
+
+	free(sep);
+	free(left);
+	free(right);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/10 19:01:25 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/11 23:28:28 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static int	ft_check_sep(char *command, int type)
 	else if (type == PARSER_TOKEN_PIPE)
 		return (ft_strchr(command, '|') ? 1 : 0);
 	else if (type == PARSER_TOKEN_REDIRECT)
-		return (ft_strchr(command, '<') || ft_strchr(command, '>') ||
-			ft_strnstr(command, ">>", ft_strlen(command)));
+		return (ft_strnstr(command, ">>", ft_strlen(command)) ||
+			ft_strchr(command, '<') || ft_strchr(command, '>'));
 	else if (type == PARSER_TOKEN_CMD || type == PARSER_TOKEN_ARGS)
 		return (ft_strchr(command, ' ') ? 1 : 0);
 	else
 		return (1);
 }
 
-char		*ft_get_major(char *command)
+char		*ft_get_major(char *command, char **sep)
 {
 	char	*types[4];
 	int		i;
@@ -37,14 +37,18 @@ char		*ft_get_major(char *command)
 	types[2] = "REDIRECT"; // < > >>
 	types[3] = "PIPELINE"; // |
 	types[4] = "SEPARATOR"; // ;
-	i = 0;
-	while (i < 5)
+	i = 4;
+	while (i >= 0)
 	{
 		if (ft_check_sep(command, i))
+		{
+			*sep = ft_get_sep(command, i);
 			return (types[i]);
-		i++;
+		}
+		i--;
 	}
-	return (NULL);
+	*sep = ft_strdup(" ");
+	return (types[0]);
 }
 
 t_btree		*ft_parser(char *command)
