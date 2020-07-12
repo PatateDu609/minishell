@@ -81,7 +81,7 @@ PRINTF_SRCS			=	putptr		\
 ################################################################################
 RM					=	@rm -f
 GCC					=	@gcc
-CFLAGS				=	-Wall -Wextra -Werror -I$(PATH_INCLUDES)
+CFLAGS				=	-Wall -Wextra -Werror -I$(PATH_INCLUDES) -g
 
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #

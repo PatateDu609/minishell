@@ -6,16 +6,20 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:28:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/11 23:21:35 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/12 16:56:40 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
+#ifndef BONUS
+
 char	*ft_get_sep(char *command, int type)
 {
 	int		len;
 
+	if (!command)
+		return (type == PARSER_TOKEN_CMD ? ft_strdup(" ") : NULL);
 	len = ft_strlen(command);
 	if (type == PARSER_TOKEN_REDIRECT)
 	{
@@ -35,6 +39,8 @@ char	*ft_get_sep(char *command, int type)
 	return (NULL);
 }
 
+#endif
+
 char	*ft_subcmd(char *command, char *major, int side)
 {
 	char	*pos;
@@ -43,9 +49,10 @@ char	*ft_subcmd(char *command, char *major, int side)
 	char	*trimmed;
 
 	pos = ft_strnstr(command, major, ft_strlen(command));
+	temp = NULL;
 	if (!side)
 		temp = ft_substr(command, 0, pos - command);
-	else
+	else if (pos)
 		temp = ft_substr(pos, 0, ft_strlen(pos));
 	trimmed = ft_strjoin(major, " ");
 	result = ft_strtrim(temp, trimmed);
