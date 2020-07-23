@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:29:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/12 16:34:32 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:07:55 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include "ft_defs.h"
 
 char		*ft_get_sep(char *command, int type);
+int			ft_check_sep(char *command, int type);
 char		*ft_subcmd(char *command, char *major, int side);
 char		*ft_get_major(char *command, char **sep);
 t_btree		*ft_parser(char *command);
+t_btree		*ft_parse_command(char *command);
 
 #endif

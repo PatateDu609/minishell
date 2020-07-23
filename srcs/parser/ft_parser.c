@@ -6,56 +6,140 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/12 16:53:50 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:35:13 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#ifndef BONUS
-
-static int	ft_check_sep(char *command, int type)
+char	*ft_subcmd(char *command, char *major, int side)
 {
-	if (!command)
-		return (type == PARSER_TOKEN_CMD);
-	if (type == PARSER_TOKEN_SEPARATOR)
-		return (ft_strchr(command, ';') ? 1 : 0);
-	else if (type == PARSER_TOKEN_PIPE)
-		return (ft_strchr(command, '|') ? 1 : 0);
-	else if (type == PARSER_TOKEN_REDIRECT)
-		return (ft_strnstr(command, ">>", ft_strlen(command)) ||
-			ft_strchr(command, '<') || ft_strchr(command, '>'));
-	else if (type == PARSER_TOKEN_CMD || type == PARSER_TOKEN_ARGS)
-		return (ft_strchr(command, ' ') ? 1 : 0);
-	else
-		return (1);
+	char	*pos;
+	char	*temp;
+	char	*result;
+	char	*trimmed;
+
+	pos = ft_strnstr(command, major, ft_strlen(command));
+	temp = NULL;
+	if (!side)
+		temp = ft_substr(command, 0, pos - command);
+	else if (pos)
+		temp = ft_substr(pos, 0, ft_strlen(pos));
+	trimmed = ft_strjoin(major, " ");
+	result = ft_strtrim(temp, trimmed);
+	free(trimmed);
+	free(temp);
+	return (result);
 }
 
-char		*ft_get_major(char *command, char **sep)
+t_btree		*ft_parse_command_args(char *command)
 {
-	char	*types[5];
-	int		i;
+	t_command	*cmd;
+	t_btree		*result;
+	char		**splitted;
 
-	types[0] = "COMMAND";
-	types[1] = "ARGUMENTS";
-	types[2] = "REDIRECT";
-	types[3] = "PIPELINE";
-	types[4] = "SEPARATOR";
-	i = 4;
-	while (i >= 0)
+	if (!(cmd = (t_command *)ft_calloc(1, sizeof(t_command))))
+		return (NULL);
+	if (!(result = ft_btree_create_node(cmd)))
 	{
-		if (ft_check_sep(command, i))
-		{
-			*sep = ft_get_sep(command, i);
-			return (types[i]);
-		}
-		i--;
+		free(cmd);
+		return (NULL);
 	}
-	*sep = ft_strdup(" ");
-	return (types[0]);
+	if (!(splitted = ft_split(command, ' ')))
+	{
+		free(cmd);
+		free(result);
+		return (NULL);
+	}
+	cmd->name = splitted[0];
+	cmd->args = splitted + 1;
+	return (result);
 }
 
-#endif
+void		free_splitted(char **splitted)
+{
+	char	**saved;
+
+	saved = splitted;
+	while (*splitted)
+	{
+		free(*splitted);
+		splitted++;
+	}
+	free(saved);
+}
+
+t_btree		*ft_parse_command_redirect(char *command, char *sep)
+{
+	t_redirect	*cmd;
+	t_btree		*result;
+	int			i;
+	int			count;
+	char		**splitted;
+
+	if (command[0] == '<' || command[0] == '>')
+		return (NULL);
+	i = 1;
+	count = 1;
+	while (command[i])
+	{
+		if (command[i] == '<' || (command[i] == '>' && command[i - 1] != '>'))
+			count++;
+		i++;
+	}
+	if (!(cmd = (t_redirect *)ft_calloc(count + 1, sizeof(t_redirect))))
+		return (NULL);
+	if (!(splitted = ft_split(command, ' ')))
+	{
+		free(cmd);
+		return (NULL);
+	}
+	i = -1;
+	int j = 0;
+	while ((i == -1 || splitted[i]) && j < count)
+	{
+		if (!(i % 2))
+		{
+			cmd[j].target = splitted[i == -1 ? 0 : i];
+			j++;
+		}
+		else
+			cmd[j].type = i == -1 ? ft_strdup(sep) : splitted[i];
+		i++;
+	}
+	if (!(result = ft_btree_create_node(cmd)))
+	{
+		free_splitted(splitted);
+		free(cmd);
+		return (NULL);
+	}
+	free(splitted);
+	return (result);
+}
+
+t_btree		*ft_parse_command(char *command)
+{
+	t_btree		*result;
+	char		*sub;
+	char		*sep;
+
+	if (!(result = ft_btree_create_node(COMMAND_STR)))
+		return (NULL);
+	if (!(sep = ft_get_sep(command, PARSER_TOKEN_REDIRECT)))
+	{
+		result->left = ft_parse_command_args(command);
+		free(sep);
+		return (result);
+	}
+	sub = ft_subcmd(command, sep, 0);
+	result->left = ft_parse_command_args(sub);
+	free(sub);
+	sub = ft_subcmd(command, sep, 1);
+	result->right = ft_parse_command_redirect(sub, sep);
+	free(sub);
+	free(sep);
+	return (result);
+}
 
 t_btree		*ft_parser(char *command)
 {

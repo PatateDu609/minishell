@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/12 16:47:46 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/23 13:44:21 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # include <sys/stat.h>
 # include "libft.h"
 
+# define COMMAND_STR				"COMMAND"
+# define REDIRECTION_STR			"REDIRECT"
+# define ARGUMENT_STR				"ARGUMENT"
+
 # define PARSER_TOKEN_CMD			0
 # define PARSER_TOKEN_ARGS			1
 # define PARSER_TOKEN_REDIRECT		2
@@ -37,22 +41,23 @@
 #  define PARSER_TOKEN_SEPARATOR	5
 # endif
 
+# define REDIRECT_TYPE_IN			0 //<
+# define REDIRECT_TYPE_OUT			1 //>>
+# define REDIRECT_TYPE_OUT_FLUSH	2 //>
+# ifdef BONUS
+#  define REDIRECT_TYPE_HERE_DOC	3 //<<
+# endif
+
 typedef struct		s_command
 {
-	t_list			*args;
-	t_list			*redirects;
+	char			*name;
+	char			**args;
 }					t_command;
 
-typedef union		u_token_content
+typedef struct		s_redirect
 {
-	char			*string;
-	t_command		*command;
-}					t_token_content;
-
-typedef struct		s_token
-{
-	int				type;
-	t_token_content	*token;
-}					t_token;
+	char			*type;
+	char			*target;
+}					t_redirect;
 
 #endif

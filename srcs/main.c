@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/11 23:27:11 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:30:59 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,25 @@ int		main(int ac, char **av, char **env)
 		return (0);
 	}
 	char *cmd = av[1];
-	char *sep;
-	char *left;
-	char *right;
-	char *str;
 
-	str = ft_get_major(cmd, &sep);
-	left = ft_subcmd(cmd, sep, 0);
-	right = ft_subcmd(cmd, sep, 1);
+	t_btree		*parsed = ft_parse_command(cmd);
+	printf("%s\n", (char *) parsed->item);
+	printf("%s\n", ((t_command *)parsed->left->item)->name);
+	char **args = ((t_command *) parsed->left->item)->args;
+	while (*args)
+	{
+		printf("%s\n", *args);
+		args++;
+	}
+	if (parsed->right)
+	{
+		t_redirect	*redirections = (t_redirect *)parsed->right->item;
+		while (redirections->target)
+		{
+			printf("%s %s\n", redirections->type, redirections->target);
+			redirections++;
+		}
+	}
 
-	printf("type = %s, semantic = \"%s\"\n", str, sep);
-
-	free(sep);
-	str = ft_get_major(left, &sep);
-	printf("left = \"%s\" (type = %s, semantic = \"%s\")\n", left, str, sep);
-
-	free(sep);
-	str = ft_get_major(right, &sep);
-	printf("right = \"%s\" (type = %s, semantic = \"%s\")\n", right, str, sep);
-
-	free(sep);
-	free(left);
-	free(right);
 	return (0);
 }

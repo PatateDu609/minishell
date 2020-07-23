@@ -40,12 +40,12 @@ endif
 #                             Commands and arguments                           #
 ################################################################################
 RM					=	@rm -f
-GCC					=	gcc
+GCC					=	@gcc
 CFLAGS				=	-Wall -Wextra -Werror -g -I$(PATH_INCLUDES)
 LDFLAGS				=	-L$(PATH_LIBS) -lft
 
 # DEBUG LDFLAGS :
-LDFLAGS				+=	-fsanitize=address -g -fstack-protector
+# LDFLAGS				+=	-fsanitize=address -g -fstack-protector
 
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #
@@ -58,7 +58,7 @@ OBJS				=	$(addprefix $(PATH_OBJS)/, $(SRCS_EXT:.c=.o))
 OS					=	$(shell uname -o)
 ifeq ($(OS), GNU/Linux)
 	CFLAGS			+=	-DLINUX
-	LDFLAGS			+=	-fsanitize=leak
+	# LDFLAGS			+=	-fsanitize=leak
 endif
 
 ifeq ($(BONUS), 1)
@@ -87,7 +87,7 @@ $(PATH_OBJS):
 					@mkdir -p $(PATH_OBJS)/libft
 					@mkdir -p $(PATH_OBJS)/$(PARSER_PATH)
 
-all:				$(NAME) bonus
+all:				$(NAME)
 
 libft:				$(LIBFT)
 
@@ -109,11 +109,11 @@ fclean:				clean
 					@make -C $(LIBFT_PATH) -f $(LIBFT_MAKE) fclean
 
 enter_name:
-					@echo -n "\e[31mMaking \e[1m$(NAME)"
+					@echo -n "\e[31mMaking \e[1m$(NAME)\e[0m"
 ifeq ($(BONUS), 1)
-					@echo -n " with bonuses"
+					@echo -n "\e[31m with bonuses\e[0m"
 endif
-					@echo "\e[0m"
+					@echo ""
 
 enter_libft:
 					@echo "\e[92mMaking libft\e[0m"
