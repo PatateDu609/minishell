@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strjoin_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/09 13:34:18 by rbourgea          #+#    #+#             */
-/*   Updated: 2020/07/26 11:48:24 by gboucett         ###   ########.fr       */
+/*   Created: 2020/07/25 12:31:24 by gboucett          #+#    #+#             */
+/*   Updated: 2020/07/25 12:49:37 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include "ft_defs.h"
-# include "ft_parser.h"
-# include "ft_exec.h"
+char	*ft_strjoin_arr(char **arr, char sep)
+{
+	char	*result;
+	char	*tmp;
 
-#endif
+	if (!arr || !*arr)
+		return (0);
+	result = ft_strdup(arr[0]);
+	arr++;
+	while (*arr)
+	{
+		tmp = result;
+		result = ft_strjoin(result, &sep);
+		free(tmp);
+		tmp = result;
+		result = ft_strjoin(result, *arr);
+		free(tmp);
+		arr++;
+	}
+	return (result);
+}

@@ -6,13 +6,15 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/23 13:44:21 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/26 13:50:30 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_DEFS_H
 # define FT_DEFS_H
 
+# include <sys/types.h>
+# include <dirent.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -28,6 +30,8 @@
 # define COMMAND_STR				"COMMAND"
 # define REDIRECTION_STR			"REDIRECT"
 # define ARGUMENT_STR				"ARGUMENT"
+# define PIPELINE_STR				"PIPELINE"
+# define SEPARATOR_STR				"SEPARATOR"
 
 # define PARSER_TOKEN_CMD			0
 # define PARSER_TOKEN_ARGS			1
@@ -59,5 +63,12 @@ typedef struct		s_redirect
 	char			*type;
 	char			*target;
 }					t_redirect;
+
+typedef struct		s_env
+{
+	char			**env;
+	char			**paths;
+	int				vlast;
+}					t_env;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:28:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/23 13:42:18 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/29 13:23:46 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			ft_check_sep(char *command, int type)
 		return (ft_strchr(command, '|') ? 1 : 0);
 	else if (type == PARSER_TOKEN_REDIRECT)
 		return (ft_strnstr(command, ">>", ft_strlen(command)) ||
-			ft_strchr(command, '<') || ft_strchr(command, '>'));
+				ft_strchr(command, '<') || ft_strchr(command, '>'));
 	else if (type == PARSER_TOKEN_CMD || type == PARSER_TOKEN_ARGS)
 		return (ft_strchr(command, ' ') ? 1 : 0);
 	else
@@ -88,8 +88,8 @@ char		*ft_get_major(char *command, char **sep)
 	types[0] = COMMAND_STR;
 	types[1] = ARGUMENT_STR;
 	types[2] = REDIRECTION_STR;
-	types[3] = "PIPELINE";
-	types[4] = "SEPARATOR";
+	types[3] = PIPELINE_STR;
+	types[4] = SEPARATOR_STR;
 	i = 4;
 	while (i >= 0)
 	{

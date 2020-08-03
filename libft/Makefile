@@ -39,6 +39,7 @@ SRCS_BASENAME		=	memset				\
 						strdup				\
 						substr				\
 						strjoin				\
+						strjoin_arr			\
 						strtrim				\
 						split				\
 						itoa				\

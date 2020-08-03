@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/09 13:34:18 by rbourgea          #+#    #+#             */
-/*   Updated: 2020/07/26 11:48:24 by gboucett         ###   ########.fr       */
+/*   Created: 2020/07/26 01:25:06 by gboucett          #+#    #+#             */
+/*   Updated: 2020/07/26 01:26:25 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef DEBUG_H
+# define DEBUG_H
 
-# include "ft_defs.h"
-# include "ft_parser.h"
-# include "ft_exec.h"
+# include "libft.h"
+# include "minishell.h"
+
+void			print_separator(t_btree *parsed);
 
 #endif

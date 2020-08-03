@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:49:32 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/11 23:01:02 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/25 12:47:57 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char				*ft_strdup(const char *s1);
 
 char				*ft_substr(const char *s, unsigned int start, size_t len);
 char				*ft_strjoin(const char *s1, const char *s2);
+char				*ft_strjoin_arr(char **arr, char sep);
 char				*ft_strtrim(const char *s1, const char *set);
 char				**ft_split(const char *s, char c);
 char				*ft_itoa(int n);

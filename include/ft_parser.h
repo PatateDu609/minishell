@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:29:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/23 14:07:55 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/29 13:22:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int			ft_check_sep(char *command, int type);
 char		*ft_subcmd(char *command, char *major, int side);
 char		*ft_get_major(char *command, char **sep);
 t_btree		*ft_parser(char *command);
+t_btree		*ft_parse_pipeline(char *command);
 t_btree		*ft_parse_command(char *command);
+void		free_splitted(char **splitted);
+void		free_parsed(t_btree *parsed);
 
 #endif

@@ -22,14 +22,23 @@ LIBFT				=	$(PATH_LIBS)/libft.a
 #                              Name of sources files                           #
 ################################################################################
 PARSER_PATH			=	parser
+EXEC_PATH			=	exec
+
+EXEC_SRCS			=	ft_env				\
+						ft_modify_env		\
+						ft_construct_path	\
+						getvar				\
 
 PARSER_SRCS			=	ft_parser			\
 						ft_parser_utils		\
+						clear				\
 
 PARSER_BONUS_SRCS	=	ft_parser_utils		\
 
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
-SRCS_BASENAME		+=	main
+SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
+SRCS_BASENAME		+=	main				\
+						print_debug
 
 ifeq ($(BONUS), 1)
 	BONUS_BASE_NAME	+=	$(addsuffix _bonus, $(PARSER_BONUS_SRCS))
@@ -45,7 +54,7 @@ CFLAGS				=	-Wall -Wextra -Werror -g -I$(PATH_INCLUDES)
 LDFLAGS				=	-L$(PATH_LIBS) -lft
 
 # DEBUG LDFLAGS :
-# LDFLAGS				+=	-fsanitize=address -g -fstack-protector
+LDFLAGS				+=	-fsanitize=address -g -fstack-protector
 
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #
@@ -58,7 +67,7 @@ OBJS				=	$(addprefix $(PATH_OBJS)/, $(SRCS_EXT:.c=.o))
 OS					=	$(shell uname -o)
 ifeq ($(OS), GNU/Linux)
 	CFLAGS			+=	-DLINUX
-	# LDFLAGS			+=	-fsanitize=leak
+	LDFLAGS			+=	-fsanitize=leak
 endif
 
 ifeq ($(BONUS), 1)
@@ -86,6 +95,7 @@ $(PATH_OBJS):
 					@echo "\e[92mCreating objs folders\e[0m"
 					@mkdir -p $(PATH_OBJS)/libft
 					@mkdir -p $(PATH_OBJS)/$(PARSER_PATH)
+					@mkdir -p $(PATH_OBJS)/$(EXEC_PATH)
 
 all:				$(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 14:41:18 by rbourgea          #+#    #+#             */
-/*   Updated: 2020/07/10 16:29:54 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/07/25 16:35:56 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,17 @@ static	size_t	to_sep(char const *s, char c)
 	return (i);
 }
 
-void			*free_result(char **result)
+static	void	*free_result(char **result)
 {
-	size_t		i;
-	size_t		size;
+	char	**saved;
 
-	size = sizeof(result) / sizeof(char *);
-	i = 0;
-	while (i < size)
+	saved = result;
+	while (*result)
 	{
-		free(result[i]);
-		i++;
+		free(*result);
+		result++;
 	}
+	free(saved);
 	return (NULL);
 }
 
