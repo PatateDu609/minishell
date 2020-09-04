@@ -30,6 +30,7 @@ SRCS_BASENAME		=	memset				\
 						tolower				\
 						strchr				\
 						strrchr				\
+						strcmp				\
 						strncmp				\
 						strlcpy				\
 						strlcat				\

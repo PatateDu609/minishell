@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/26 21:08:34 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/08/25 17:20:30 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,13 +174,28 @@ t_btree		*ft_parse_pipeline(char *command)
 	return (cmd);
 }
 
-t_btree		*ft_parser(char *command)
+char		*ft_parse_env(char *command)
+{
+	// char *start;
+	// int
+
+	// while (*command)
+	// {
+	// 	while (*command != '$')
+	// 		command++;
+	// }
+	return command;
+}
+
+t_btree		*ft_parser(char *input)
 {
 	char	*sep;
 	char	*major;
 	char	*sub;
+	char	*command;
 	t_btree	*cmd;
 
+	command = ft_parse_env(input);
 	major = ft_get_major(command, &sep);
 	free(sep);
 	if (ft_strncmp(major, SEPARATOR_STR, ft_strlen(SEPARATOR_STR)))
@@ -204,5 +219,6 @@ t_btree		*ft_parser(char *command)
 	else
 		cmd->right = ft_parser(sub);
 	free(sub);
+	free(command);
 	return (cmd);
 }

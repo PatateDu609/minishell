@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/29 13:14:31 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/08/20 00:11:09 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,177 @@ void	ctrl_q(int signal)
 	(void)signal;
 }
 
-void minishell()
+int is_builtin(char *name)
+{
+	if (!ft_strcmp(name, "echo"))
+		return (BUILTIN_ECHO);
+	else if (!ft_strcmp(name, "cd"))
+		return (BUILTIN_CD);
+	else if (!ft_strcmp(name, "pwd"))
+		return (BUILTIN_PWD);
+	else if (!ft_strcmp(name, "env"))
+		return (BUILTIN_ENV);
+	else if (!ft_strcmp(name, "export"))
+		return (BUILTIN_EXPORT);
+	else if (!ft_strcmp(name, "unset"))
+		return (BUILTIN_UNSET);
+	else if (!ft_strcmp(name, "exit"))
+		return (BUILTIN_EXIT);
+	else
+		return (BUILTIN_DEFAULT);
+}
+
+void ft_print_env(char **env)
+{
+	while (*env)
+		ft_printf("%s\n", *env++);
+}
+
+void ft_cd(char **args)
+{
+	if (!args[0] || args[1])
+	{
+		ft_printf("cd: wrong number of arguments\n");
+		return ;
+	}
+	if (chdir(args[0]))
+		ft_printf("cd: %s: %s\n", strerror(errno), args[0]);
+}
+
+void ft_export(t_env *env, char **args)
+{
+	char	**tmp;
+	char	*val;
+
+	while (*args)
+	{
+		if (**args == '=')
+		{
+			ft_printf("export: bad assignment\n");
+			args++;
+			continue ;
+		}
+		tmp = ft_split(*args, '=');
+		val = tmp[1] ? ft_strjoin_arr(tmp + 1, '=') : ft_strdup("");
+		ft_add_var(env, tmp[0], val);
+		free(val);
+		free_splitted(tmp);
+		args++;
+	}
+}
+
+void ft_unset(t_env *env, char **args)
+{
+	while (*args)
+		ft_delete_var(env, *args++);
+}
+
+void ft_echo(char **args)
+{
+	char	*end;
+	char	**suitable;
+	char	**saved;
+
+	if (*args)
+		suitable = args;
+	else
+	{
+		if (!(suitable = ft_calloc(2, sizeof(char *))))
+			return ;
+		saved = suitable;
+		suitable[0] = "";
+	}
+	end = ft_strcmp(suitable[0], "-n") == 0 ? "" : "\n";
+	if (*end == 0)
+		suitable++;
+	while (*suitable)
+	{
+		ft_printf("%s%s", *suitable, (*(suitable + 1) ? " " : end));
+		suitable++;
+	}
+	if (!*args)
+		free(saved);
+}
+
+int exec_builtin(t_env *env, t_command *cmd, t_redirect *redirects)
+{
+	int		id;
+	void	*tfree;
+	(void)redirects;
+	tfree = NULL;
+	if ((id = is_builtin(cmd->name)) == BUILTIN_DEFAULT)
+		return (0);
+	else if (id == BUILTIN_ENV)
+		ft_print_env(env->env);
+	else if (id == BUILTIN_EXPORT)
+		ft_export(env, cmd->args);
+	else if (id == BUILTIN_UNSET)
+		ft_unset(env, cmd->args);
+	else if (id == BUILTIN_ECHO)
+		ft_echo(cmd->args);
+	else if (id == BUILTIN_PWD)
+		ft_printf("%s\n", (tfree = getcwd(NULL, 0)));
+	else if (id == BUILTIN_CD)
+		ft_cd(cmd->args);
+	else if (id == BUILTIN_EXIT)
+		ctrl_d();
+	free(tfree);
+	return (1);
+}
+
+void exec_command(t_env *env, t_btree *cmd)
+{
+	size_t		len;
+	t_command	*command;
+	t_redirect	*redirects;
+	char		*tmp;
+	pid_t		pid;
+	int			status;
+
+	len = ft_strlen(cmd->item);
+	if (len != ft_strlen(COMMAND_STR) || ft_strncmp(cmd->item, COMMAND_STR, len))
+		return ;
+	command = cmd->left->item;
+	redirects = cmd->right ? cmd->right->item : NULL;
+	if (is_builtin(command->name) == BUILTIN_DEFAULT && (tmp = ft_construct_cmd(env, command->name)))
+		command->args[-1] = tmp;
+	else if (is_builtin(command->name) == BUILTIN_DEFAULT)
+	{
+		ft_printf("%s: %s\n", command->name, (errno == 656 ? "command not found" : strerror(errno)));
+		return ;
+	}
+	pid = fork();
+
+	if (pid == 0)
+	{
+		if (exec_builtin(env, command, redirects))
+			exit(EXIT_SUCCESS);
+		else if (is_builtin(command->name) != BUILTIN_DEFAULT)
+			exit(EXIT_FAILURE);
+		if (execve(command->args[-1], command->args - 1, env->env))
+		{
+			ft_printf("minishell: %s: %s\n", command->name, strerror(errno));
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			env->vlast = WEXITSTATUS(status);
+	}
+	if (is_builtin(command->name) == BUILTIN_DEFAULT)
+		free(command->args[-1]);
+	command->args[-1] = command->name;
+}
+
+void minishell(char **ev)
 {
 	char		*command;
 	t_btree		*parsed;
+	t_env		*env;
 
+	env = ft_env(ev);
 	while(1)
 	{
 		ft_printf("minishell :> ");
@@ -52,6 +218,7 @@ void minishell()
 			ctrl_d();
 		parsed = ft_parser(command);
 		print_separator(parsed);
+		exec_command(env, parsed);
 		free_parsed(parsed);
 		free(command);
 	}
@@ -61,7 +228,6 @@ int		main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-	(void)env;
 	// if (signal(SIGINT, ctrl_c) == SIG_ERR)
 	// {
 	// 	ft_printf("Invalid signal.");
@@ -72,7 +238,7 @@ int		main(int ac, char **av, char **env)
 	// 	ft_printf("Invalid signal.");
 	// 	return (-1);
 	// }
-	minishell();
+	minishell(env);
 }
 
 // int main(int ac, char **av, char **ev)

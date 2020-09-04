@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/26 13:50:30 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/08/16 20:04:59 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@
 # ifdef BONUS
 #  define REDIRECT_TYPE_HERE_DOC	3 //<<
 # endif
+
+# define BUILTIN_DEFAULT	-1
+# define BUILTIN_ECHO		0
+# define BUILTIN_CD			1
+# define BUILTIN_PWD		2
+# define BUILTIN_ENV		3
+# define BUILTIN_EXPORT		4
+# define BUILTIN_UNSET		5
+# define BUILTIN_EXIT		6
 
 typedef struct		s_command
 {

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 23:32:00 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/28 14:18:04 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/08/20 00:13:40 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char		*ft_construct_from_name(char **paths, char *command)
 		closedir(pwd);
 		paths++;
 	}
+	errno = 656;
 	return (NULL);
 }
 
@@ -67,7 +68,7 @@ char			*ft_construct_cmd(t_env *env, char *command)
 	{
 		if (command[0] != '/')
 		{
-			tmp = getvar(env->env, "PWD");
+			tmp = getvar(env, "PWD");
 			result = ft_strjoin(tmp, "/");
 			free(tmp);
 			tmp = result;

@@ -6,20 +6,24 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 23:33:48 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/28 14:18:47 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/08/17 00:44:48 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-char	*getvar(char **ev, char *var)
+char	*getvar(t_env *env, char *var)
 {
 	char	**splitted;
 	char	*result;
 	size_t	len;
+	char	**ev;
 
+	if (!ft_strcmp(var, "?"))
+		return (ft_itoa(env->vlast));
 	result = 0;
 	len = ft_strlen(var);
+	ev = env->env;
 	while (*ev)
 	{
 		splitted = ft_split(*ev, '=');

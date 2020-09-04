@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec.h                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/26 11:37:41 by gboucett          #+#    #+#             */
-/*   Updated: 2020/08/17 00:16:38 by gboucett         ###   ########.fr       */
+/*   Created: 2020/08/16 20:00:11 by gboucett          #+#    #+#             */
+/*   Updated: 2020/08/16 20:02:09 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_EXEC_H
-# define FT_EXEC_H
+#include "libft.h"
 
-# include "minishell.h"
-
-t_env		*ft_env(char **env);
-size_t		ft_sizeof(char **env);
-void		init_paths(t_env *env);
-void		ft_delete_var(t_env *env, char *name);
-void		ft_add_var(t_env *env, char *name, char *value);
-void		free_env(t_env *env);
-char		*getvar(t_env *env, char *var);
-char		*ft_construct_cmd(t_env *env, char *command);
-
-#endif
+int		ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
