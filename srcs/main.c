@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/08/20 00:11:09 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/09/04 11:10:57 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void minishell(char **ev)
 	env = ft_env(ev);
 	while(1)
 	{
-		ft_printf("minishell :> ");
+		ft_printf("\033[31m\033[1mminishell :>\033[0m\033[35m ");
 		if (g_skip)
 			continue ;
 		get_next_line(STDIN_FILENO, &command);

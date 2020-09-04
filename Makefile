@@ -64,8 +64,8 @@ SRCS_EXT			=	$(addsuffix .c, $(SRCS_BASENAME))
 SRCS				=	$(addprefix $(PATH_SRCS)/, $(SRCS_EXT))
 OBJS				=	$(addprefix $(PATH_OBJS)/, $(SRCS_EXT:.c=.o))
 
-OS					=	$(shell uname -o)
-ifeq ($(OS), GNU/Linux)
+OS					=	$(shell uname)
+ifeq ($(OS), Linux)
 	CFLAGS			+=	-DLINUX
 	LDFLAGS			+=	-fsanitize=leak
 endif
@@ -78,7 +78,7 @@ $(PATH_OBJS)/%.o:	$(PATH_SRCS)/%.c
 					$(GCC) $(CFLAGS) -c $< -o $@
 
 $(NAME):			enter_name $(PATH_LIBS) $(PATH_OBJS) $(LIBFT) enter_objs $(OBJS)
-					@echo "\e[46;90;1mLinking everything\e[0m"
+					@echo "\033[46;90;1mLinking everything\033[0m"
 					$(GCC) $(OBJS)  -o $(NAME) $(LDFLAGS)
 
 $(LIBFT):			enter_libft
@@ -88,11 +88,11 @@ $(MINILIBX):
 					@make -C $(MINILIBX_PATH) -f $(MINILIBX_MAKE)
 
 $(PATH_LIBS):
-					@echo "\e[92mCreating libs folder\e[0m"
+					@echo "\033[92mCreating libs folder\033[0m"
 					@mkdir -p $(PATH_LIBS)
 
 $(PATH_OBJS):
-					@echo "\e[92mCreating objs folders\e[0m"
+					@echo "\033[92mCreating objs folders\033[0m"
 					@mkdir -p $(PATH_OBJS)/libft
 					@mkdir -p $(PATH_OBJS)/$(PARSER_PATH)
 					@mkdir -p $(PATH_OBJS)/$(EXEC_PATH)
@@ -119,16 +119,16 @@ fclean:				clean
 					@make -C $(LIBFT_PATH) -f $(LIBFT_MAKE) fclean
 
 enter_name:
-					@echo -n "\e[31mMaking \e[1m$(NAME)\e[0m"
 ifeq ($(BONUS), 1)
-					@echo -n "\e[31m with bonuses\e[0m"
+					@echo "\033[31mMaking \033[1m$(NAME)\033[0m\033[31m with bonuses\033[0m"
+else
+					@echo "\033[31mMaking \033[1m$(NAME)\033[0m"
 endif
-					@echo ""
 
 enter_libft:
-					@echo "\e[92mMaking libft\e[0m"
+					@echo "\033[92mMaking libft\033[0m"
 
 enter_objs:
-					@echo "\e[92mCompiling objs\e[0m"
+					@echo "\033[92mCompiling objs\033[0m"
 
 .PHONY:				all clean fclean re libft
