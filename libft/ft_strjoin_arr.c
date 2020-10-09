@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 12:31:24 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/25 12:49:37 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/09 23:24:02 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@ char	*ft_strjoin_arr(char **arr, char sep)
 {
 	char	*result;
 	char	*tmp;
+	char	str_sep[2];
 
 	if (!arr || !*arr)
 		return (0);
 	result = ft_strdup(arr[0]);
 	arr++;
+	str_sep[0] = sep;
+	str_sep[1] = 0;
 	while (*arr)
 	{
 		tmp = result;
-		result = ft_strjoin(result, &sep);
+		result = ft_strjoin(result, str_sep);
 		free(tmp);
 		tmp = result;
 		result = ft_strjoin(result, *arr);

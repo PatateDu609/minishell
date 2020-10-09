@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2020/08/25 17:20:30 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/09 22:33:17 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,20 +174,7 @@ t_btree		*ft_parse_pipeline(char *command)
 	return (cmd);
 }
 
-char		*ft_parse_env(char *command)
-{
-	// char *start;
-	// int
-
-	// while (*command)
-	// {
-	// 	while (*command != '$')
-	// 		command++;
-	// }
-	return command;
-}
-
-t_btree		*ft_parser(char *input)
+t_btree		*ft_parser(t_env *env, char *input)
 {
 	char	*sep;
 	char	*major;
@@ -195,30 +182,33 @@ t_btree		*ft_parser(char *input)
 	char	*command;
 	t_btree	*cmd;
 
-	command = ft_parse_env(input);
+	command = ft_parse_env(env, input);
 	major = ft_get_major(command, &sep);
 	free(sep);
 	if (ft_strncmp(major, SEPARATOR_STR, ft_strlen(SEPARATOR_STR)))
-		return (ft_parse_pipeline(command));
-	if (!(cmd = ft_btree_create_node(SEPARATOR_STR)))
-		return (NULL);
-	sub = ft_subcmd(command, ";", 0);
-	major = ft_get_major(sub, &sep);
+		cmd = ft_parse_pipeline(command);
+	else
+	{
+		if (!(cmd = ft_btree_create_node(SEPARATOR_STR)))
+			return (NULL);
+		sub = ft_subcmd(command, ";", 0);
+		major = ft_get_major(sub, &sep);
 
-	if (ft_strncmp(major, SEPARATOR_STR, ft_strlen(SEPARATOR_STR)))
-		cmd->left = ft_parse_pipeline(sub);
-	else
-		cmd->left = ft_parser(sub);
-	free(sub);
-	free(sep);
-	sub = ft_subcmd(command, ";", 1);
-	major = ft_get_major(sub, &sep);
-	free(sep);
-	if (ft_strncmp(major, SEPARATOR_STR, ft_strlen(SEPARATOR_STR)))
-		cmd->right = ft_parse_pipeline(sub);
-	else
-		cmd->right = ft_parser(sub);
-	free(sub);
+		if (ft_strncmp(major, SEPARATOR_STR, ft_strlen(SEPARATOR_STR)))
+			cmd->left = ft_parse_pipeline(sub);
+		else
+			cmd->left = ft_parser(env, sub);
+		free(sub);
+		free(sep);
+		sub = ft_subcmd(command, ";", 1);
+		major = ft_get_major(sub, &sep);
+		free(sep);
+		if (ft_strncmp(major, SEPARATOR_STR, ft_strlen(SEPARATOR_STR)))
+			cmd->right = ft_parse_pipeline(sub);
+		else
+			cmd->right = ft_parser(env, sub);
+		free(sub);
+	}
 	free(command);
 	return (cmd);
 }

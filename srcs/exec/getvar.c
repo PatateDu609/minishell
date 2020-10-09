@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 23:33:48 by gboucett          #+#    #+#             */
-/*   Updated: 2020/08/17 00:44:48 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/09 23:20:51 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*getvar(t_env *env, char *var)
 	{
 		splitted = ft_split(*ev, '=');
 		if (ft_strlen(splitted[0]) == len && !ft_strncmp(splitted[0], var, len))
-			result = ft_strdup(splitted[1]);
+			result = ft_strjoin_arr(splitted + 1, '=');
 		free_splitted(splitted);
 		if (result)
 			break;

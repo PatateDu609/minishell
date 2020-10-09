@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/09/04 11:10:57 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/09 23:18:49 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,17 +206,18 @@ void minishell(char **ev)
 	char		*command;
 	t_btree		*parsed;
 	t_env		*env;
+	int			ret;
 
 	env = ft_env(ev);
 	while(1)
 	{
-		ft_printf("\033[31m\033[1mminishell :>\033[0m\033[35m ");
+		ft_printf("\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m ");
 		if (g_skip)
 			continue ;
-		get_next_line(STDIN_FILENO, &command);
-		if (*command == 0)
+		ret = get_next_line(STDIN_FILENO, &command);
+		if (!ret && *command == 0)
 			ctrl_d();
-		parsed = ft_parser(command);
+		parsed = ft_parser(env, command);
 		print_separator(parsed);
 		exec_command(env, parsed);
 		free_parsed(parsed);

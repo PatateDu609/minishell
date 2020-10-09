@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_debug.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbourgea <rbourgea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 01:24:44 by gboucett          #+#    #+#             */
-/*   Updated: 2020/08/03 22:11:07 by rbourgea         ###   ########.fr       */
+/*   Updated: 2020/10/09 22:37:37 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		print_command(t_btree	*parsed)
 	printf("\033[1;32m%s\033[0m\n", (char *) parsed->item);
 	printf("\033[0;34m%s\033[0m\n", ((t_command *)parsed->left->item)->name);
 	char **args = ((t_command *) parsed->left->item)->args;
-	while (*args)
+	while (args && *args)
 	{
 		printf("%s\n", *args);
 		args++;

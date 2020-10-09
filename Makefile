@@ -31,6 +31,7 @@ EXEC_SRCS			=	ft_env				\
 
 PARSER_SRCS			=	ft_parser			\
 						ft_parser_utils		\
+						ft_parser_env		\
 						clear				\
 
 PARSER_BONUS_SRCS	=	ft_parser_utils		\
