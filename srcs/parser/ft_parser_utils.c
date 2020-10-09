@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:28:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/29 13:23:46 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/10 00:24:02 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ char	*ft_get_sep(char *command, int type)
 
 int			ft_check_sep(char *command, int type)
 {
-	if (!command)
-		return (type == PARSER_TOKEN_CMD);
 	if (type == PARSER_TOKEN_SEPARATOR)
 		return (ft_strchr(command, ';') ? 1 : 0);
 	else if (type == PARSER_TOKEN_PIPE)

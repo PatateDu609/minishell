@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 23:33:48 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/09 23:20:51 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/10 00:12:44 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*getvar(t_env *env, char *var)
 
 	if (!ft_strcmp(var, "?"))
 		return (ft_itoa(env->vlast));
-	result = 0;
+	result = NULL;
 	len = ft_strlen(var);
 	ev = env->env;
 	while (*ev)

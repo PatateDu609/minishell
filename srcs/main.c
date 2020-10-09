@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/09 23:18:49 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/10 00:49:06 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void ft_print_env(char **env)
 		ft_printf("%s\n", *env++);
 }
 
-void ft_cd(char **args)
+void ft_cd(t_env *env, char **args)
 {
+	char *path;
+
 	if (!args[0] || args[1])
 	{
 		ft_printf("cd: wrong number of arguments\n");
@@ -72,6 +74,10 @@ void ft_cd(char **args)
 	}
 	if (chdir(args[0]))
 		ft_printf("cd: %s: %s\n", strerror(errno), args[0]);
+	printf("args[0] = %s\n", args[0]);
+	path = getcwd(NULL, 0);
+	ft_add_var(env, "PWD", path);
+	free(path);
 }
 
 void ft_export(t_env *env, char **args)
@@ -148,7 +154,7 @@ int exec_builtin(t_env *env, t_command *cmd, t_redirect *redirects)
 	else if (id == BUILTIN_PWD)
 		ft_printf("%s\n", (tfree = getcwd(NULL, 0)));
 	else if (id == BUILTIN_CD)
-		ft_cd(cmd->args);
+		ft_cd(env, cmd->args);
 	else if (id == BUILTIN_EXIT)
 		ctrl_d();
 	free(tfree);
@@ -169,6 +175,8 @@ void exec_command(t_env *env, t_btree *cmd)
 		return ;
 	command = cmd->left->item;
 	redirects = cmd->right ? cmd->right->item : NULL;
+	if (exec_builtin(env, command, redirects))
+		return ;
 	if (is_builtin(command->name) == BUILTIN_DEFAULT && (tmp = ft_construct_cmd(env, command->name)))
 		command->args[-1] = tmp;
 	else if (is_builtin(command->name) == BUILTIN_DEFAULT)
@@ -180,10 +188,6 @@ void exec_command(t_env *env, t_btree *cmd)
 
 	if (pid == 0)
 	{
-		if (exec_builtin(env, command, redirects))
-			exit(EXIT_SUCCESS);
-		else if (is_builtin(command->name) != BUILTIN_DEFAULT)
-			exit(EXIT_FAILURE);
 		if (execve(command->args[-1], command->args - 1, env->env))
 		{
 			ft_printf("minishell: %s: %s\n", command->name, strerror(errno));
@@ -215,8 +219,14 @@ void minishell(char **ev)
 		if (g_skip)
 			continue ;
 		ret = get_next_line(STDIN_FILENO, &command);
-		if (!ret && *command == 0)
-			ctrl_d();
+		if (*command == 0)
+		{
+			free(command);
+			if (!ret)
+				ctrl_d();
+			else
+				continue ;
+		}
 		parsed = ft_parser(env, command);
 		print_separator(parsed);
 		exec_command(env, parsed);
