@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/10 00:49:06 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/11 22:00:06 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,13 @@ void ft_unset(t_env *env, char **args)
 		ft_delete_var(env, *args++);
 }
 
-void ft_echo(char **args)
+void ft_echo(char **args, t_redirect *redirects)
 {
 	char	*end;
 	char	**suitable;
 	char	**saved;
+
+	(void)redirects;
 
 	if (*args)
 		suitable = args;
@@ -139,7 +141,7 @@ int exec_builtin(t_env *env, t_command *cmd, t_redirect *redirects)
 {
 	int		id;
 	void	*tfree;
-	(void)redirects;
+
 	tfree = NULL;
 	if ((id = is_builtin(cmd->name)) == BUILTIN_DEFAULT)
 		return (0);
@@ -150,7 +152,7 @@ int exec_builtin(t_env *env, t_command *cmd, t_redirect *redirects)
 	else if (id == BUILTIN_UNSET)
 		ft_unset(env, cmd->args);
 	else if (id == BUILTIN_ECHO)
-		ft_echo(cmd->args);
+		ft_echo(cmd->args, redirects);
 	else if (id == BUILTIN_PWD)
 		ft_printf("%s\n", (tfree = getcwd(NULL, 0)));
 	else if (id == BUILTIN_CD)
@@ -177,22 +179,19 @@ void exec_command(t_env *env, t_btree *cmd)
 	redirects = cmd->right ? cmd->right->item : NULL;
 	if (exec_builtin(env, command, redirects))
 		return ;
-	if (is_builtin(command->name) == BUILTIN_DEFAULT && (tmp = ft_construct_cmd(env, command->name)))
+	if ((tmp = ft_construct_cmd(env, command->name)))
 		command->args[-1] = tmp;
-	else if (is_builtin(command->name) == BUILTIN_DEFAULT)
+	else
 	{
 		ft_printf("%s: %s\n", command->name, (errno == 656 ? "command not found" : strerror(errno)));
 		return ;
 	}
-	pid = fork();
 
-	if (pid == 0)
+	if ((pid = fork()) == 0)
 	{
-		if (execve(command->args[-1], command->args - 1, env->env))
-		{
-			ft_printf("minishell: %s: %s\n", command->name, strerror(errno));
-			exit(EXIT_FAILURE);
-		}
+		execve(command->args[-1], command->args - 1, env->env);
+		ft_printf("minishell: %s: %s\n", command->name, strerror(errno));
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -200,8 +199,7 @@ void exec_command(t_env *env, t_btree *cmd)
 		if (WIFEXITED(status))
 			env->vlast = WEXITSTATUS(status);
 	}
-	if (is_builtin(command->name) == BUILTIN_DEFAULT)
-		free(command->args[-1]);
+	free(command->args[-1]);
 	command->args[-1] = command->name;
 }
 

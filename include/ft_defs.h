@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/08/16 20:04:59 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/10 00:56:09 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct		s_redirect
 {
 	char			*type;
 	char			*target;
+	int				fd;
 }					t_redirect;
 
 typedef struct		s_env

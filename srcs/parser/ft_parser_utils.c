@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:28:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/10 00:24:02 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/12 03:22:59 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,55 @@ char	*ft_get_sep(char *command, int type)
 	return (NULL);
 }
 
+// int			ft_check_sep(char *command, int type)
+// {
+// 	if (type == PARSER_TOKEN_SEPARATOR)
+// 		return (ft_strchr(command, ';') ? 1 : 0);
+// 	else if (type == PARSER_TOKEN_PIPE)
+// 		return (ft_strchr(command, '|') ? 1 : 0);
+// 	else if (type == PARSER_TOKEN_REDIRECT)
+// 		return (ft_strnstr(command, ">>", ft_strlen(command)) ||
+// 				ft_strchr(command, '<') || ft_strchr(command, '>'));
+// 	else if (type == PARSER_TOKEN_CMD || type == PARSER_TOKEN_ARGS)
+// 		return (ft_strchr(command, ' ') ? 1 : 0);
+// 	else
+// 		return (1);
+// }
+
 int			ft_check_sep(char *command, int type)
 {
-	if (type == PARSER_TOKEN_SEPARATOR)
-		return (ft_strchr(command, ';') ? 1 : 0);
-	else if (type == PARSER_TOKEN_PIPE)
-		return (ft_strchr(command, '|') ? 1 : 0);
-	else if (type == PARSER_TOKEN_REDIRECT)
-		return (ft_strnstr(command, ">>", ft_strlen(command)) ||
-				ft_strchr(command, '<') || ft_strchr(command, '>'));
-	else if (type == PARSER_TOKEN_CMD || type == PARSER_TOKEN_ARGS)
-		return (ft_strchr(command, ' ') ? 1 : 0);
-	else
-		return (1);
+	char	types[5];
+	int		i;
+	int		mode;
+
+	types[PARSER_TOKEN_CMD] = ' ';
+	types[PARSER_TOKEN_ARGS] = ' ';
+	types[PARSER_TOKEN_PIPE] = '|';
+	types[PARSER_TOKEN_SEPARATOR] = ';';
+	i = 0;
+	if (command[ft_strlen(command) - 1] == '\\')
+		return (-1);
+	while (command[i])
+	{
+		if (command[i] == '\\')
+			i += 2;
+		if (command[i] == '"' || command[i] == '\'')
+		{
+			mode = (command[i] == '"');
+			i++;
+			while (command[i] && ((mode && command[i] != '"') || (!mode && command[i] != '\'')))
+				i++;
+			if (!command[i])
+				return (-2);
+		}
+		if ((type != PARSER_TOKEN_REDIRECT && command[i] == types[type]) ||
+			(type == PARSER_TOKEN_REDIRECT && (command[i] == '<' || command[i] == '>')))
+		{
+			return (1);
+		}
+		i++;
+	}
+	return (type == PARSER_TOKEN_CMD);
 }
 
 char		*ft_get_major(char *command, char **sep)
@@ -88,6 +124,7 @@ char		*ft_get_major(char *command, char **sep)
 	types[2] = REDIRECTION_STR;
 	types[3] = PIPELINE_STR;
 	types[4] = SEPARATOR_STR;
+
 	i = 4;
 	while (i >= 0)
 	{
