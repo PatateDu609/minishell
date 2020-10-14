@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/11 22:15:24 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/13 22:26:49 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_btree		*ft_parse_command_args(char *command)
 		free(cmd);
 		return (NULL);
 	}
-	if (!(splitted = ft_split(command, ' ')))
+	if (!(splitted = ft_split_args(command)))
 	{
 		free(cmd);
 		free(result);

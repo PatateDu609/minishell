@@ -29,10 +29,11 @@ EXEC_SRCS			=	ft_env				\
 						ft_construct_path	\
 						getvar				\
 
-PARSER_SRCS			=	ft_parser			\
-						ft_parser_utils		\
-						ft_parser_env		\
-						clear				\
+PARSER_SRCS			=	ft_parser							\
+						ft_parser_utils						\
+						ft_parser_command_args_utils		\
+						ft_parser_env						\
+						clear								\
 
 PARSER_BONUS_SRCS	=	ft_parser_utils		\
 
