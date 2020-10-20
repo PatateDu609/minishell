@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 16:30:47 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/20 22:03:00 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,18 +264,26 @@ void minishell(t_env *env, t_caps *caps)
 {
 	char		*command;
 	t_btree		*parsed;
-	// int			ret;
+	t_termios	backup;
 
+	(void)parsed;
+	(void)env;
 	while(1)
 	{
 		if (g_skip)
 			continue ;
+		if (!init_termios(&backup))
+			return ;
 		command = ft_getline(caps, "\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m ");
+		if (!reset_terminal(&backup, caps))
+			return ;
+		for (size_t i = 0; i < ft_strlen(command); i++)
+			printf("%d(%c) ", command[i], command[i]);
+		printf("\n");
 		if (*command == 0)
 		{
 			free(command);
-		// 	if (!ret)
-				ctrl_d();
+			ctrl_d();
 		}
 		parsed = ft_parser(env, command);
 		print_separator(parsed);
@@ -289,7 +297,6 @@ int main(int ac, char **av, char **ev)
 {
 	t_env		*env;
 	t_caps		*caps;
-	t_termios	backup;
 
 	(void)ac;
 	(void)av;
@@ -299,11 +306,7 @@ int main(int ac, char **av, char **ev)
 		return (1);
 	if (!init_termcaps(env, caps))
 		return (1);
-	if (!init_termios(&backup))
-		return (0);
 	minishell(env, caps);
-	if (!reset_terminal(&backup, caps))
-		return (1);
 	free_env(env);
 	free(caps);
 	return (0);

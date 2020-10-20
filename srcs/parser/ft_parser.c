@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/13 22:26:49 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/20 22:14:04 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_btree		*ft_parse_command_args(char *command)
 
 	if (!(cmd = (t_command *)ft_calloc(1, sizeof(t_command))))
 		return (NULL);
+
+
 	if (!(result = ft_btree_create_node(cmd)))
 	{
 		free(cmd);

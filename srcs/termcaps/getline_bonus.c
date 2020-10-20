@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:07:50 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 16:22:50 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/20 16:45:34 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_getline(t_caps *caps, char *prompt)
 			ft_move_line(caps, &line, command);
 			continue ;
 		}
-		if (ft_strlen(line.buffer) == 0 && command[0] == 0x7f)
+		if ((ft_strlen(line.buffer) == 0 && command[0] == 0x7f) || (command[0] == 4 && line.cursor))
 			continue;
 		else if (command[0] == 0x7f)
 		{
@@ -40,7 +40,7 @@ char	*ft_getline(t_caps *caps, char *prompt)
 			tputs(caps->le, 1, ms_putchar);
 			free(tmp);
 		}
-		else if (command[0] == '\n' || command[0] == 4)
+		else if (command[0] == '\n' || (command[0] == 4 && !line.cursor))
 		{
 			if (command[0] == '\n')
 				write(1, "\n", 1);
@@ -55,8 +55,8 @@ char	*ft_getline(t_caps *caps, char *prompt)
 		}
 		if (line.cursor < ft_strlen(line.buffer))
 			tputs(caps->sc, 1, ms_putchar);
-		tputs(tgetstr("dl", NULL), 1, ms_putchar);
-		write(1, "minishell :> ", 13);
+		tputs(caps->dl, 1, ms_putchar);
+		write(1, prompt, ft_strlen(prompt));
 		write(1, line.buffer, ft_strlen(line.buffer));
 		if (line.cursor < ft_strlen(line.buffer))
 		{

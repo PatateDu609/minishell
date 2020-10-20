@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:31 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 15:56:30 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/20 21:58:17 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,5 @@ int		init_termios(t_termios *backup)
 int		reset_terminal(t_termios *backup, t_caps *caps)
 {
 	tputs(caps->reset, 1, ms_putchar);
-	if (tcsetattr(STDIN_FILENO, TCSANOW, backup))
-		return (1);
-	return (0);
+	return (!tcsetattr(STDIN_FILENO, TCSANOW, backup));
 }

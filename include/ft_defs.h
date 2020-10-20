@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/10 00:56:09 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/20 22:15:26 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@
 # ifndef BONUS
 #  define PARSER_TOKEN_SEPARATOR	4
 # else
-#  define PARSER_TOKEN_OPERATOR		4
-#  define PARSER_TOKEN_SEPARATOR	5
+// #  define PARSER_TOKEN_OPERATOR		4
+#  define PARSER_TOKEN_SEPARATOR	4
 # endif
 
 # define REDIRECT_TYPE_IN			0 //<

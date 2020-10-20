@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:28:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/12 12:53:44 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/20 22:15:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-#ifndef BONUS
+// #ifndef BONUS
 
 char	*max(char *a, char *b)
 {
@@ -63,21 +63,6 @@ char	*ft_get_sep(char *command, int type)
 	return (NULL);
 }
 
-// int			ft_check_sep(char *command, int type)
-// {
-// 	if (type == PARSER_TOKEN_SEPARATOR)
-// 		return (ft_strchr(command, ';') ? 1 : 0);
-// 	else if (type == PARSER_TOKEN_PIPE)
-// 		return (ft_strchr(command, '|') ? 1 : 0);
-// 	else if (type == PARSER_TOKEN_REDIRECT)
-// 		return (ft_strnstr(command, ">>", ft_strlen(command)) ||
-// 				ft_strchr(command, '<') || ft_strchr(command, '>'));
-// 	else if (type == PARSER_TOKEN_CMD || type == PARSER_TOKEN_ARGS)
-// 		return (ft_strchr(command, ' ') ? 1 : 0);
-// 	else
-// 		return (1);
-// }
-
 int			ft_check_sep(char *command, int type)
 {
 	char	types[5];
@@ -125,6 +110,7 @@ char		*ft_get_major(char *command, char **sep)
 	types[3] = PIPELINE_STR;
 	types[4] = SEPARATOR_STR;
 
+
 	i = 4;
 	while (i >= 0)
 	{
@@ -139,4 +125,4 @@ char		*ft_get_major(char *command, char **sep)
 	return (types[0]);
 }
 
-#endif
+// #endif
