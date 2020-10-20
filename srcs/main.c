@@ -6,9 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/12 13:03:50 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/20 16:30:47 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// #ifndef BONUS
+// #define BONUS
+// #endif
 
 #ifndef BONUS
 # include "minishell.h"
@@ -203,14 +207,14 @@ void exec_command(t_env *env, t_btree *cmd)
 	command->args[-1] = command->name;
 }
 
-void minishell(char **ev)
+#ifndef BONUS
+
+void minishell(t_env *env)
 {
 	char		*command;
 	t_btree		*parsed;
-	t_env		*env;
 	int			ret;
 
-	env = ft_env(ev);
 	while(1)
 	{
 		ft_printf("\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m ");
@@ -233,10 +237,14 @@ void minishell(char **ev)
 	}
 }
 
-int		main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **ev)
 {
+	t_env		*env;
+
 	(void)ac;
 	(void)av;
+	if (!(env = ft_env(ev)))
+		return (1);
 	// if (signal(SIGINT, ctrl_c) == SIG_ERR)
 	// {
 	// 	ft_printf("Invalid signal.");
@@ -249,6 +257,58 @@ int		main(int ac, char **av, char **env)
 	// }
 	minishell(env);
 }
+
+#else
+
+void minishell(t_env *env, t_caps *caps)
+{
+	char		*command;
+	t_btree		*parsed;
+	// int			ret;
+
+	while(1)
+	{
+		if (g_skip)
+			continue ;
+		command = ft_getline(caps, "\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m ");
+		if (*command == 0)
+		{
+			free(command);
+		// 	if (!ret)
+				ctrl_d();
+		}
+		parsed = ft_parser(env, command);
+		print_separator(parsed);
+		exec_command(env, parsed);
+		free_parsed(parsed);
+		free(command);
+	}
+}
+
+int main(int ac, char **av, char **ev)
+{
+	t_env		*env;
+	t_caps		*caps;
+	t_termios	backup;
+
+	(void)ac;
+	(void)av;
+	if (!(env = ft_env(ev)))
+		return (1);
+	if (!(caps = (t_caps *)malloc(sizeof(t_caps))))
+		return (1);
+	if (!init_termcaps(env, caps))
+		return (1);
+	if (!init_termios(&backup))
+		return (0);
+	minishell(env, caps);
+	if (!reset_terminal(&backup, caps))
+		return (1);
+	free_env(env);
+	free(caps);
+	return (0);
+}
+#endif
 
 // int main(int ac, char **av, char **ev)
 // {

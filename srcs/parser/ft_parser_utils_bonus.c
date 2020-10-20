@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:28:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/12 16:57:41 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:06:58 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #ifdef BONUS
 
-static int	ft_check_sep(char *command, int type)
+int	ft_check_sep(char *command, int type)
 {
 	if (!command)
 		return (type == PARSER_TOKEN_CMD);

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 23:00:46 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/12 14:22:51 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:09:52 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define MINISHELL_BONUS_H
 
 # include "minishell.h"
+# include "termcaps.h"
 
 #endif

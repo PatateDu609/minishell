@@ -23,6 +23,7 @@ LIBFT				=	$(PATH_LIBS)/libft.a
 ################################################################################
 PARSER_PATH			=	parser
 EXEC_PATH			=	exec
+TERMCAP_PATH		=	termcaps
 
 EXEC_SRCS			=	ft_env				\
 						ft_modify_env		\
@@ -37,15 +38,17 @@ PARSER_SRCS			=	ft_parser							\
 
 PARSER_BONUS_SRCS	=	ft_parser_utils		\
 
+TERMCAP_SRCS		=	init		\
+						edit_line	\
+						getline		\
+
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
 SRCS_BASENAME		+=	main				\
 						print_debug
 
-ifeq ($(BONUS), 1)
-	BONUS_BASE_NAME	+=	$(addsuffix _bonus, $(PARSER_BONUS_SRCS))
-	SRCS_BASENAME	+=	$(addprefix $(PARSER_PATH)/, $(BONUS_BASE_NAME))
-endif
+BONUS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(addsuffix _bonus, $(PARSER_BONUS_SRCS)))
+BONUS_BASENAME		+=	$(addprefix $(TERMCAP_PATH)/, $(addsuffix _bonus, $(TERMCAP_SRCS)))
 
 ################################################################################
 #                             Commands and arguments                           #
@@ -61,6 +64,12 @@ LDFLAGS				+=	-fsanitize=address -g -fstack-protector
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #
 ################################################################################
+ifeq ($(BONUS), 1)
+	CFLAGS			+=	-DBONUS
+	SRCS_BASENAME	+=	$(BONUS_BASENAME)
+	LDFLAGS			+=	-ltermcap
+endif
+
 SRCS_EXT			=	$(addsuffix .c, $(SRCS_BASENAME))
 
 SRCS				=	$(addprefix $(PATH_SRCS)/, $(SRCS_EXT))
@@ -70,10 +79,6 @@ OS					=	$(shell uname)
 ifeq ($(OS), Linux)
 	CFLAGS			+=	-DLINUX
 	LDFLAGS			+=	-fsanitize=leak
-endif
-
-ifeq ($(BONUS), 1)
-	CFLAGS			+= -DBONUS
 endif
 
 $(PATH_OBJS)/%.o:	$(PATH_SRCS)/%.c
@@ -98,6 +103,7 @@ $(PATH_OBJS):
 					@mkdir -p $(PATH_OBJS)/libft
 					@mkdir -p $(PATH_OBJS)/$(PARSER_PATH)
 					@mkdir -p $(PATH_OBJS)/$(EXEC_PATH)
+					@mkdir -p $(PATH_OBJS)/$(TERMCAP_PATH)
 
 all:				$(NAME)
 
