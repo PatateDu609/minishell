@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:50:58 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 17:19:21 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:45:02 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	load_history(void)
 			break ;
 	}
 	dprintf(g_fd, "g_last = %d\n", g_last);
+	dprintf(g_fd, "current = |%s|(%ld)\n", *current, ft_strlen(*current));
+	if (!ft_strlen(*current))
+	{
+		free(*current);
+		*current = 0;
+	}
 	close(fd);
 }
 
