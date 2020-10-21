@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   edit_line.c                                        :+:      :+:    :+:   */
+/*   edit_line_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:03:02 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 16:07:04 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 01:47:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
+int max_int(int a, int b)
+{
+	return (a > b ? a : b);
+}
+
 void	ft_move_line(t_caps *caps, t_line *line, char *command)
 {
+	static int	current = -1;
+
+	if (line->reset)
+	{
+		current = -1;
+		return ;
+	}
 	command += 2;
 	if (command[0] == 'D' && line->cursor > 0)
 	{
@@ -24,6 +36,29 @@ void	ft_move_line(t_caps *caps, t_line *line, char *command)
 	{
 		tputs(caps->nd, 1, ms_putchar);
 		line->cursor++;
+	}
+	if (command[0] == 'A' || command[0] == 'B')
+	{
+		if (command[0] == 'A')
+			current = (current == -1) ? g_last : max_int(current - 1, 0);
+		else if (command[0] == 'B' && current != -1)
+			current++;
+		if (current > g_last)
+			current = -1;
+		if (current == -1 && line->old_buffer)
+		{
+			line->buffer = line->old_buffer;
+			line->old_buffer = NULL;
+		}
+		else if (current != -1)
+		{
+			if (!line->old_buffer) line->old_buffer = line->buffer;
+			line->buffer = ft_strdup(g_history[current]);
+		}
+		line->cursor = ft_strlen(line->buffer);
+		tputs(caps->dl, 1, ms_putchar);
+		write(1, line->prompt, ft_strlen(line->prompt));
+		write(1, line->buffer, ft_strlen(line->buffer));
 	}
 }
 

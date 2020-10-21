@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:50 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 16:22:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 01:25:53 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ typedef struct			s_line
 {
 	size_t				cursor;
 	char				*buffer;
+	char				*old_buffer;
+	char				*prompt;
+	int					reset;
 }						t_line;
+
+extern char				*g_history[HISTORY_SIZE + 1];
+extern int				g_last;
 
 /**
  * Contains the needed termcaps
@@ -54,5 +60,8 @@ void					ft_move_line(t_caps *caps, t_line *line, char *command);
 char					*ft_add_char(char *str, int i, char *c);
 char					*ft_delete_char(char *str, int i);
 char					*ft_getline(t_caps *caps, char *prompt);
+void					load_history(void);
+void					add_command(char *command);
+void					write_commands(void);
 
 #endif

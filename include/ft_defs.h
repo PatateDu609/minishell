@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 22:15:26 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 01:52:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@
 # define BUILTIN_EXPORT		4
 # define BUILTIN_UNSET		5
 # define BUILTIN_EXIT		6
+
+# define HISTORY_SIZE		5
+# define HISTORY_FILE		".minishell_history"
 
 typedef struct		s_command
 {

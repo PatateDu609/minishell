@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:07:50 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 16:45:34 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 01:30:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ char	*ft_getline(t_caps *caps, char *prompt)
 
 	line.cursor = 0;
 	line.buffer = ft_strdup("");
+	line.prompt = prompt;
+	line.reset = 0;
+	line.old_buffer = NULL;
 	write(1, prompt, ft_strlen(prompt));
 	while ((i = read(0, command, 16)) > 0)
 	{
@@ -65,5 +68,7 @@ char	*ft_getline(t_caps *caps, char *prompt)
 				tputs(caps->nd, 1, ms_putchar);
 		}
 	}
+	line.reset = 1;
+	ft_move_line(caps, &line, NULL);
 	return (line.buffer);
 }

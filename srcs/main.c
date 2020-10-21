@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 22:03:00 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 00:33:07 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ctrl_c(int signal)
 
 void	ctrl_d()
 {
+	write_commands();
 	ft_putendl_fd("exit", 1);
 	exit(0);
 }
@@ -277,8 +278,7 @@ void minishell(t_env *env, t_caps *caps)
 		command = ft_getline(caps, "\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m ");
 		if (!reset_terminal(&backup, caps))
 			return ;
-		for (size_t i = 0; i < ft_strlen(command); i++)
-			printf("%d(%c) ", command[i], command[i]);
+		add_command(command);
 		printf("\n");
 		if (*command == 0)
 		{
@@ -306,6 +306,7 @@ int main(int ac, char **av, char **ev)
 		return (1);
 	if (!init_termcaps(env, caps))
 		return (1);
+	load_history();
 	minishell(env, caps);
 	free_env(env);
 	free(caps);
