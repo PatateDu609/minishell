@@ -38,10 +38,11 @@ PARSER_SRCS			=	ft_parser							\
 
 PARSER_BONUS_SRCS	=	ft_parser_utils		\
 
-TERMCAP_SRCS		=	init		\
-						edit_line	\
-						getline		\
-						history		\
+TERMCAP_SRCS		=	init				\
+						edit_line			\
+						edit_line_utils		\
+						getline				\
+						history				\
 
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))

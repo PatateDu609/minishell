@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:03:02 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 17:34:49 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 23:49:24 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int				max_int(int a, int b)
 	return (a > b ? a : b);
 }
 
-static void		ft_loop_history(t_caps *caps, t_line *line, char *command,
-	int *current)
+static void		ft_loop_history(t_caps *caps, t_line *line, int mode,
+				int *current)
 {
-	if (command[0] == 'A')
+	if (mode == 0)
 		*current = (*current == -1) ? g_last : max_int(*current - 1, 0);
-	else if (command[0] == 'B' && *current != -1)
+	else if (mode == 1 && *current != -1)
 		*current += 1;
 	if (*current > g_last)
 		*current = -1;
@@ -51,25 +51,30 @@ static void		ft_loop_history(t_caps *caps, t_line *line, char *command,
 void			ft_move_line(t_caps *caps, t_line *line, char *command)
 {
 	static int	current = -1;
+	int		mode;
 
 	if (line->reset)
 	{
 		current = -1;
 		return ;
 	}
-	command += 2;
-	if (command[0] == 'D' && line->cursor > 0)
+	mode = ft_parse_arrow(command);
+	if (mode == 4 || mode == 5)
+		ft_cursor_home_end(caps, line, mode == 4);
+	if (mode == 6 || mode == 7)
+		ft_cursor_move_word(caps, line, mode == 6);
+	if (mode == 3 && line->cursor > 0)
 	{
 		tputs(caps->le, 1, ms_putchar);
 		line->cursor--;
 	}
-	if (command[0] == 'C' && line->cursor < ft_strlen(line->buffer))
+	if (mode == 2 && line->cursor < ft_strlen(line->buffer))
 	{
 		tputs(caps->nd, 1, ms_putchar);
 		line->cursor++;
 	}
-	if (command[0] == 'A' || command[0] == 'B')
-		ft_loop_history(caps, line, command, &current);
+	if (mode == 0 || mode == 1)
+		ft_loop_history(caps, line, mode, &current);
 }
 
 char			*ft_add_char(char *str, int i, char *c)

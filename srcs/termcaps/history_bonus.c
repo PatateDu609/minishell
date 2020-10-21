@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:50:58 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 17:45:02 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 23:54:51 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ void	load_history(void)
 	g_last = -1;
 	while ((res = get_next_line(fd, current)) > 0)
 	{
-		dprintf(g_fd, "|%s| -> %ld\n", *current, ft_strlen(*current));
+		dprintf(g_fd, "%s\n", *current);
 		current++;
 		g_last++;
 		if (g_last + 1 == HISTORY_SIZE)
 			break ;
 	}
-	dprintf(g_fd, "g_last = %d\n", g_last);
-	dprintf(g_fd, "current = |%s|(%ld)\n", *current, ft_strlen(*current));
 	if (!ft_strlen(*current))
 	{
 		free(*current);

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:50 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 15:31:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 23:49:02 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,10 @@ char					*ft_getline(t_caps *caps, char *prompt);
 void					load_history(void);
 void					add_command(char *command);
 void					write_commands(void);
+void					ft_cursor_home_end(t_caps *caps, t_line *line,
+						int mode);
+int						ft_parse_arrow(char *command);
+void					ft_cursor_move_word(t_caps *caps, t_line *line,
+						int mode);
 
 #endif
