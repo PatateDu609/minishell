@@ -6,19 +6,49 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:03:02 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 16:58:03 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:34:49 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 #include <stdio.h>
 
-int max_int(int a, int b)
+int				max_int(int a, int b)
 {
 	return (a > b ? a : b);
 }
 
-void	ft_move_line(t_caps *caps, t_line *line, char *command)
+static void		ft_loop_history(t_caps *caps, t_line *line, char *command,
+	int *current)
+{
+	if (command[0] == 'A')
+		*current = (*current == -1) ? g_last : max_int(*current - 1, 0);
+	else if (command[0] == 'B' && *current != -1)
+		*current += 1;
+	if (*current > g_last)
+		*current = -1;
+	dprintf(g_fd, "current = %d, g_last = %d\n", *current, g_last);
+	if (*current == -1 && line->old_buffer)
+	{
+		free(line->buffer);
+		line->buffer = line->old_buffer;
+		line->old_buffer = NULL;
+	}
+	else if (*current != -1)
+	{
+		if (!line->old_buffer)
+			line->old_buffer = line->buffer;
+		else if (line->buffer != line->old_buffer)
+			free(line->buffer);
+		line->buffer = ft_strdup(g_history[*current]);
+	}
+	line->cursor = ft_strlen(line->buffer);
+	tputs(caps->dl, 1, ms_putchar);
+	write(1, line->prompt, ft_strlen(line->prompt));
+	write(1, line->buffer, ft_strlen(line->buffer));
+}
+
+void			ft_move_line(t_caps *caps, t_line *line, char *command)
 {
 	static int	current = -1;
 
@@ -39,34 +69,10 @@ void	ft_move_line(t_caps *caps, t_line *line, char *command)
 		line->cursor++;
 	}
 	if (command[0] == 'A' || command[0] == 'B')
-	{
-		if (command[0] == 'A')
-			current = (current == -1) ? g_last : max_int(current - 1, 0);
-		else if (command[0] == 'B' && current != -1)
-			current++;
-		if (current > g_last)
-			current = -1;
-		dprintf(g_fd, "current = %d, g_last = %d\n", current, g_last);
-		if (current == -1 && line->old_buffer)
-		{
-			free(line->buffer);
-			line->buffer = line->old_buffer;
-			line->old_buffer = NULL;
-		}
-		else if (current != -1)
-		{
-			if (!line->old_buffer) line->old_buffer = line->buffer;
-			else if (line->buffer != line->old_buffer) free(line->buffer);
-			line->buffer = ft_strdup(g_history[current]);
-		}
-		line->cursor = ft_strlen(line->buffer);
-		tputs(caps->dl, 1, ms_putchar);
-		write(1, line->prompt, ft_strlen(line->prompt));
-		write(1, line->buffer, ft_strlen(line->buffer));
-	}
+		ft_loop_history(caps, line, command, &current);
 }
 
-char	*ft_add_char(char *str, int i, char *c)
+char			*ft_add_char(char *str, int i, char *c)
 {
 	char	*substr;
 	char	*substr1;
@@ -82,7 +88,7 @@ char	*ft_add_char(char *str, int i, char *c)
 	return (substr);
 }
 
-char	*ft_delete_char(char *str, int i)
+char			*ft_delete_char(char *str, int i)
 {
 	char	*substr;
 	char	*tmp;

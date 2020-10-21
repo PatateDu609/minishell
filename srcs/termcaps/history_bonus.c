@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:50:58 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 16:53:58 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:19:21 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*g_history[HISTORY_SIZE];
 int		g_last;
 
-void load_history(void)
+void	load_history(void)
 {
 	char	**current;
 	int		fd;
@@ -47,7 +47,8 @@ void	add_command(char *command)
 	if (g_last >= HISTORY_SIZE - 1)
 	{
 		free(g_history[0]);
-		ft_memmove(g_history, g_history + 1, (HISTORY_SIZE - 1) * sizeof(char *));
+		ft_memmove(g_history, g_history + 1, (HISTORY_SIZE - 1) *
+			sizeof(char *));
 		g_history[g_last] = ft_strdup(command);
 		g_last = HISTORY_SIZE - 1;
 	}
