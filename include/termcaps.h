@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:50 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 01:25:53 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 15:31:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct			s_line
 	int					reset;
 }						t_line;
 
-extern char				*g_history[HISTORY_SIZE + 1];
+extern char				*g_history[HISTORY_SIZE];
 extern int				g_last;
 
 /**

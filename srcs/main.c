@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 00:33:07 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 15:46:26 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ int		main(int ac, char **av, char **ev)
 }
 
 #else
-
+int g_fd;
 void minishell(t_env *env, t_caps *caps)
 {
 	char		*command;
@@ -297,6 +297,7 @@ int main(int ac, char **av, char **ev)
 {
 	t_env		*env;
 	t_caps		*caps;
+	g_fd = open("/dev/pts/2", O_RDWR);
 
 	(void)ac;
 	(void)av;
@@ -306,10 +307,12 @@ int main(int ac, char **av, char **ev)
 		return (1);
 	if (!init_termcaps(env, caps))
 		return (1);
+	write(g_fd, tgetstr("cl", NULL), ft_strlen("`clear`"));
 	load_history();
 	minishell(env, caps);
 	free_env(env);
 	free(caps);
+	close(g_fd);
 	return (0);
 }
 #endif

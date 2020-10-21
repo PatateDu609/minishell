@@ -6,11 +6,12 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:03:02 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 01:47:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:58:03 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
+#include <stdio.h>
 
 int max_int(int a, int b)
 {
@@ -45,14 +46,17 @@ void	ft_move_line(t_caps *caps, t_line *line, char *command)
 			current++;
 		if (current > g_last)
 			current = -1;
+		dprintf(g_fd, "current = %d, g_last = %d\n", current, g_last);
 		if (current == -1 && line->old_buffer)
 		{
+			free(line->buffer);
 			line->buffer = line->old_buffer;
 			line->old_buffer = NULL;
 		}
 		else if (current != -1)
 		{
 			if (!line->old_buffer) line->old_buffer = line->buffer;
+			else if (line->buffer != line->old_buffer) free(line->buffer);
 			line->buffer = ft_strdup(g_history[current]);
 		}
 		line->cursor = ft_strlen(line->buffer);

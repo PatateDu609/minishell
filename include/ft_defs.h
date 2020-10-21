@@ -6,13 +6,15 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 01:52:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:59:23 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_DEFS_H
 # define FT_DEFS_H
 
+#define _GNU_SOURCE
+#include <features.h>
 # include <sys/types.h>
 # include <dirent.h>
 # include <signal.h>
@@ -61,7 +63,7 @@
 # define BUILTIN_UNSET		5
 # define BUILTIN_EXIT		6
 
-# define HISTORY_SIZE		5
+# define HISTORY_SIZE		1000
 # define HISTORY_FILE		".minishell_history"
 
 typedef struct		s_command
@@ -83,5 +85,7 @@ typedef struct		s_env
 	char			**paths;
 	int				vlast;
 }					t_env;
+
+extern int g_fd;
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:50:58 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 02:00:25 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:53:58 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-char	*g_history[HISTORY_SIZE + 1];
+char	*g_history[HISTORY_SIZE];
 int		g_last;
 
 void load_history(void)
@@ -27,35 +27,29 @@ void load_history(void)
 	if (fd == -1)
 		return ;
 	current = g_history;
-	g_last = 0;
+	g_last = -1;
 	while ((res = get_next_line(fd, current)) > 0)
 	{
-		if (ft_strlen(*current))
-		{
-			printf("|%s| -> %ld\n", *current, ft_strlen(*current));
-			current++;
-			g_last++;
-		}
-		else
-		{
-			free(*current);
-			*current = NULL;
-		}
+		dprintf(g_fd, "|%s| -> %ld\n", *current, ft_strlen(*current));
+		current++;
+		g_last++;
+		if (g_last + 1 == HISTORY_SIZE)
+			break ;
 	}
-	free(g_history[g_last]);
-	g_history[g_last] = 0;
-	g_last--;
+	dprintf(g_fd, "g_last = %d\n", g_last);
 	close(fd);
 }
 
 void	add_command(char *command)
 {
-	if (g_last == HISTORY_SIZE)
+	if (!(command && ft_strlen(command)))
+		return ;
+	if (g_last >= HISTORY_SIZE - 1)
 	{
-		// free(g_history[0]);
-		ft_memmove_sp(g_history, g_history + 1, HISTORY_SIZE - 1);
-		g_history[++g_last] = ft_strdup(command);
-		g_last = HISTORY_SIZE;
+		free(g_history[0]);
+		ft_memmove(g_history, g_history + 1, (HISTORY_SIZE - 1) * sizeof(char *));
+		g_history[g_last] = ft_strdup(command);
+		g_last = HISTORY_SIZE - 1;
 	}
 	else
 		g_history[++g_last] = ft_strdup(command);
@@ -68,16 +62,11 @@ void	write_commands(void)
 
 	fd = open(HISTORY_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	i = 0;
-	while (g_history[i])
+	while (i <= g_last)
 	{
-		if (ft_strlen(g_history[i]))
-		{
-			write(fd, g_history[i], ft_strlen(g_history[i]));
-			write(fd, "\n", 1);
-		}
+		write(fd, g_history[i], ft_strlen(g_history[i]));
+		write(fd, "\n", 1);
+		free(g_history[i]);
 		i++;
 	}
-	i = 0;
-	while (g_history[i])
-		free(g_history[i++]);
 }

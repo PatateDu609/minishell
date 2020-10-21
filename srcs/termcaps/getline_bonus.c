@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:07:50 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 01:30:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:54:34 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ char	*ft_getline(t_caps *caps, char *prompt)
 	}
 	line.reset = 1;
 	ft_move_line(caps, &line, NULL);
+	dprintf(g_fd, "line.old_buffer = |%s|\n", line.old_buffer);
+	free(line.old_buffer);
 	return (line.buffer);
 }
