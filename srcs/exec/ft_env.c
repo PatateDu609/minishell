@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 11:36:40 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/26 17:28:17 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/11/02 12:34:50 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_env			*ft_env(char **env)
 	if (!(result = (t_env *)malloc(sizeof(t_env))))
 		return (NULL);
 	result->env = ft_duplicate(env);
-	result->vlast = 0;
+	g_exit_code = 0;
 	init_paths(result);
 	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_defs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapha <rapha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/02 11:00:19 by rapha            ###   ########.fr       */
+/*   Updated: 2020/11/02 12:31:58 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct		s_env
 {
 	char			**env;
 	char			**paths;
-	int				vlast;
 }					t_env;
 
 extern int g_fd;

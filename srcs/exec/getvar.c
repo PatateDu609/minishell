@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 23:33:48 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/10 00:12:44 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/11/02 12:35:03 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*getvar(t_env *env, char *var)
 	char	**ev;
 
 	if (!ft_strcmp(var, "?"))
-		return (ft_itoa(env->vlast));
+		return (ft_itoa(g_exit_code));
 	result = NULL;
 	len = ft_strlen(var);
 	ev = env->env;

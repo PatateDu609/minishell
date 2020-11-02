@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapha <rapha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 13:34:18 by rbourgea          #+#    #+#             */
-/*   Updated: 2020/11/02 12:02:06 by rapha            ###   ########.fr       */
+/*   Updated: 2020/11/02 13:23:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void		ft_signalhandler_disable(void);
 extern int g_sig;
 extern int g_exit_code;
 extern pid_t g_pid;
+extern t_btree *g_parsed;
 
 #endif

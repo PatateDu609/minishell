@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapha <rapha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/02 11:52:13 by rapha            ###   ########.fr       */
+/*   Updated: 2020/11/02 13:29:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 #include "debug.h"
 
-int		g_skip = 0;
+t_btree *g_parsed = NULL;
 
 // void	ctrl_c(int signal)
 // {
@@ -34,6 +34,8 @@ int		g_skip = 0;
 void	ctrl_d()
 {
 	ft_putendl_fd("exit", 1);
+	if (g_parsed)
+		free_parsed(g_parsed);
 	exit(0);
 }
 
@@ -42,6 +44,8 @@ void	ctrl_d()
 {
 	write_commands();
 	ft_putendl_fd("exit", 1);
+	if (g_parsed)
+		free_parsed(g_parsed);
 	exit(0);
 }
 #endif
@@ -172,8 +176,12 @@ int exec_builtin(t_env *env, t_command *cmd, t_redirect *redirects)
 	else if (id == BUILTIN_CD)
 		ft_cd(env, cmd->args);
 	else if (id == BUILTIN_EXIT)
+	{
+		free_env(env);
 		ctrl_d();
+	}
 	free(tfree);
+	g_exit_code = 0;
 	return (1);
 }
 
@@ -210,7 +218,9 @@ void exec_command(t_env *env, t_btree *cmd)
 	{
 		waitpid(g_pid, &status, 0);
 		if (WIFEXITED(status))
-			env->vlast = WEXITSTATUS(status);
+		{
+			g_exit_code = WEXITSTATUS(status);
+		}
 	}
 	free(command->args[-1]);
 	command->args[-1] = command->name;
@@ -222,28 +232,28 @@ void exec_command(t_env *env, t_btree *cmd)
 void minishell(t_env *env)
 {
 	char		*command;
-	t_btree		*parsed;
 	int			ret;
 
 	while(1)
 	{
 		ft_printf("\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m ");
-		if (g_skip)
-			continue ;
 		ret = get_next_line(STDIN_FILENO, &command);
+		g_parsed = (*command != 0) ? ft_parser(env, command) : NULL;
 		if (*command == 0)
 		{
-			free(command);
 			if (!ret)
+			{
+				free_env(env);
+				free(command);
 				ctrl_d();
+			}
 			else
 				continue ;
 		}
-		parsed = ft_parser(env, command);
-		print_separator(parsed);
-		exec_command(env, parsed);
-		free_parsed(parsed);
 		free(command);
+		print_separator(g_parsed);
+		exec_command(env, g_parsed);
+		free_parsed(g_parsed);
 	}
 }
 
@@ -256,16 +266,6 @@ int		main(int ac, char **av, char **ev)
 	ft_signalhandler_enable();
 	if (!(env = ft_env(ev)))
 		return (1);
-	// if (signal(SIGINT, ctrl_c) == SIG_ERR)
-	// {
-	// 	ft_printf("Invalid signal.");
-	// 	return (-1);
-	// }
-	// if (signal(SIGQUIT, ctrl_q) == SIG_ERR)
-	// {
-	// 	ft_printf("Invalid signal.");
-	// 	return (-1);
-	// }
 	minishell(env);
 }
 
@@ -274,15 +274,10 @@ int g_fd;
 void minishell(t_env *env, t_caps *caps)
 {
 	char		*command;
-	t_btree		*parsed;
 	t_termios	backup;
 
-	(void)parsed;
-	(void)env;
 	while(1)
 	{
-		if (g_skip)
-			continue ;
 		if (!init_termios(&backup))
 			return ;
 		command = ft_getline(caps, "\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m ");
@@ -290,39 +285,37 @@ void minishell(t_env *env, t_caps *caps)
 			return ;
 		add_command(command);
 		printf("\n");
+		g_parsed = *command != 0 ? ft_parser(env, command) : NULL;
 		if (*command == 0)
 		{
 			free(command);
+			free_env(env);
 			ctrl_d();
 		}
-		parsed = ft_parser(env, command);
-		print_separator(parsed);
-		exec_command(env, parsed);
-		free_parsed(parsed);
 		free(command);
+		print_separator(g_parsed);
+		exec_command(env, g_parsed);
+		free_parsed(g_parsed);
 	}
 }
 
 int main(int ac, char **av, char **ev)
 {
 	t_env		*env;
-	t_caps		*caps;
-	g_fd = open("/dev/pts/2", O_RDWR);
+	t_caps		caps;
+	g_fd = open("/dev/pts/1", O_RDWR);
 
 	(void)ac;
 	(void)av;
 	ft_signalhandler_enable();
 	if (!(env = ft_env(ev)))
 		return (1);
-	if (!(caps = (t_caps *)malloc(sizeof(t_caps))))
-		return (1);
-	if (!init_termcaps(env, caps))
+	if (!init_termcaps(env, &caps))
 		return (1);
 	write(g_fd, tgetstr("cl", NULL), ft_strlen("`clear`"));
 	load_history();
-	minishell(env, caps);
+	minishell(env, &caps);
 	free_env(env);
-	free(caps);
 	close(g_fd);
 	return (0);
 }

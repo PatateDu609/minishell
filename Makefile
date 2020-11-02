@@ -62,7 +62,7 @@ CFLAGS				=	-Wall -Wextra -Werror -g -I$(PATH_INCLUDES)
 LDFLAGS				=	-L$(PATH_LIBS) -lft
 
 # DEBUG LDFLAGS :
-LDFLAGS				+=	-fsanitize=address -g -fstack-protector
+# LDFLAGS				+=	-fsanitize=address -g -fstack-protector
 
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #
@@ -81,7 +81,7 @@ OBJS				=	$(addprefix $(PATH_OBJS)/, $(SRCS_EXT:.c=.o))
 OS					=	$(shell uname)
 ifeq ($(OS), Linux)
 	CFLAGS			+=	-DLINUX
-	LDFLAGS			+=	-fsanitize=leak
+	# LDFLAGS			+=	-fsanitize=leak
 endif
 
 $(PATH_OBJS)/%.o:	$(PATH_SRCS)/%.c
