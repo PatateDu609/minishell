@@ -47,7 +47,8 @@ TERMCAP_SRCS		=	init				\
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
 SRCS_BASENAME		+=	main				\
-						print_debug
+						print_debug			\
+						signal_handling
 
 BONUS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(addsuffix _bonus, $(PARSER_BONUS_SRCS)))
 BONUS_BASENAME		+=	$(addprefix $(TERMCAP_PATH)/, $(addsuffix _bonus, $(TERMCAP_SRCS)))

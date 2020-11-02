@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapha <rapha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/02 11:03:37 by rapha            ###   ########.fr       */
+/*   Updated: 2020/11/02 11:24:24 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,21 @@ int		g_skip = 0;
 // 	g_skip = 1;
 // }
 
+#ifndef BONUS
 void	ctrl_d()
 {
-	// write_commands();
 	ft_putendl_fd("exit", 1);
 	exit(0);
 }
+
+#else
+void	ctrl_d()
+{
+	write_commands();
+	ft_putendl_fd("exit", 1);
+	exit(0);
+}
+#endif
 
 // void	ctrl_q(int signal)
 // {
@@ -302,6 +311,7 @@ int main(int ac, char **av, char **ev)
 
 	(void)ac;
 	(void)av;
+	ft_signalhandler_enable();
 	if (!(env = ft_env(ev)))
 		return (1);
 	if (!(caps = (t_caps *)malloc(sizeof(t_caps))))

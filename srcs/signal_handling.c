@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rapha <rapha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:39:12 by rapha             #+#    #+#             */
-/*   Updated: 2020/11/02 11:04:28 by rapha            ###   ########.fr       */
+/*   Updated: 2020/11/02 11:14:02 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int g_sig;
+int g_sig;
 
 void	ft_sigquit(int sig)
 {
