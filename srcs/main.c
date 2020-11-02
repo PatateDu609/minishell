@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rapha <rapha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/02 11:24:24 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/11/02 11:52:13 by rapha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ void exec_command(t_env *env, t_btree *cmd)
 	t_command	*command;
 	t_redirect	*redirects;
 	char		*tmp;
-	pid_t		pid;
 	int			status;
 
 	len = ft_strlen(cmd->item);
@@ -201,7 +200,7 @@ void exec_command(t_env *env, t_btree *cmd)
 		return ;
 	}
 
-	if ((pid = fork()) == 0)
+	if ((g_pid = fork()) == 0)
 	{
 		execve(command->args[-1], command->args - 1, env->env);
 		ft_printf("minishell: %s: %s\n", command->name, strerror(errno));
@@ -209,12 +208,13 @@ void exec_command(t_env *env, t_btree *cmd)
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
+		waitpid(g_pid, &status, 0);
 		if (WIFEXITED(status))
 			env->vlast = WEXITSTATUS(status);
 	}
 	free(command->args[-1]);
 	command->args[-1] = command->name;
+	g_pid = 0;
 }
 
 #ifndef BONUS
@@ -366,9 +366,9 @@ int main(int ac, char **av, char **ev)
 // 	argv[2] = NULL;
 // 	if (cmd)
 // 	{
-// 		pid_t	pid = fork();
+// 		g_pid = fork();
 
-// 		if (!pid)
+// 		if (!g_pid)
 // 		{
 // 			if (execve(cmd, argv, env->env))
 // 			{
@@ -380,7 +380,7 @@ int main(int ac, char **av, char **ev)
 // 		else
 // 		{
 // 			int status;
-// 			printf("waitpid : %d\n", waitpid(pid, &status, 0));
+// 			printf("waitpid : %d\n", waitpid(g_pid, &status, 0));
 // 			printf("status : %d\n", WEXITSTATUS(status));
 // 		}
 // 	}
@@ -399,7 +399,6 @@ int main(int ac, char **av, char **ev)
 
 // int main(int ac, char **av, char **env)
 // {
-// 	pid_t	pid;
 // 	int		status;
 // 	char	*file;
 // 	int		fd;
@@ -411,13 +410,13 @@ int main(int ac, char **av, char **ev)
 // 	}
 // 	file = av[ac - 1];
 // 	av[ac - 1] = NULL;
-// 	if ((pid = fork()) == -1)
+// 	if ((g_pid = fork()) == -1)
 // 	{
 // 		perror("fork");
 // 		return (3);
 // 	}
 
-// 	if (pid != 0)
+// 	if (g_pid != 0)
 // 	{
 // 		wait(&status);
 // 	}
