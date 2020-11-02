@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rapha <rapha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 15:46:26 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/11/02 11:03:37 by rapha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,23 @@
 
 int		g_skip = 0;
 
-void	ctrl_c(int signal)
-{
-	(void)signal;
-	g_skip = 1;
-}
+// void	ctrl_c(int signal)
+// {
+// 	(void)signal;
+// 	g_skip = 1;
+// }
 
 void	ctrl_d()
 {
-	write_commands();
+	// write_commands();
 	ft_putendl_fd("exit", 1);
 	exit(0);
 }
 
-void	ctrl_q(int signal)
-{
-	(void)signal;
-}
+// void	ctrl_q(int signal)
+// {
+// 	(void)signal;
+// }
 
 int is_builtin(char *name)
 {
@@ -244,6 +244,7 @@ int		main(int ac, char **av, char **ev)
 
 	(void)ac;
 	(void)av;
+	ft_signalhandler_enable();
 	if (!(env = ft_env(ev)))
 		return (1);
 	// if (signal(SIGINT, ctrl_c) == SIG_ERR)

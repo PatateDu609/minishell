@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_defs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rapha <rapha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 16:59:23 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/11/02 11:00:19 by rapha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_DEFS_H
 
 #define _GNU_SOURCE
-#include <features.h>
+// #include <features.h>
 # include <sys/types.h>
 # include <dirent.h>
 # include <signal.h>
