@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 01:24:44 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/09 22:37:37 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/11/22 03:59:27 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ static void		print_command(t_btree	*parsed)
 		}
 	}
 }
-
-// faire fork
-// execve
 
 static void		print_pipeline(t_btree *parsed)
 {

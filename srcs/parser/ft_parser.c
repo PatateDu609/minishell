@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/02 13:29:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/11/13 12:27:14 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,15 @@ char	*ft_subcmd(char *command, char *major, int side)
 		temp = ft_substr(command, 0, pos - command);
 	else if (pos)
 		temp = ft_substr(pos, 0, ft_strlen(pos));
-	trimmed = ft_strjoin(major, " ");
-	result = ft_strtrim(temp, trimmed);
-	free(trimmed);
+	trimmed = ft_strtrim(temp, " ");
 	free(temp);
+	if (ft_strncmp(trimmed, major, ft_strlen(major)) == 0)
+	{
+		free(trimmed);
+		return (ft_strdup(""));
+	}
+	result = ft_strtrim(trimmed, major);
+	free(trimmed);
 	return (result);
 }
 
@@ -156,6 +161,13 @@ t_btree		*ft_parse_pipeline(char *command)
 		return (NULL);
 	sub = ft_subcmd(command, "|", 0);
 	major = ft_get_major(sub, &sep);
+	if (ft_strlen(sub) == 0)
+	{
+		ft_printf("minishell: syntax error near unexpected token `|'\n");
+		free_parsed(cmd);
+		free(sub);
+		return (NULL);
+	}
 
 	if (ft_strncmp(major, PIPELINE_STR, ft_strlen(PIPELINE_STR)))
 		cmd->left = ft_parse_command(sub);
@@ -164,6 +176,13 @@ t_btree		*ft_parse_pipeline(char *command)
 	free(sub);
 	free(sep);
 	sub = ft_subcmd(command, "|", 1);
+	if (ft_strlen(sub) == 0)
+	{
+		ft_printf("minishell: syntax error near unexpected token `|'\n");
+		free_parsed(cmd);
+		free(sub);
+		return (NULL);
+	}
 	major = ft_get_major(sub, &sep);
 	free(sep);
 	if (ft_strncmp(major, PIPELINE_STR, ft_strlen(PIPELINE_STR)))
@@ -193,6 +212,13 @@ t_btree		*ft_parser(t_env *env, char *input)
 			return (NULL);
 		sub = ft_subcmd(command, ";", 0);
 		major = ft_get_major(sub, &sep);
+		if (ft_strlen(sub) == 0)
+		{
+			ft_printf("minishell: syntax error near unexpected token `;'\n");
+			free(sub);
+			free_parsed(cmd);
+			return (NULL);
+		}
 
 		if (ft_strncmp(major, SEPARATOR_STR, ft_strlen(SEPARATOR_STR)))
 			cmd->left = ft_parse_pipeline(sub);
@@ -200,15 +226,52 @@ t_btree		*ft_parser(t_env *env, char *input)
 			cmd->left = ft_parser(env, sub);
 		free(sub);
 		free(sep);
+		if (!cmd->left)
+		{
+			free_parsed(cmd);
+			return (NULL);
+		}
 		sub = ft_subcmd(command, ";", 1);
 		major = ft_get_major(sub, &sep);
+		if (ft_strlen(sub) == 0 && !ft_valid_sep(command))
+		{
+			ft_printf("minishell: syntax error near unexpected token `;'\n");
+			free_parsed(cmd);
+			free(sub);
+			return (NULL);
+		}
 		free(sep);
 		if (ft_strncmp(major, SEPARATOR_STR, ft_strlen(SEPARATOR_STR)))
 			cmd->right = ft_parse_pipeline(sub);
 		else
 			cmd->right = ft_parser(env, sub);
 		free(sub);
+		if (!cmd->right)
+		{
+			free_parsed(cmd);
+			return (NULL);
+		}
 	}
 	free(command);
 	return (cmd);
+}
+
+int			ft_valid_sep(char *command)
+{
+	int		valid;
+	int		i;
+
+	valid = 1;
+	i = 0;
+	while (command[i])
+	{
+		if (command[i] == ';' && valid == 0)
+			valid = -1;
+		if (valid != -1 && command[i] == ';' && command[i + 1])
+			valid = 0;
+		else if (valid != -1 && command[i] != ';' && command[i] != ' ')
+			valid = 1;
+		i++;
+	}
+	return (valid == 1);
 }

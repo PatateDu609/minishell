@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:29:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/13 16:28:14 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/11/06 01:04:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ char		**ft_split_args(char *command);
 t_btree		*ft_parse_command(char *command);
 void		free_splitted(char **splitted);
 void		free_parsed(t_btree *parsed);
+int			ft_valid_sep(char *command);
 
 #endif

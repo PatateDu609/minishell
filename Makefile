@@ -29,6 +29,9 @@ EXEC_SRCS			=	ft_env				\
 						ft_modify_env		\
 						ft_construct_path	\
 						getvar				\
+						ft_exec				\
+						ft_exec_builtins	\
+						ft_builtins			\
 
 PARSER_SRCS			=	ft_parser							\
 						ft_parser_utils						\
@@ -44,6 +47,7 @@ TERMCAP_SRCS		=	init				\
 						getline				\
 						history				\
 
+
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
 SRCS_BASENAME		+=	main				\
@@ -52,6 +56,7 @@ SRCS_BASENAME		+=	main				\
 
 BONUS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(addsuffix _bonus, $(PARSER_BONUS_SRCS)))
 BONUS_BASENAME		+=	$(addprefix $(TERMCAP_PATH)/, $(addsuffix _bonus, $(TERMCAP_SRCS)))
+BONUS_BASENAME		+=	main_bonus
 
 ################################################################################
 #                             Commands and arguments                           #
@@ -62,7 +67,7 @@ CFLAGS				=	-Wall -Wextra -Werror -g -I$(PATH_INCLUDES)
 LDFLAGS				=	-L$(PATH_LIBS) -lft
 
 # DEBUG LDFLAGS :
-# LDFLAGS				+=	-fsanitize=address -g -fstack-protector
+LDFLAGS				+=	-fsanitize=address -g -fstack-protector
 
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #
@@ -81,7 +86,7 @@ OBJS				=	$(addprefix $(PATH_OBJS)/, $(SRCS_EXT:.c=.o))
 OS					=	$(shell uname)
 ifeq ($(OS), Linux)
 	CFLAGS			+=	-DLINUX
-	# LDFLAGS			+=	-fsanitize=leak
+	LDFLAGS			+=	-fsanitize=leak
 endif
 
 $(PATH_OBJS)/%.o:	$(PATH_SRCS)/%.c
@@ -89,7 +94,7 @@ $(PATH_OBJS)/%.o:	$(PATH_SRCS)/%.c
 
 $(NAME):			enter_name $(PATH_LIBS) $(PATH_OBJS) $(LIBFT) enter_objs $(OBJS)
 					@echo "\033[46;90;1mLinking everything\033[0m"
-					$(GCC) $(OBJS)  -o $(NAME) $(LDFLAGS)
+					$(GCC) $(OBJS) -o $(NAME) $(LDFLAGS)
 
 $(LIBFT):			enter_libft
 					@make -C $(LIBFT_PATH) -f $(LIBFT_MAKE)
@@ -106,6 +111,7 @@ $(PATH_OBJS):
 					@mkdir -p $(PATH_OBJS)/libft
 					@mkdir -p $(PATH_OBJS)/$(PARSER_PATH)
 					@mkdir -p $(PATH_OBJS)/$(EXEC_PATH)
+					@mkdir -p $(PATH_OBJS)/$(EXEC_BUILTIN_PATH)
 					@mkdir -p $(PATH_OBJS)/$(TERMCAP_PATH)
 
 all:				$(NAME)

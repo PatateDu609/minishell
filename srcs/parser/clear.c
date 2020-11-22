@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 18:13:32 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/26 01:22:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/11/06 01:21:05 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	free_pipeline(t_btree *parsed)
 {
 	int		len;
 
+	if (!parsed)
+		return ;
 	len = ft_strlen(PIPELINE_STR);
 	if (ft_strncmp(parsed->item, PIPELINE_STR, len))
 	{
@@ -52,7 +54,7 @@ void	free_pipeline(t_btree *parsed)
 		free_command(parsed->left);
 	else
 		free_pipeline(parsed->left);
-	if (ft_strncmp(parsed->right->item, PIPELINE_STR, len))
+	if (parsed->right && ft_strncmp(parsed->right->item, PIPELINE_STR, len))
 		free_command(parsed->right);
 	else
 		free_pipeline(parsed->right);
@@ -63,6 +65,8 @@ void	free_parsed(t_btree *parsed)
 {
 	int		len;
 
+	if (!parsed)
+		return ;
 	len = ft_strlen(SEPARATOR_STR);
 	if (ft_strncmp(parsed->item, SEPARATOR_STR, len))
 	{
@@ -73,7 +77,7 @@ void	free_parsed(t_btree *parsed)
 		free_pipeline(parsed->left);
 	else
 		free_parsed(parsed->left);
-	if (ft_strncmp(parsed->right->item, SEPARATOR_STR, len))
+	if (parsed->right && ft_strncmp(parsed->right->item, SEPARATOR_STR, len))
 		free_pipeline(parsed->right);
 	else
 		free_parsed(parsed->right);
