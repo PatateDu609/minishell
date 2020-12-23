@@ -12,7 +12,7 @@
 
 #include "ft_exec.h"
 
-static char		*ft_construct_from_name(char **paths, char *command)
+static char	*ft_construct_from_name(char **paths, char *command)
 {
 	DIR				*pwd;
 	struct dirent	*entry;
@@ -23,15 +23,17 @@ static char		*ft_construct_from_name(char **paths, char *command)
 	while (*paths)
 	{
 		pwd = opendir(*paths);
-		while ((entry = readdir(pwd)))
+		while (ft_assign(&entry, readdir(pwd)))
 		{
 			if (ft_strlen(entry->d_name) == ft_strlen(command))
+			{
 				if (ft_strnstr(entry->d_name, command, ft_strlen(command)))
 				{
 					path[0] = *paths;
 					closedir(pwd);
 					return (ft_strjoin_arr(path, '/'));
 				}
+			}
 		}
 		closedir(pwd);
 		paths++;
@@ -40,7 +42,7 @@ static char		*ft_construct_from_name(char **paths, char *command)
 	return (NULL);
 }
 
-static int		ft_check_command(char *command)
+static int	ft_check_command(char *command)
 {
 	struct stat		buf;
 
@@ -56,7 +58,7 @@ static int		ft_check_command(char *command)
 	return (1);
 }
 
-char			*ft_construct_cmd(t_env *env, char *command)
+char	*ft_construct_cmd(t_env *env, char *command)
 {
 	char			*result;
 	char			*tmp;

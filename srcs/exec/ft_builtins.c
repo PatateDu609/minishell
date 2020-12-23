@@ -12,13 +12,13 @@
 
 #include "ft_exec.h"
 
-void ft_unset(t_env *env, char **args)
+void	ft_unset(t_env *env, char **args)
 {
 	while (*args)
 		ft_delete_var(env, *args++);
 }
 
-void ft_export(t_env *env, char **args)
+void	ft_export(t_env *env, char **args)
 {
 	char	**tmp;
 	char	*val;
@@ -32,7 +32,6 @@ void ft_export(t_env *env, char **args)
 			continue ;
 		}
 		tmp = ft_split(*args, '=');
-		val = tmp[1] ? ft_strjoin_arr(tmp + 1, '=') : ft_strdup("");
 		ft_add_var(env, tmp[0], val);
 		free(val);
 		free_splitted(tmp);
@@ -42,7 +41,7 @@ void ft_export(t_env *env, char **args)
 
 void	ft_cd(t_env *env, char **args)
 {
-	char *path;
+	char	*path;
 
 	if (!args[0] || args[1])
 	{
@@ -57,29 +56,29 @@ void	ft_cd(t_env *env, char **args)
 	free(path);
 }
 
-void ft_echo(char **args, t_redirect *redirects)
+void	ft_echo(char **args, t_redirect *redirects)
 {
 	char	*end;
 	char	**suitable;
 	char	**saved;
 
 	(void)redirects;
-
 	if (*args)
 		suitable = args;
 	else
 	{
-		if (!(suitable = ft_calloc(2, sizeof(char *))))
+		suitable = ft_calloc(2, sizeof(char *));
+		if (!suitable)
 			return ;
 		saved = suitable;
 		suitable[0] = "";
 	}
-	end = ft_strcmp(suitable[0], "-n") == 0 ? "" : "\n";
+	end = ft_ternary(ft_strcmp(suitable[0], "-n") == 0, "", "\n");
 	if (*end == 0)
 		suitable++;
 	while (*suitable)
 	{
-		ft_printf("%s%s", *suitable, (*(suitable + 1) ? " " : end));
+		ft_printf("%s%s", *suitable, ft_ternary((*(suitable + 1), " ", end)));
 		suitable++;
 	}
 	if (!*args)

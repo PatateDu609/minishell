@@ -22,17 +22,18 @@ char	*max(char *a, char *b)
 		return (b);
 	if (!b)
 		return (a);
-	return (ft_strlen(a) > ft_strlen(b) ? a : b);
+	return (ft_ternary(ft_strlen(a) > ft_strlen(b), a, b));
 }
 
-int		ft_get_token_len(char *res)
+int	ft_get_token_len(char *res)
 {
 	char	c;
 	int		len;
 
 	c = res[0];
 	len = ft_strlen(res);
-	if (c == '<' || c == '|' || c == ';' || (c == '>' && (len == 1 || res[1] != '>')))
+	if (c == '<' || c == '|' || c == ';'
+		|| (c == '>' && (len == 1 || res[1] != '>')))
 		return (1);
 	return (2);
 }
@@ -44,14 +45,14 @@ char	*ft_get_sep(char *command, int type)
 	char	*res;
 
 	if (!command)
-		return (type == PARSER_TOKEN_CMD ? ft_strdup(" ") : NULL);
+		return (ft_ternary(type == PARSER_TOKEN_CMD, ft_strdup(" "), NULL));
 	len = ft_strlen(command);
 	if (type == PARSER_TOKEN_REDIRECT)
 	{
 		s[0] = ft_strnstr(command, "<", len);
 		s[1] = ft_strnstr(command, ">>", len);
 		s[2] = ft_strnstr(command, ">", len);
-		if ((res = max(s[0], max(s[1], s[2]))))
+		if (!ft_assign(&res, max(s[0], max(s[1], s[2]))))
 			return (ft_substr(res, 0, ft_get_token_len(res)));
 	}
 	else if (type == PARSER_TOKEN_PIPE)
@@ -63,7 +64,7 @@ char	*ft_get_sep(char *command, int type)
 	return (NULL);
 }
 
-int			ft_check_sep(char *command, int type)
+int	ft_check_sep(char *command, int type)
 {
 	char	types[5];
 	int		i;
@@ -84,13 +85,15 @@ int			ft_check_sep(char *command, int type)
 		{
 			mode = (command[i] == '"');
 			i++;
-			while (command[i] && ((mode && command[i] != '"') || (!mode && command[i] != '\'')))
+			while (command[i] && ((mode && command[i] != '"')
+					|| (!mode && command[i] != '\'')))
 				i++;
 			if (!command[i])
 				return (-2);
 		}
-		if ((type != PARSER_TOKEN_REDIRECT && command[i] == types[type]) ||
-			(type == PARSER_TOKEN_REDIRECT && (command[i] == '<' || command[i] == '>')))
+		if ((type != PARSER_TOKEN_REDIRECT && command[i] == types[type])
+			|| (type == PARSER_TOKEN_REDIRECT && (command[i] == '<'
+				|| command[i] == '>')))
 		{
 			return (1);
 		}
@@ -99,7 +102,7 @@ int			ft_check_sep(char *command, int type)
 	return (type == PARSER_TOKEN_CMD);
 }
 
-char		*ft_get_major(char *command, char **sep)
+char	*ft_get_major(char *command, char **sep)
 {
 	char	*types[5];
 	int		i;
@@ -109,8 +112,6 @@ char		*ft_get_major(char *command, char **sep)
 	types[2] = REDIRECTION_STR;
 	types[3] = PIPELINE_STR;
 	types[4] = SEPARATOR_STR;
-
-
 	i = 4;
 	while (i >= 0)
 	{

@@ -12,7 +12,7 @@
 
 #include "ft_exec.h"
 
-size_t			ft_sizeof(char **env)
+size_t	ft_sizeof(char **env)
 {
 	size_t		size;
 
@@ -25,14 +25,14 @@ size_t			ft_sizeof(char **env)
 	return (size);
 }
 
-static char		**ft_duplicate(char **env)
+static char	**ft_duplicate(char **env)
 {
 	size_t		size;
 	char		**tmp;
 	char		**result;
 
 	size = ft_sizeof(env);
-	if (!(result = (char **)ft_calloc(size + 1, sizeof(char *))))
+	if (!ft_assign(&result, (char **)ft_calloc(size + 1, sizeof(char *))))
 		return (NULL);
 	tmp = result;
 	while (*env)
@@ -44,11 +44,11 @@ static char		**ft_duplicate(char **env)
 	return (result);
 }
 
-t_env			*ft_env(char **env)
+t_env	*ft_env(char **env)
 {
 	t_env	*result;
 
-	if (!(result = (t_env *)malloc(sizeof(t_env))))
+	if (!ft_assign(&result, (t_env *)malloc(sizeof(t_env))))
 		return (NULL);
 	result->env = ft_duplicate(env);
 	g_exit_code = 0;
@@ -56,9 +56,9 @@ t_env			*ft_env(char **env)
 	return (result);
 }
 
-void			init_paths(t_env *env)
+void	init_paths(t_env *env)
 {
-	char **ev;
+	char	**ev;
 
 	ev = env->env;
 	while (*ev)
@@ -74,7 +74,7 @@ void			init_paths(t_env *env)
 	env->paths = NULL;
 }
 
-void			free_env(t_env *env)
+void	free_env(t_env *env)
 {
 	free_splitted(env->env);
 	if (env->paths)

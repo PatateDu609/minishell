@@ -23,7 +23,7 @@ static size_t	ft_strlen_cur(char *var)
 	return (len);
 }
 
-static int		ft_modify_var(t_env *env, char *name, char *value)
+static int	ft_modify_var(t_env *env, char *name, char *value)
 {
 	char	**ev;
 	char	*equal;
@@ -32,7 +32,8 @@ static int		ft_modify_var(t_env *env, char *name, char *value)
 	equal = ft_strjoin(name, "=");
 	while (*ev)
 	{
-		if (ft_strlen(name) == ft_strlen_cur(*ev) && !(ft_strncmp(*ev, name, ft_strlen(name))))
+		if (ft_strlen(name) == ft_strlen_cur(*ev)
+			&& !(ft_strncmp(*ev, name, ft_strlen(name))))
 		{
 			free(*ev);
 			*ev = ft_strjoin(equal, value);
@@ -50,7 +51,7 @@ static int		ft_modify_var(t_env *env, char *name, char *value)
 	return (0);
 }
 
-void			ft_add_var(t_env *env, char *name, char *value)
+void	ft_add_var(t_env *env, char *name, char *value)
 {
 	char	**ev;
 	char	**saved;
@@ -63,7 +64,7 @@ void			ft_add_var(t_env *env, char *name, char *value)
 	ev = env->env;
 	saved = ev;
 	size = ft_sizeof(ev);
-	if (!(env->env = (char **)ft_calloc(size + 2, sizeof(char *))))
+	if (!ft_assign(&env->env, ft_calloc(size + 2, sizeof(char *))))
 		return ;
 	new = env->env;
 	while (*ev)
@@ -80,7 +81,7 @@ void			ft_add_var(t_env *env, char *name, char *value)
 	free_splitted(saved);
 }
 
-void			ft_delete_var(t_env *env, char *name)
+void	ft_delete_var(t_env *env, char *name)
 {
 	char	**ev;
 	char	**saved;
@@ -88,12 +89,13 @@ void			ft_delete_var(t_env *env, char *name)
 
 	ev = env->env;
 	saved = ev;
-	if (!(env->env = ft_calloc(ft_sizeof(env->env), sizeof(char *))))
+	if (!ft_assign(&env->env, ft_calloc(ft_sizeof(env->env), sizeof(char *))))
 		return ;
 	new = env->env;
 	while (*ev)
 	{
-		if (ft_strlen(name) == ft_strlen_cur(*ev) && !ft_strncmp(*ev, name, ft_strlen(name)))
+		if (ft_strlen(name) == ft_strlen_cur(*ev)
+			&& !ft_strncmp(*ev, name, ft_strlen(name)))
 		{
 			ev++;
 			continue ;
