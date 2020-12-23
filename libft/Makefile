@@ -63,6 +63,7 @@ SRCS_BASENAME		=	memset				\
 						btree_apply_infix	\
 						btree_apply_prefix	\
 						btree_create_node	\
+						ternary				\
 
 GNL_SRCS			=	get_next_line		\
 						get_next_line_utils
