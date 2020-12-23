@@ -12,7 +12,7 @@
 
 #include "ft_parser.h"
 
-static int		ft_skip_quotes(char **command)
+static int	ft_skip_quotes(char **command)
 {
 	int		mode;
 	int		len;
@@ -33,7 +33,7 @@ static int		ft_skip_quotes(char **command)
 	return (len);
 }
 
-static int		ft_count_tokens(char *command)
+static int	ft_count_tokens(char *command)
 {
 	int		count;
 
@@ -56,7 +56,7 @@ static int		ft_count_tokens(char *command)
 	return (count);
 }
 
-static char		*ft_get_token(char **command)
+static char	*ft_get_token(char **command)
 {
 	size_t	len;
 	char	*result;
@@ -74,7 +74,7 @@ static char		*ft_get_token(char **command)
 		len++;
 		*command += 1;
 	}
-	if (!(result = (char *)ft_calloc(len + 1, sizeof(char))))
+	if (!ft_assign(&result, (char *)ft_calloc(len + 1, sizeof(char))))
 		return (NULL);
 	i = 0;
 	while (i < len && *saved)
@@ -90,19 +90,19 @@ static char		*ft_get_token(char **command)
 	return (result);
 }
 
-char			**ft_split_args(char *command)
+char	**ft_split_args(char *command)
 {
 	char	**result;
 	int		count;
 	int		i;
 
 	count = ft_count_tokens(command);
-	if (!(result = ft_calloc(count + 1, sizeof(char *))))
+	if (!ft_assign(&result, ft_calloc(count + 1, sizeof(char *))))
 		return (NULL);
 	i = 0;
 	while (i < count)
 	{
-		if (!(result[i] = ft_get_token(&command)))
+		if (!ft_assign(&result[i], ft_get_token(&command)))
 		{
 			i = 0;
 			while (result[i])

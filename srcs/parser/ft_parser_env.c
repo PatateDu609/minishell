@@ -13,15 +13,15 @@
 #include "ft_parser.h"
 #include "ft_exec.h"
 
-static char		*ft_strchr_backslash(char *str, char c)
+static char	*ft_strchr_backslash(char *str, char c)
 {
 	while (*str && *str != c)
 		if (*str++ == '\\')
 			str += 1;
-	return (*str == c ? str : NULL);
+	return (ft_ternary(*str == c, str, NULL));
 }
 
-static char		*ft_get_words(char **command, int *mode)
+static char	*ft_get_words(char **command, int *mode)
 {
 	size_t	len;
 	char	*result;
@@ -47,14 +47,14 @@ static char		*ft_get_words(char **command, int *mode)
 		}
 		str++;
 	}
-	len = found ? (size_t)(found - *command) : ft_strlen(*command);
-	if (!(result = ft_substr(*command, 0, len)))
+	len = ft_ternary(found, (size_t)(found - *command), ft_strlen(*command));
+	if (!ft_assign(&result, ft_substr(*command, 0, len)))
 		return (NULL);
 	*command += len;
 	return (result);
 }
 
-static char		*ft_get_name(char **command)
+static char	*ft_get_name(char **command)
 {
 	size_t	len;
 	char	*name;
@@ -66,16 +66,16 @@ static char		*ft_get_name(char **command)
 		*command += 1;
 		return (ft_strdup(""));
 	}
-	while ((*command)[len] && (ft_isalnum((*command)[len]) ||
-		(*command)[len] == '_' || (*command)[len] == '?'))
+	while ((*command)[len] && (ft_isalnum((*command)[len])
+		|| (*command)[len] == '_' || (*command)[len] == '?'))
 		len++;
-	if (!(name = ft_substr(*command, 0, len)))
+	if (!ft_assign(&name, ft_substr(*command, 0, len)))
 		return (NULL);
 	*command += len;
 	return (name);
 }
 
-static char		*getquoted(char *to_quote)
+static char	*getquoted(char *to_quote)
 {
 	char	*tmp;
 	char	*result;
@@ -88,7 +88,7 @@ static char		*getquoted(char *to_quote)
 	return (result);
 }
 
-char			*ft_parse_env(t_env *env, char *command)
+char	*ft_parse_env(t_env *env, char *command)
 {
 	char	*result;
 	char	*tmp;
@@ -110,7 +110,8 @@ char			*ft_parse_env(t_env *env, char *command)
 		if (*command == '$')
 		{
 			tmp1 = ft_get_name(&command);
-			tmp = !(mode % 2) ? getquoted(getvar(env, tmp1)) : getvar(env, tmp1);
+			tmp = ft_ternary(!(mode % 2), getquoted(getvar(env, tmp1)),
+					getvar(env, tmp1));
 			free(tmp1);
 			tmp1 = result;
 			result = ft_strjoin(result, tmp);

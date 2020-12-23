@@ -37,7 +37,7 @@ char	*ft_subcmd(char *command, char *major, int side)
 	return (result);
 }
 
-t_btree		*ft_parse_command_args(char *command)
+t_btree	*ft_parse_command_args(char *command)
 {
 	t_command	*cmd;
 	t_btree		*result;
@@ -61,7 +61,7 @@ t_btree		*ft_parse_command_args(char *command)
 	return (result);
 }
 
-void		free_splitted(char **splitted)
+void	free_splitted(char **splitted)
 {
 	char	**saved;
 
@@ -74,7 +74,7 @@ void		free_splitted(char **splitted)
 	free(saved);
 }
 
-t_btree		*ft_parse_command_redirect(char *command, char *sep)
+t_btree	*ft_parse_command_redirect(char *command, char *sep)
 {
 	t_redirect	*cmd;
 	t_btree		*result;
@@ -122,7 +122,7 @@ t_btree		*ft_parse_command_redirect(char *command, char *sep)
 	return (result);
 }
 
-t_btree		*ft_parse_command(char *command)
+t_btree	*ft_parse_command(char *command)
 {
 	t_btree		*result;
 	char		*sub;
@@ -146,7 +146,7 @@ t_btree		*ft_parse_command(char *command)
 	return (result);
 }
 
-t_btree		*ft_parse_pipeline(char *command)
+t_btree	*ft_parse_pipeline(char *command)
 {
 	char	*sep;
 	char	*major;
@@ -193,7 +193,7 @@ t_btree		*ft_parse_pipeline(char *command)
 	return (cmd);
 }
 
-t_btree		*ft_parser(t_env *env, char *input)
+t_btree	*ft_parser(t_env *env, char *input)
 {
 	char	*sep;
 	char	*major;
@@ -208,7 +208,7 @@ t_btree		*ft_parser(t_env *env, char *input)
 		cmd = ft_parse_pipeline(command);
 	else
 	{
-		if (!(cmd = ft_btree_create_node(SEPARATOR_STR)))
+		if (!ft_assign(&cmd, ft_btree_create_node(SEPARATOR_STR)))
 			return (NULL);
 		sub = ft_subcmd(command, ";", 0);
 		major = ft_get_major(sub, &sep);
@@ -219,7 +219,6 @@ t_btree		*ft_parser(t_env *env, char *input)
 			free_parsed(cmd);
 			return (NULL);
 		}
-
 		if (ft_strncmp(major, SEPARATOR_STR, ft_strlen(SEPARATOR_STR)))
 			cmd->left = ft_parse_pipeline(sub);
 		else
@@ -256,7 +255,7 @@ t_btree		*ft_parser(t_env *env, char *input)
 	return (cmd);
 }
 
-int			ft_valid_sep(char *command)
+int	ft_valid_sep(char *command)
 {
 	int		valid;
 	int		i;

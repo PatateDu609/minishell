@@ -32,13 +32,13 @@ static int	is_builtin(char *name)
 		return (BUILTIN_DEFAULT);
 }
 
-int			exec_builtin(t_env *env, t_command *cmd, t_redirect *redirects)
+int	exec_builtin(t_env *env, t_command *cmd, t_redirect *redirects)
 {
 	int		id;
 	void	*tfree;
 
 	tfree = NULL;
-	if ((id = is_builtin(cmd->name)) == BUILTIN_DEFAULT)
+	if (ft_assign(&id, is_builtin(cmd->name)) == BUILTIN_DEFAULT)
 		return (0);
 	else if (id == BUILTIN_ENV)
 		ft_print_env(env->env);

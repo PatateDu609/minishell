@@ -31,7 +31,7 @@ char	*getvar(t_env *env, char *var)
 			result = ft_strjoin_arr(splitted + 1, '=');
 		free_splitted(splitted);
 		if (result)
-			break;
+			break ;
 		ev++;
 	}
 	return (result);
