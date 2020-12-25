@@ -1,5 +1,19 @@
-void    *ft_assign(void **var, void *valeur)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_assign.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/24 22:24:20 by gboucett          #+#    #+#             */
+/*   Updated: 2020/12/24 22:25:31 by gboucett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*ft_assign(void **var, void *valeur)
 {
-    *var = valeur;
-    return *var;
+	*var = valeur;
+	return (*var);
 }

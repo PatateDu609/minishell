@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 14:41:18 by rbourgea          #+#    #+#             */
-/*   Updated: 2020/07/25 16:35:56 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/25 12:17:19 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int		count_substrings(char const *s, char c)
+static int	cs(char const *s, char c)
 {
 	int		strings;
 	size_t	i;
@@ -34,9 +34,9 @@ static	int		count_substrings(char const *s, char c)
 	return (strings);
 }
 
-static	size_t	to_sep(char const *s, char c)
+static size_t	to_sep(char const *s, char c)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s[i] != c && s[i])
@@ -44,7 +44,7 @@ static	size_t	to_sep(char const *s, char c)
 	return (i);
 }
 
-static	void	*free_result(char **result)
+static void	*free_result(char **result)
 {
 	char	**saved;
 
@@ -58,31 +58,31 @@ static	void	*free_result(char **result)
 	return (NULL);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	char	**result;
+	char	**res;
 	size_t	nbs[3];
 
 	nbs[0] = 0;
 	nbs[1] = 0;
-	if (!s || !(result = malloc(sizeof(char *) * (count_substrings(s, c) + 1))))
+	if (!s || !ft_assign((void *)&res, malloc(sizeof(char *) * (cs(s, c) + 1))))
 		return (NULL);
 	while (s[nbs[0]])
 	{
 		if (s[nbs[0]] != c && s[nbs[0]])
 		{
-			if (!(result[nbs[1]] = malloc(sizeof(char *)
-				* (to_sep(&s[nbs[0]], c) + 1))))
-				return (free_result(result));
+			if (!ft_assign((void **)&res[nbs[1]], malloc(sizeof(char *)
+							* (to_sep(&s[nbs[0]], c) + 1))))
+				return (free_result(res));
 			nbs[2] = 0;
 			while (s[nbs[0]] != c && s[nbs[0]])
-				result[nbs[1]][nbs[2]++] = s[nbs[0]++];
-			result[nbs[1]][nbs[2]] = '\0';
+				res[nbs[1]][nbs[2]++] = s[nbs[0]++];
+			res[nbs[1]][nbs[2]] = '\0';
 			nbs[1]++;
 		}
 		while (s[nbs[0]] == c && s[nbs[0]])
 			nbs[0]++;
 	}
-	result[nbs[1]] = NULL;
-	return (result);
+	res[nbs[1]] = NULL;
+	return (res);
 }

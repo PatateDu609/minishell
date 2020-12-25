@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 01:25:06 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/26 01:26:25 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/23 17:08:37 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include "libft.h"
 # include "minishell.h"
 
-void			print_separator(t_btree *parsed);
+void	print_separator(t_btree *parsed);
 
 #endif

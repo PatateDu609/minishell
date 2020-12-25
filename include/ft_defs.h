@@ -6,14 +6,14 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/02 12:31:58 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/23 17:10:37 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_DEFS_H
 # define FT_DEFS_H
 
-#define _GNU_SOURCE
+# define _GNU_SOURCE
 // #include <features.h>
 # include <sys/types.h>
 # include <dirent.h>
@@ -66,25 +66,25 @@
 # define HISTORY_SIZE		1000
 # define HISTORY_FILE		".minishell_history"
 
-typedef struct		s_command
+typedef struct s_command
 {
-	char			*name;
-	char			**args;
-}					t_command;
+	char	*name;
+	char	**args;
+}	t_command;
 
-typedef struct		s_redirect
+typedef struct s_redirect
 {
-	char			*type;
-	char			*target;
-	int				fd;
-}					t_redirect;
+	char	*type;
+	char	*target;
+	int		fd;
+}	t_redirect;
 
-typedef struct		s_env
+typedef struct s_env
 {
-	char			**env;
-	char			**paths;
-}					t_env;
+	char	**env;
+	char	**paths;
+}	t_env;
 
-extern int g_fd;
+extern int	g_fd;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:50 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 23:49:02 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/23 17:35:24 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 
 typedef struct termios	t_termios;
 
-typedef struct			s_line
+typedef struct s_line
 {
-	size_t				cursor;
-	char				*buffer;
-	char				*old_buffer;
-	char				*prompt;
-	int					reset;
-}						t_line;
+	size_t	cursor;
+	char	*buffer;
+	char	*old_buffer;
+	char	*prompt;
+	int		reset;
+}	t_line;
 
 extern char				*g_history[HISTORY_SIZE];
 extern int				g_last;
@@ -42,31 +42,29 @@ extern int				g_last;
  * dl : delete one line
  * reset : reset termcaps
  */
-typedef struct			s_caps
+typedef struct s_caps
 {
-	char				*le;
-	char				*nd;
-	char				*rc;
-	char				*sc;
-	char				*dl;
-	char				*reset;
-}						t_caps;
+	char	*le;
+	char	*nd;
+	char	*rc;
+	char	*sc;
+	char	*dl;
+	char	*reset;
+}	t_caps;
 
-int						init_termcaps(t_env *env, t_caps *caps);
-int						init_termios(t_termios *backup);
-int						reset_terminal(t_termios *backup, t_caps *caps);
-int						ms_putchar(int c);
-void					ft_move_line(t_caps *caps, t_line *line, char *command);
-char					*ft_add_char(char *str, int i, char *c);
-char					*ft_delete_char(char *str, int i);
-char					*ft_getline(t_caps *caps, char *prompt);
-void					load_history(void);
-void					add_command(char *command);
-void					write_commands(void);
-void					ft_cursor_home_end(t_caps *caps, t_line *line,
-						int mode);
-int						ft_parse_arrow(char *command);
-void					ft_cursor_move_word(t_caps *caps, t_line *line,
-						int mode);
+int		init_termcaps(t_env *env, t_caps *caps);
+int		init_termios(t_termios *backup);
+int		reset_terminal(t_termios *backup, t_caps *caps);
+int		ms_putchar(int c);
+void	ft_move_line(t_caps *caps, t_line *line, char *command);
+char	*ft_add_char(char *str, int i, char *c);
+char	*ft_delete_char(char *str, int i);
+char	*ft_getline(t_caps *caps, char *prompt);
+void	load_history(void);
+void	add_command(char *command);
+void	write_commands(void);
+void	ft_cursor_home_end(t_caps *caps, t_line *line, int mode);
+int		ft_parse_arrow(char *command);
+void	ft_cursor_move_word(t_caps *caps, t_line *line, int mode);
 
 #endif

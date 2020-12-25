@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 20:00:11 by gboucett          #+#    #+#             */
-/*   Updated: 2020/08/16 20:02:09 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/24 22:16:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 && *s2)
 	{
