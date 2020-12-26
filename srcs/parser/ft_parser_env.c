@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 22:26:00 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/14 17:12:55 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 17:09:20 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	*ft_get_name(char **command)
 		return (ft_strdup(""));
 	}
 	while ((*command)[len] && (ft_isalnum((*command)[len])
-		|| (*command)[len] == '_' || (*command)[len] == '?'))
+				|| (*command)[len] == '_' || (*command)[len] == '?'))
 		len++;
 	if (!ft_assign(&name, ft_substr(*command, 0, len)))
 		return (NULL);

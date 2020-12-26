@@ -6,13 +6,11 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:28:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 22:15:10 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 16:54:49 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
-
-// #ifndef BONUS
 
 char	*max(char *a, char *b)
 {
@@ -93,7 +91,7 @@ int	ft_check_sep(char *command, int type)
 		}
 		if ((type != PARSER_TOKEN_REDIRECT && command[i] == types[type])
 			|| (type == PARSER_TOKEN_REDIRECT && (command[i] == '<'
-				|| command[i] == '>')))
+						|| command[i] == '>')))
 		{
 			return (1);
 		}
@@ -125,5 +123,3 @@ char	*ft_get_major(char *command, char **sep)
 	*sep = ft_strdup(" ");
 	return (types[0]);
 }
-
-// #endif
