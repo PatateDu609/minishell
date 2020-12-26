@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 01:17:05 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/22 04:02:15 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 15:37:31 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 #ifdef BONUS
 
-int g_fd;
+int	g_fd;
 
-void	ft_exit()
+void	ft_exit(void)
 {
 	write_commands();
 	ft_putendl_fd("exit", 1);
@@ -27,21 +27,21 @@ void	ft_exit()
 	exit(0);
 }
 
-void minishell(t_env *env, t_caps *caps)
+void	minishell(t_env *env, t_caps *caps)
 {
-	char		*command;
-	t_termios	backup;
+	char			*command;
+	struct termios	backup;
 
-	while(1)
+	while (1)
 	{
 		if (!init_termios(&backup))
 			return ;
-		command = ft_getline(caps, "\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m ");
+		command = ft_getline(caps, PROMPT);
 		if (!reset_terminal(&backup, caps))
 			return ;
 		add_command(command);
 		printf("\n");
-		g_parsed = *command != 0 ? ft_parser(env, command) : NULL;
+		g_parsed = ft_ternary(*command != 0, ft_parser(env, command), NULL);
 		if (*command == 0)
 		{
 			free(command);
@@ -55,16 +55,17 @@ void minishell(t_env *env, t_caps *caps)
 	}
 }
 
-int main(int ac, char **av, char **ev)
+int	main(int ac, char **av, char **ev)
 {
 	t_env		*env;
 	t_caps		caps;
-	g_fd = open("/dev/pts/1", O_RDWR);
 
+	g_fd = open("/dev/pts/1", O_RDWR);
 	(void)ac;
 	(void)av;
 	ft_signalhandler_enable();
-	if (!(env = ft_env(ev)))
+	env = ft_env(ev);
+	if (!env)
 		return (1);
 	if (!init_termcaps(env, &caps))
 		return (1);

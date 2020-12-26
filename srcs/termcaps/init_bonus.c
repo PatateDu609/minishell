@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:31 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/26 13:28:19 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 15:38:03 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	init_termcaps(t_env *env, t_caps *caps)
 	return (1);
 }
 
-int	init_termios(t_termios *backup)
+int	init_termios(struct termios *backup)
 {
-	t_termios	term_attr;
+	struct termios	term_attr;
 
 	if (tcgetattr(STDIN_FILENO, &term_attr))
 		return (0);
@@ -54,7 +54,7 @@ int	init_termios(t_termios *backup)
 	return (1);
 }
 
-int	reset_terminal(t_termios *backup, t_caps *caps)
+int	reset_terminal(struct termios *backup, t_caps *caps)
 {
 	tputs(caps->reset, 1, ms_putchar);
 	return (!tcsetattr(STDIN_FILENO, TCSANOW, backup));

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/22 04:00:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 15:32:59 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 
 #include "debug.h"
 
-t_btree *g_parsed = NULL;
+t_btree	*g_parsed = NULL;
 
 #ifndef BONUS
 
-void	ft_exit()
+void	ft_exit(void)
 {
 	ft_putendl_fd("exit", 1);
 	if (g_parsed)
@@ -30,16 +30,26 @@ void	ft_exit()
 	exit(0);
 }
 
-void minishell(t_env *env)
+void	process_parsed(t_env *env)
+{
+	if (g_parsed)
+	{
+		print_separator(g_parsed);
+		ft_exec(env, g_parsed);
+		free_parsed(g_parsed);
+	}
+}
+
+void	minishell(t_env *env)
 {
 	char		*command;
 	int			ret;
 
-	while(1)
+	while (1)
 	{
-		ft_printf("\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m ");
+		ft_printf("%s", PROMPT);
 		ret = get_next_line(STDIN_FILENO, &command);
-		g_parsed = (*command != 0) ? ft_parser(env, command) : NULL;
+		g_parsed = ft_ternary(*command != 0, ft_parser(env, command), NULL);
 		if (*command == 0)
 		{
 			if (!ret)
@@ -48,27 +58,22 @@ void minishell(t_env *env)
 				free(command);
 				ft_exit();
 			}
-			else
-				continue ;
+			continue ;
 		}
 		free(command);
-		if (g_parsed)
-		{
-			print_separator(g_parsed);
-			ft_exec(env, g_parsed);
-			free_parsed(g_parsed);
-		}
+		process_parsed(env);
 	}
 }
 
-int		main(int ac, char **av, char **ev)
+int	main(int ac, char **av, char **ev)
 {
 	t_env		*env;
 
 	(void)ac;
 	(void)av;
 	ft_signalhandler_enable();
-	if (!(env = ft_env(ev)))
+	env = ft_env(ev);
+	if (!env)
 		return (1);
 	minishell(env);
 }

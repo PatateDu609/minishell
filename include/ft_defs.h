@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/23 17:10:37 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 15:29:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@
 
 # define HISTORY_SIZE		1000
 # define HISTORY_FILE		".minishell_history"
+
+# define PROMPT				"\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m "
 
 typedef struct s_command
 {
