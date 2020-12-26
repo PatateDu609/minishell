@@ -6,14 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:07:50 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 17:32:51 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 13:50:23 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-static void		print_frame(t_caps *caps, t_line *line, char *command,
-				char *prompt)
+static void	print_frame(t_caps *caps, t_line *line, char *command, char *prompt)
 {
 	if (line->cursor < ft_strlen(line->buffer))
 		tputs(caps->sc, 1, ms_putchar);
@@ -28,7 +27,7 @@ static void		print_frame(t_caps *caps, t_line *line, char *command,
 	}
 }
 
-static int		ft_edit_line(t_caps *caps, t_line *line, char *command)
+static int	ft_edit_line(t_caps *caps, t_line *line, char *command)
 {
 	char	*tmp;
 
@@ -56,7 +55,7 @@ static int		ft_edit_line(t_caps *caps, t_line *line, char *command)
 	return (1);
 }
 
-static void		init_getline(t_line *line, char *prompt)
+static void	init_getline(t_line *line, char *prompt)
 {
 	line->cursor = 0;
 	line->buffer = ft_strdup("");
@@ -66,30 +65,38 @@ static void		init_getline(t_line *line, char *prompt)
 	write(1, prompt, ft_strlen(prompt));
 }
 
-char			*ft_getline(t_caps *caps, char *prompt)
+void	reset_line(t_caps *caps, t_line line)
+{
+	line.reset = 1;
+	ft_move_line(caps, &line, NULL);
+	free(line.old_buffer);
+}
+
+char	*ft_getline(t_caps *caps, char *prompt)
 {
 	t_line		line;
 	char		command[16];
 	ssize_t		i;
 
 	init_getline(&line, prompt);
-	while ((i = read(0, command, 16)) > 0)
+	i = 1;
+	while (1)
 	{
+		i = read(0, command, 16);
+		if (i <= 0)
+			break ;
 		command[i] = 0;
 		if (i > 1)
 		{
 			ft_move_line(caps, &line, command);
 			continue ;
 		}
-		if ((ft_strlen(line.buffer) == 0 && command[0] == 0x7f) ||
-			(command[0] == 4 && line.cursor))
-			continue;
+		if ((ft_strlen(line.buffer) == 0 && command[0] == 0x7f)
+			|| (command[0] == 4 && line.cursor))
+			return (1);
 		else if (!ft_edit_line(caps, &line, command))
-			break ;
-		print_frame(caps, &line, command, prompt);
+			return (0);
+		print_frame(caps, &line, command, line.prompt);
 	}
-	line.reset = 1;
-	ft_move_line(caps, &line, NULL);
-	free(line.old_buffer);
-	return (line.buffer);
+	return (reset_line(caps, line));
 }

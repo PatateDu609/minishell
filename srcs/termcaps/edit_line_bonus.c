@@ -6,41 +6,40 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:03:02 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/21 23:49:24 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 15:10:48 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 #include <stdio.h>
 
-int				max_int(int a, int b)
+int	max_int(int a, int b)
 {
-	return (a > b ? a : b);
+	return (ft_ternaryi(a > b, a, b));
 }
 
-static void		ft_loop_history(t_caps *caps, t_line *line, int mode,
-				int *current)
+static void	ft_loop_history(t_caps *caps, t_line *line, int mode, int *cur)
 {
 	if (mode == 0)
-		*current = (*current == -1) ? g_last : max_int(*current - 1, 0);
-	else if (mode == 1 && *current != -1)
-		*current += 1;
-	if (*current > g_last)
-		*current = -1;
-	dprintf(g_fd, "current = %d, g_last = %d\n", *current, g_last);
-	if (*current == -1 && line->old_buffer)
+		*cur = ft_ternaryi(*cur == -1, g_last, max_int(*cur - 1, 0));
+	else if (mode == 1 && *cur != -1)
+		*cur += 1;
+	if (*cur > g_last)
+		*cur = -1;
+	dprintf(g_fd, "current = %d, g_last = %d\n", *cur, g_last);
+	if (*cur == -1 && line->old_buffer)
 	{
 		free(line->buffer);
 		line->buffer = line->old_buffer;
 		line->old_buffer = NULL;
 	}
-	else if (*current != -1)
+	else if (*cur != -1)
 	{
 		if (!line->old_buffer)
 			line->old_buffer = line->buffer;
 		else if (line->buffer != line->old_buffer)
 			free(line->buffer);
-		line->buffer = ft_strdup(g_history[*current]);
+		line->buffer = ft_strdup(g_history[*cur]);
 	}
 	line->cursor = ft_strlen(line->buffer);
 	tputs(caps->dl, 1, ms_putchar);
@@ -48,10 +47,10 @@ static void		ft_loop_history(t_caps *caps, t_line *line, int mode,
 	write(1, line->buffer, ft_strlen(line->buffer));
 }
 
-void			ft_move_line(t_caps *caps, t_line *line, char *command)
+void	ft_move_line(t_caps *caps, t_line *line, char *command)
 {
 	static int	current = -1;
-	int		mode;
+	int			mode;
 
 	if (line->reset)
 	{
@@ -77,7 +76,7 @@ void			ft_move_line(t_caps *caps, t_line *line, char *command)
 		ft_loop_history(caps, line, mode, &current);
 }
 
-char			*ft_add_char(char *str, int i, char *c)
+char	*ft_add_char(char *str, int i, char *c)
 {
 	char	*substr;
 	char	*substr1;
@@ -93,7 +92,7 @@ char			*ft_add_char(char *str, int i, char *c)
 	return (substr);
 }
 
-char			*ft_delete_char(char *str, int i)
+char	*ft_delete_char(char *str, int i)
 {
 	char	*substr;
 	char	*tmp;

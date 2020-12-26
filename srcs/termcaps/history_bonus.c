@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:50:58 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/02 12:50:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 13:31:24 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 
 char	*g_history[HISTORY_SIZE];
 int		g_last;
+
+static void	read_history(int fd, char **current)
+{
+	int	res;
+
+	res = get_next_line(fd, current);
+	while (res > 0)
+	{
+		dprintf(g_fd, "%s\n", *current);
+		current++;
+		g_last++;
+		if (g_last + 1 == HISTORY_SIZE)
+			break ;
+		res = get_next_line(fd, current);
+	}
+}
 
 void	load_history(void)
 {
@@ -28,14 +44,7 @@ void	load_history(void)
 		return ;
 	current = g_history;
 	g_last = -1;
-	while ((res = get_next_line(fd, current)) > 0)
-	{
-		dprintf(g_fd, "%s\n", *current);
-		current++;
-		g_last++;
-		if (g_last + 1 == HISTORY_SIZE)
-			break ;
-	}
+	read_history(fd, current);
 	if (!ft_strlen(*current))
 	{
 		free(*current);
@@ -51,8 +60,8 @@ void	add_command(char *command)
 	if (g_last >= HISTORY_SIZE - 1)
 	{
 		free(g_history[0]);
-		ft_memmove(g_history, g_history + 1, (HISTORY_SIZE - 1) *
-			sizeof(char *));
+		ft_memmove(g_history, g_history + 1, (HISTORY_SIZE - 1)
+			* sizeof(char *));
 		g_history[g_last] = ft_strdup(command);
 		g_last = HISTORY_SIZE - 1;
 	}

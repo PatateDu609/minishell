@@ -6,24 +6,25 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:31 by gboucett          #+#    #+#             */
-/*   Updated: 2020/10/20 21:58:17 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/26 13:28:19 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 #include "ft_exec.h"
 
-int		ms_putchar(int c)
+int	ms_putchar(int c)
 {
 	write(1, &c, 1);
 	return (c);
 }
 
-int		init_termcaps(t_env *env, t_caps *caps)
+int	init_termcaps(t_env *env, t_caps *caps)
 {
 	char	*term;
 
-	if (!(term = getvar(env, "TERM")))
+	term = getvar(env, "TERM");
+	if (!term)
 		term = ft_strdup("xterm-256color");
 	if (tgetent(NULL, term) <= 0)
 		return (0);
@@ -37,7 +38,7 @@ int		init_termcaps(t_env *env, t_caps *caps)
 	return (1);
 }
 
-int		init_termios(t_termios *backup)
+int	init_termios(t_termios *backup)
 {
 	t_termios	term_attr;
 
@@ -53,7 +54,7 @@ int		init_termios(t_termios *backup)
 	return (1);
 }
 
-int		reset_terminal(t_termios *backup, t_caps *caps)
+int	reset_terminal(t_termios *backup, t_caps *caps)
 {
 	tputs(caps->reset, 1, ms_putchar);
 	return (!tcsetattr(STDIN_FILENO, TCSANOW, backup));
