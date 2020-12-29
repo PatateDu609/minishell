@@ -1,0 +1,81 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/29 22:13:40 by gboucett          #+#    #+#             */
+/*   Updated: 2020/12/29 22:15:13 by gboucett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+char		**ft_generate_op(void);
+
+int	ft_is_redirect(char *str)
+{
+	if (!ft_strcmp(str, "<"))
+		return (1);
+	else if (!ft_strcmp(str, ">>"))
+		return (2);
+	else if (!ft_strcmp(str, ">"))
+		return (3);
+	return (0);
+}
+
+char	*ft_strstr_op(char *str, char *op)
+{
+	size_t	i;
+
+	while (*str)
+	{
+		if (*str == '\\')
+			str++;
+		else if (*str == '\'')
+			ft_skip_quotes(&str, '\'');
+		else if (*str == '"')
+			ft_skip_quotes(&str, '"');
+		i = 0;
+		while (op[i] && *(str + i) && *(str + i) == op[i])
+			i++;
+		if (!op[i])
+			return (str);
+		str++;
+	}
+	return (NULL);
+}
+
+char	*ft_find_next_op(char *str, char **op, size_t *len)
+{
+	char	*found;
+	char	*min;
+
+	found = NULL;
+	min = NULL;
+	while (*op)
+	{
+		found = ft_strstr_op(str, *op++);
+		if (found && (!min || found < min))
+		{
+			min = found;
+			if (len)
+				*len = ft_strlen(*(op - 1));
+		}
+	}
+	return (min);
+}
+
+char	**ft_generate_op(void)
+{
+	char	**op;
+
+	op = ft_calloc(6, sizeof(char *));
+	op[0] = "<";
+	op[1] = ">>";
+	op[2] = ">";
+	op[3] = "|";
+	op[4] = ";";
+	return (op);
+}
