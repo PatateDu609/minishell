@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:50:58 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/26 13:31:24 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/30 06:26:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	load_history(void)
 {
 	char	**current;
 	int		fd;
-	int		res;
 
 	ft_bzero(g_history, HISTORY_SIZE + 1);
 	fd = open(HISTORY_FILE, O_RDONLY);

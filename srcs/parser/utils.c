@@ -6,13 +6,21 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:13:40 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/29 22:15:13 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/30 06:17:47 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		**ft_generate_op(void);
+int	ft_is_operator(char *str, char **op)
+{
+	while (*op)
+	{
+		if (ft_strnstr(str, *op++, ft_strlen(str)))
+			return (1);
+	}
+	return (0);
+}
 
 int	ft_is_redirect(char *str)
 {

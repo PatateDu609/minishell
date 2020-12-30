@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:00:47 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/29 22:27:53 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/30 06:22:43 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	ft_check_validity(char **litteral)
 	int		old;
 	size_t	len;
 
+	if (!*litteral)
+		return (0);
 	op = ft_generate_op();
 	mode = 0;
 	len = ft_size_splitted(litteral);

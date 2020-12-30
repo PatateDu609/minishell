@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 22:47:54 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/26 15:16:24 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/30 06:24:53 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_cursor_home_end(t_caps *caps, t_line *line, int mode)
 	}
 }
 
-static void	ft_move_word(t_caps *caps, t_line *line, int mode, int *pos)
+static void	ft_move_word(t_caps *caps, t_line *line, int mode, long *pos)
 {
 	char	*dir;
 	int		m;
@@ -44,7 +44,7 @@ static void	ft_move_word(t_caps *caps, t_line *line, int mode, int *pos)
 		*pos -= 1;
 		tputs(caps->le, 1, ms_putchar);
 	}
-	while (!ft_isalnum(line->buffer[*pos]) && pos
+	while (!ft_isalnum(line->buffer[*pos]) && *pos
 		< (long)ft_strlen(line->buffer))
 	{
 		tputs(dir, 1, ms_putchar);
@@ -60,8 +60,6 @@ static void	ft_move_word(t_caps *caps, t_line *line, int mode, int *pos)
 
 void	ft_cursor_move_word(t_caps *caps, t_line *line, int mode)
 {
-	char	*dir;
-	int		m;
 	long	pos;
 
 	pos = line->cursor;

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/29 22:29:35 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/30 06:29:32 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ t_list	*ft_parser(char *command)
 	parsed = ft_syntax_analyser(tokens);
 	if (!parsed)
 		return (NULL);
+	free_splitted(tokens);
 	return (parsed);
 }

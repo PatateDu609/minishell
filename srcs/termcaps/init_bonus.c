@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:31 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/26 15:38:03 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/30 06:28:11 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	init_termcaps(t_env *env, t_caps *caps)
 {
 	char	*term;
 
-	term = getvar(env, "TERM");
+	(void)env;
+	// term = getvar(env, "TERM");
+	term = NULL;
 	if (!term)
 		term = ft_strdup("xterm-256color");
 	if (tgetent(NULL, term) <= 0)
