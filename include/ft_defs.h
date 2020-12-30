@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/26 15:29:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/29 21:39:20 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,25 @@
 
 # define PROMPT				"\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m "
 
-typedef struct s_command
+typedef enum e_type
 {
-	char	*name;
-	char	**args;
-}	t_command;
+	COMMAND,
+	PIPE,
+	BREAK
+}	t_type;
 
 typedef struct s_redirect
 {
-	char	*type;
-	char	*target;
-	int		fd;
+	int		type;
+	char	*filename;
 }	t_redirect;
+
+typedef struct s_command
+{
+	char				**args;
+	t_type				type;
+	t_redirect			**redirects;
+}	t_command;
 
 typedef struct s_env
 {
@@ -88,5 +95,6 @@ typedef struct s_env
 }	t_env;
 
 extern int	g_fd;
+extern int	g_tree;
 
 #endif
