@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:19:09 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/29 22:19:53 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/30 09:06:35 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,18 @@ char	**ft_strs_append_str(char **strs, char *str)
 		return (NULL);
 	result[len1] = ft_strdup(str);
 	return (result);
+}
+
+char	**ft_strs_remove(char **strs, size_t index)
+{
+	size_t	len;
+
+	len = ft_size_splitted(strs);
+	if (len <= index)
+		return (NULL);
+	free(strs[index]);
+	ft_memmove(strs + index, strs + index + 1, sizeof(char *) * (len - index));
+	return (ft_copy_splitted(strs, len - 1));
 }
 
 t_redirect	**ft_append_redir(t_redirect **redirs, t_redirect *redir)

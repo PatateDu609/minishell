@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/29 21:39:20 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/30 07:10:33 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ typedef struct s_command
 
 typedef struct s_env
 {
-	char	**env;
+	char	**names;
+	char	**values;
 	char	**paths;
 }	t_env;
 

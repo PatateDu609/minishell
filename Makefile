@@ -23,6 +23,7 @@ LIBFT				=	$(PATH_LIBS)/libft.a
 ################################################################################
 PARSER_PATH			=	parser
 EXEC_PATH			=	exec
+ENV_PATH			=	env
 TERMCAP_PATH		=	termcaps
 
 EXEC_SRCS			=	ft_env				\
@@ -44,6 +45,11 @@ PARSER_SRCS			=	array_utils			\
 						tokenizer			\
 						utils				\
 
+ENV_SRCS			=	ft_env				\
+						ft_getvar			\
+						print				\
+						ft_env_var			\
+
 TERMCAP_SRCS		=	init				\
 						edit_line			\
 						edit_line_utils		\
@@ -53,6 +59,7 @@ TERMCAP_SRCS		=	init				\
 
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
 # SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
+SRCS_BASENAME		+=	$(addprefix $(ENV_PATH)/, $(ENV_SRCS))
 SRCS_BASENAME		+=	main				\
 						signal_handling
 
@@ -111,6 +118,7 @@ $(PATH_OBJS):
 					@echo "\033[92mCreating objs folders\033[0m"
 					@mkdir -p $(PATH_OBJS)/libft
 					@mkdir -p $(PATH_OBJS)/$(PARSER_PATH)
+					@mkdir -p $(PATH_OBJS)/$(ENV_PATH)
 					@mkdir -p $(PATH_OBJS)/$(EXEC_PATH)
 					@mkdir -p $(PATH_OBJS)/$(EXEC_BUILTIN_PATH)
 					@mkdir -p $(PATH_OBJS)/$(TERMCAP_PATH)

@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_getvar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/09 13:34:18 by rbourgea          #+#    #+#             */
-/*   Updated: 2020/12/30 07:51:52 by gboucett         ###   ########.fr       */
+/*   Created: 2020/12/30 07:29:24 by gboucett          #+#    #+#             */
+/*   Updated: 2020/12/30 07:55:25 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "ft_env.h"
 
-# include "ft_defs.h"
-# include "ft_parser.h"
-# include "ft_env.h"
-// # include "ft_exec.h"
+char	**ft_find_str(char **strs, char *str)
+{
+	while (*strs)
+		if (!ft_strcmp(*strs++, str))
+			return (strs - 1);
+	return (NULL);
+}
 
-# define SIGCAUGHT 128
+char	*ft_getvar(t_env *env, char *name)
+{
+	char	**found;
 
-void	ft_sigquit(int sigquit);
-void	ft_sigint(int sigquit);
-void	ft_signalhandler_enable(void);
-void	ft_signalhandler_disable(void);
-
-extern int		g_sig;
-extern int		g_exit_code;
-extern pid_t	g_pid;
-extern t_list	*g_parsed;
-
-#endif
+	found = ft_find_str(env->names, name);
+	if (!found)
+		return (NULL);
+	return (env->values[found - env->names]);
+}

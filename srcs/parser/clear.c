@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 21:59:27 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/29 22:25:30 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/30 09:28:09 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	free_splitted(char **strs)
 {
 	char	**saved;
 
+	if (!strs)
+		return ;
 	saved = strs;
 	while (*strs)
 		free(*strs++);
