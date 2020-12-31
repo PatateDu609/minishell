@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 02:05:04 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 04:54:09 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	minishell(void)
 	}
 }
 
-int	main(int ac, char **av, char **ev)
+int	main(int ac, char **av)
 {
 	t_env		*g_env;
 
@@ -81,10 +81,13 @@ int	main(int ac, char **av, char **ev)
 	write(g_fd, "\033c\033[3J", 6);
 	write(g_tree, "\033c\033[3J", 6);
 	ft_signalhandler_enable();
-	g_env = ft_init_env(ev);
+	g_env = ft_init_env(environ);
 	if (!g_env)
 		return (1);
-	minishell();
+
+	ft_printf("result = %s\n", ft_construct_path("zsh"));
+
+	// minishell();
 	ft_free_env();
 	return (0);
 }

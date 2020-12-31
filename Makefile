@@ -26,7 +26,8 @@ EXEC_PATH			=	exec
 ENV_PATH			=	env
 TERMCAP_PATH		=	termcaps
 
-EXEC_SRCS			=	\
+EXEC_SRCS			=	signal_handling		\
+						ft_construct_path	\
 
 PARSER_SRCS			=	array_utils			\
 						check				\
@@ -57,7 +58,6 @@ SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(ENV_PATH)/, $(ENV_SRCS))
 SRCS_BASENAME		+=	main				\
-						signal_handling
 
 BONUS_BASENAME		+=	$(addprefix $(TERMCAP_PATH)/, $(addsuffix _bonus, $(TERMCAP_SRCS)))
 BONUS_BASENAME		+=	main_bonus

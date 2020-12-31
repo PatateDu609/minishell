@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 01:17:05 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 02:04:01 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 03:26:41 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	minishell(t_caps *caps)
 	}
 }
 
-int	main(int ac, char **av, char **ev)
+int	main(int ac, char **av)
 {
 	t_caps		caps;
 
@@ -63,7 +63,7 @@ int	main(int ac, char **av, char **ev)
 	(void)ac;
 	(void)av;
 	ft_signalhandler_enable();
-	g_env = ft_init_env(ev);
+	g_env = ft_init_env(environ);
 	if (!g_env)
 		return (1);
 	if (!init_termcaps(&caps))
