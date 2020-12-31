@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 18:15:38 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 20:24:50 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,5 @@ void	ft_exec(t_list *commands)
 		free(path);
 		commands = commands->next;
 	}
+	g_pid = 0;
 }
