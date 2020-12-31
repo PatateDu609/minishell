@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:50 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/26 15:37:14 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:00:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_caps
 	char	*reset;
 }	t_caps;
 
-int		init_termcaps(t_env *env, t_caps *caps);
+int		init_termcaps(t_caps *caps);
 int		init_termios(struct termios *backup);
 int		reset_terminal(struct termios *backup, t_caps *caps);
 int		ms_putchar(int c);

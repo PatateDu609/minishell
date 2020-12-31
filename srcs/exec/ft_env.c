@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 11:36:40 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/02 12:34:50 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,28 @@ t_env	*ft_env(char **env)
 	return (result);
 }
 
-void	init_paths(t_env *env)
+void	init_paths(t_env *g_env)
 {
 	char	**ev;
 
-	ev = env->env;
+	ev = g_env->env;
 	while (*ev)
 	{
 		if (!ft_strncmp(*ev, "PATH=", 5))
 		{
-			env->paths = ft_split(*ev + 5, ':');
+			g_env->paths = ft_split(*ev + 5, ':');
 			return ;
 		}
 		ev++;
 	}
-	free_splitted(env->paths);
-	env->paths = NULL;
+	free_splitted(g_env->paths);
+	g_env->paths = NULL;
 }
 
-void	free_env(t_env *env)
+void	free_env(t_env *g_env)
 {
-	free_splitted(env->env);
-	if (env->paths)
-		free_splitted(env->paths);
-	free(env);
+	free_splitted(g_env->env);
+	if (g_env->paths)
+		free_splitted(g_env->paths);
+	free(g_env);
 }

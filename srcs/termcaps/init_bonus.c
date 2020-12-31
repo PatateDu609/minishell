@@ -6,12 +6,12 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 01:00:31 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 06:28:11 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:00:41 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
-#include "ft_exec.h"
+#include "ft_env.h"
 
 int	ms_putchar(int c)
 {
@@ -19,12 +19,11 @@ int	ms_putchar(int c)
 	return (c);
 }
 
-int	init_termcaps(t_env *env, t_caps *caps)
+int	init_termcaps(t_caps *caps)
 {
 	char	*term;
 
-	(void)env;
-	// term = getvar(env, "TERM");
+	term = ft_getvar("TERM");
 	term = NULL;
 	if (!term)
 		term = ft_strdup("xterm-256color");

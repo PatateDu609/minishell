@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 23:32:00 by gboucett          #+#    #+#             */
-/*   Updated: 2020/08/20 00:13:40 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ static int	ft_check_command(char *command)
 	return (1);
 }
 
-char	*ft_construct_cmd(t_env *env, char *command)
+char	*ft_construct_cmd(t_env *g_env, char *command)
 {
 	char			*result;
 	char			*tmp;
 
 	result = NULL;
 	if (!ft_strchr(command, '/'))
-		result = ft_construct_from_name(env->paths, command);
+		result = ft_construct_from_name(g_env->paths, command);
 	else if (ft_check_command(command))
 	{
 		if (command[0] != '/')
 		{
-			tmp = getvar(env, "PWD");
+			tmp = getvar(g_env, "PWD");
 			result = ft_strjoin(tmp, "/");
 			free(tmp);
 			tmp = result;

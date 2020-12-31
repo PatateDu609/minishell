@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 03:05:52 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/22 03:58:12 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	is_builtin(char *name)
 		return (BUILTIN_DEFAULT);
 }
 
-int	exec_builtin(t_env *env, t_command *cmd, t_redirect *redirects)
+int	exec_builtin(t_env *g_env, t_command *cmd, t_redirect *redirects)
 {
 	int		id;
 	void	*tfree;
@@ -41,20 +41,20 @@ int	exec_builtin(t_env *env, t_command *cmd, t_redirect *redirects)
 	if (ft_assign(&id, is_builtin(cmd->name)) == BUILTIN_DEFAULT)
 		return (0);
 	else if (id == BUILTIN_ENV)
-		ft_print_env(env->env);
+		ft_print_env(g_env->env);
 	else if (id == BUILTIN_EXPORT)
-		ft_export(env, cmd->args);
+		ft_export(g_env, cmd->args);
 	else if (id == BUILTIN_UNSET)
-		ft_unset(env, cmd->args);
+		ft_unset(g_env, cmd->args);
 	else if (id == BUILTIN_ECHO)
 		ft_echo(cmd->args, redirects);
 	else if (id == BUILTIN_PWD)
 		ft_printf("%s\n", (tfree = getcwd(NULL, 0)));
 	else if (id == BUILTIN_CD)
-		ft_cd(env, cmd->args);
+		ft_cd(g_env, cmd->args);
 	else if (id == BUILTIN_EXIT)
 	{
-		free_env(env);
+		free_env(g_env);
 		ft_exit();
 	}
 	free(tfree);

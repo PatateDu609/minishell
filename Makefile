@@ -44,11 +44,13 @@ PARSER_SRCS			=	array_utils			\
 						size				\
 						tokenizer			\
 						utils				\
+						ft_expand_env		\
 
 ENV_SRCS			=	ft_env				\
 						ft_getvar			\
 						print				\
 						ft_env_var			\
+						ft_str_replace_var	\
 
 TERMCAP_SRCS		=	init				\
 						edit_line			\

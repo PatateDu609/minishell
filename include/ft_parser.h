@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:29:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 08:55:55 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 00:58:41 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int			ft_check_validity(char **litteral);
 int			ft_add_command(t_list **lst, char *name);
 int			ft_add_arg(t_list *lst, char *arg);
 int			ft_add_redir(t_list *lst, char *redir, char *target);
+
+void		ft_expand_env(t_list *parsed);
 
 t_list		*ft_syntax_analyser(char **tokens);
 char		**ft_split_lexical(char *str);

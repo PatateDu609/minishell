@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 12:48:41 by gboucett          #+#    #+#             */
-/*   Updated: 2020/07/27 13:03:55 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static size_t	ft_strlen_cur(char *var)
 	return (len);
 }
 
-static int	ft_modify_var(t_env *env, char *name, char *value)
+static int	ft_modify_var(t_env *g_env, char *name, char *value)
 {
 	char	**ev;
 	char	*equal;
 
-	ev = env->env;
+	ev = g_env->env;
 	equal = ft_strjoin(name, "=");
 	while (*ev)
 	{
@@ -40,8 +40,8 @@ static int	ft_modify_var(t_env *env, char *name, char *value)
 			free(equal);
 			if (!ft_strncmp(name, "PATH", ft_strlen(name)))
 			{
-				free_splitted(env->paths);
-				init_paths(env);
+				free_splitted(g_env->paths);
+				init_paths(g_env);
 			}
 			return (1);
 		}
@@ -51,7 +51,7 @@ static int	ft_modify_var(t_env *env, char *name, char *value)
 	return (0);
 }
 
-void	ft_add_var(t_env *env, char *name, char *value)
+void	ft_add_var(t_env *g_env, char *name, char *value)
 {
 	char	**ev;
 	char	**saved;
@@ -59,14 +59,14 @@ void	ft_add_var(t_env *env, char *name, char *value)
 	char	*tmp;
 	size_t	size;
 
-	if (ft_modify_var(env, name, value))
+	if (ft_modify_var(g_env, name, value))
 		return ;
-	ev = env->env;
+	ev = g_env->env;
 	saved = ev;
 	size = ft_sizeof(ev);
-	if (!ft_assign(&env->env, ft_calloc(size + 2, sizeof(char *))))
+	if (!ft_assign(&g_env->env, ft_calloc(size + 2, sizeof(char *))))
 		return ;
-	new = env->env;
+	new = g_env->env;
 	while (*ev)
 	{
 		*new = ft_strdup(*ev);
@@ -76,22 +76,22 @@ void	ft_add_var(t_env *env, char *name, char *value)
 	tmp = ft_strjoin(name, "=");
 	*new = ft_strjoin(tmp, value);
 	if (ft_strlen(name) == 4 && !ft_strncmp(name, "PATH", 4))
-		init_paths(env);
+		init_paths(g_env);
 	free(tmp);
 	free_splitted(saved);
 }
 
-void	ft_delete_var(t_env *env, char *name)
+void	ft_delete_var(t_env *g_env, char *name)
 {
 	char	**ev;
 	char	**saved;
 	char	**new;
 
-	ev = env->env;
+	ev = g_env->env;
 	saved = ev;
-	if (!ft_assign(&env->env, ft_calloc(ft_sizeof(env->env), sizeof(char *))))
+	if (!ft_assign(&g_env->env, ft_calloc(ft_sizeof(g_env->env), sizeof(char *))))
 		return ;
-	new = env->env;
+	new = g_env->env;
 	while (*ev)
 	{
 		if (ft_strlen(name) == ft_strlen_cur(*ev)
@@ -106,8 +106,8 @@ void	ft_delete_var(t_env *env, char *name)
 	}
 	if (!ft_strncmp(name, "PATH", 4))
 	{
-		free_splitted(env->paths);
-		env->paths = NULL;
+		free_splitted(g_env->paths);
+		g_env->paths = NULL;
 	}
 	free_splitted(saved);
 }

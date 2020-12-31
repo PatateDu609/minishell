@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:49:32 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/23 18:36:43 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 00:08:19 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char			*ft_substr(const char *s, unsigned int start, size_t len);
 char			*ft_strjoin(const char *s1, const char *s2);
 char			*ft_strjoin_arr(char **arr, char sep);
 char			*ft_strtrim(const char *s1, const char *set);
+char			*ft_str_replace(char *str, char *substr, char *rep);
+char			*ft_str_replace_first(char *str, char *sub, char *rep, int af);
 char			**ft_split(const char *s, char c);
 char			*ft_itoa(int n);
 char			*ft_strmapi(const char *s, char (*f)(unsigned int, char));

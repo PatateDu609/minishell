@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 01:17:05 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 06:28:23 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:04:01 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 #ifdef BONUS
 
-int	g_fd;
+int		g_fd;
+t_env	*g_env;
 
 void	ft_exit(void)
 {
@@ -22,16 +23,15 @@ void	ft_exit(void)
 	ft_putendl_fd("exit", 1);
 	if (g_parsed)
 		ft_lstclear(&g_parsed, ft_free_command);
+	ft_free_env();
 	close(g_fd);
 	exit(0);
 }
 
-void	minishell(t_env *env, t_caps *caps)
+void	minishell(t_caps *caps)
 {
 	char			*command;
 	struct termios	backup;
-
-	(void)env;
 
 	while (1)
 	{
@@ -46,7 +46,6 @@ void	minishell(t_env *env, t_caps *caps)
 		if (*command == 0)
 		{
 			free(command);
-			// free_env(env);
 			ft_exit();
 		}
 		free(command);
@@ -58,24 +57,20 @@ void	minishell(t_env *env, t_caps *caps)
 
 int	main(int ac, char **av, char **ev)
 {
-	t_env		*env;
 	t_caps		caps;
 
 	g_fd = open("/dev/pts/1", O_RDWR);
 	(void)ac;
 	(void)av;
-	(void)ev;
 	ft_signalhandler_enable();
-	// env = ft_env(ev);
-	// if (!env)
-	// 	return (1);
-	env = NULL;
-	if (!init_termcaps(env, &caps))
+	g_env = ft_init_env(ev);
+	if (!g_env)
+		return (1);
+	if (!init_termcaps(&caps))
 		return (1);
 	write(g_fd, tgetstr("cl", NULL), ft_strlen(tgetstr("cl", NULL)));
 	load_history();
-	minishell(env, &caps);
-	// free_env(env);
+	minishell(&caps);
 	close(g_fd);
 	return (0);
 }

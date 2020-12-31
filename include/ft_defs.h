@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 07:10:33 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ typedef struct s_env
 	char	**paths;
 }	t_env;
 
-extern int	g_fd;
-extern int	g_tree;
+extern int		g_fd;
+extern int		g_tree;
+extern t_env	*g_env;
 
 #endif

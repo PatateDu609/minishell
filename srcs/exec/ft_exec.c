@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 01:11:31 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/22 04:00:15 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-void	ft_exec(t_env *env, t_btree *cmd)
+void	ft_exec(t_env *g_env, t_btree *cmd)
 {
 	size_t		len;
 	t_command	*command;
@@ -25,9 +25,9 @@ void	ft_exec(t_env *env, t_btree *cmd)
 		return ;
 	command = cmd->left->item;
 	redirects = ft_ternary(cmd->right, cmd->right->item, NULL);
-	if (exec_builtin(env, command, redirects))
+	if (exec_builtin(g_env, command, redirects))
 		return ;
-	if (ft_assign(&tmp, ft_construct_cmd(env, command->name)))
+	if (ft_assign(&tmp, ft_construct_cmd(g_env, command->name)))
 		command->args[-1] = tmp;
 	else
 	{
@@ -38,7 +38,7 @@ void	ft_exec(t_env *env, t_btree *cmd)
 	g_pid = fork();
 	if (g_pid == 0)
 	{
-		execve(command->args[-1], command->args - 1, env->env);
+		execve(command->args[-1], command->args - 1, g_env->env);
 		ft_printf("minishell: %s: %s\n", command->name, strerror(errno));
 		exit(EXIT_FAILURE);
 	}

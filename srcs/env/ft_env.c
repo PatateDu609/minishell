@@ -6,35 +6,35 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 07:08:30 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 09:33:36 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:05:41 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_env.h"
 #include "ft_parser.h"
 
-void	*ft_free_env(t_env *env)
+void	*ft_free_env(void)
 {
-	free_splitted(env->names);
-	free_splitted(env->values);
-	free_splitted(env->paths);
-	free(env);
+	free_splitted(g_env->names);
+	free_splitted(g_env->values);
+	free_splitted(g_env->paths);
+	free(g_env);
 	return (NULL);
 }
 
-static int	ft_fill_paths(t_env *env)
+static int	ft_fill_paths(void)
 {
 	char	*path_val;
 
-	path_val = ft_getvar(env, "PATH");
-	env->paths = ft_split(path_val, ':');
-	if (env->paths)
+	path_val = ft_getvar("PATH");
+	g_env->paths = ft_split(path_val, ':');
+	if (g_env->paths)
 		return (1);
-	ft_free_env(env);
+	ft_free_env();
 	return (0);
 }
 
-static int	ft_fill_env(t_env *env, char **ev)
+static int	ft_fill_env(char **ev)
 {
 	char	**var;
 	char	*value;
@@ -47,39 +47,37 @@ static int	ft_fill_env(t_env *env, char **ev)
 		name = ft_strdup(*var);
 		value = ft_strjoin_arr(var + 1, '=');
 		free_splitted(var);
-		tmp = ft_strs_append_str(env->names, name);
+		tmp = ft_strs_append_str(g_env->names, name);
 		free(name);
 		if (!tmp)
-			return (ft_free_env(env) != NULL);
-		env->names = tmp;
-		tmp = ft_strs_append_str(env->values, value);
+			return (ft_free_env() != NULL);
+		g_env->names = tmp;
+		tmp = ft_strs_append_str(g_env->values, value);
 		free(value);
 		if (!tmp)
-			return (ft_free_env(env) != NULL);
-		env->values = tmp;
+			return (ft_free_env() != NULL);
+		g_env->values = tmp;
 	}
-	return (ft_fill_paths(env));
+	return (ft_fill_paths(g_env));
 }
 
 t_env	*ft_init_env(char **ev)
 {
-	t_env	*env;
-
-	env = ft_calloc(1, sizeof(t_env));
-	if (!env)
+	g_env = ft_calloc(1, sizeof(t_env));
+	if (!g_env)
 		return (NULL);
-	env->names = ft_calloc(1, sizeof(char *));
-	env->values = ft_calloc(1, sizeof(char *));
-	env->paths = NULL;
-	if (!env->names || !env->values)
+	g_env->names = ft_calloc(1, sizeof(char *));
+	g_env->values = ft_calloc(1, sizeof(char *));
+	g_env->paths = NULL;
+	if (!g_env->names || !g_env->values)
 	{
-		free(env->values);
-		free(env->names);
-		free(env->paths);
-		free(env);
+		free(g_env->values);
+		free(g_env->names);
+		free(g_env->paths);
+		free(g_env);
 		return (NULL);
 	}
-	if (!ft_fill_env(env, ev))
+	if (!ft_fill_env(ev))
 		return (NULL);
-	return (env);
+	return (g_env);
 }

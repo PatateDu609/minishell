@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 07:29:24 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 07:55:25 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ char	**ft_find_str(char **strs, char *str)
 	return (NULL);
 }
 
-char	*ft_getvar(t_env *env, char *name)
+char	*ft_getvar(char *name)
 {
 	char	**found;
 
-	found = ft_find_str(env->names, name);
+	found = ft_find_str(g_env->names, name);
 	if (!found)
 		return (NULL);
-	return (env->values[found - env->names]);
+	return (g_env->values[found - g_env->names]);
 }

@@ -6,19 +6,19 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 03:51:21 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/22 03:52:13 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-void	ft_unset(t_env *env, char **args)
+void	ft_unset(t_env *g_env, char **args)
 {
 	while (*args)
-		ft_delete_var(env, *args++);
+		ft_delete_var(g_env, *args++);
 }
 
-void	ft_export(t_env *env, char **args)
+void	ft_export(t_env *g_env, char **args)
 {
 	char	**tmp;
 	char	*val;
@@ -32,14 +32,14 @@ void	ft_export(t_env *env, char **args)
 			continue ;
 		}
 		tmp = ft_split(*args, '=');
-		ft_add_var(env, tmp[0], val);
+		ft_add_var(g_env, tmp[0], val);
 		free(val);
 		free_splitted(tmp);
 		args++;
 	}
 }
 
-void	ft_cd(t_env *env, char **args)
+void	ft_cd(t_env *g_env, char **args)
 {
 	char	*path;
 
@@ -52,7 +52,7 @@ void	ft_cd(t_env *env, char **args)
 		ft_printf("cd: %s: %s\n", strerror(errno), args[0]);
 	printf("args[0] = %s\n", args[0]);
 	path = getcwd(NULL, 0);
-	ft_add_var(env, "PWD", path);
+	ft_add_var(g_env, "PWD", path);
 	free(path);
 }
 

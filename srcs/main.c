@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 09:31:55 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:05:04 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 t_list	*g_parsed = NULL;
 int		g_tree;
 int		g_fd;
+t_env	*g_env;
 
 #ifndef BONUS
 
@@ -27,30 +28,29 @@ void	ft_exit(void)
 	ft_putendl_fd("exit", 1);
 	if (g_parsed)
 		ft_lstclear(&g_parsed, ft_free_command);
+	ft_free_env();
 	close(g_fd);
 	close(g_tree);
 	exit(0);
 }
 
-void	process_parsed(t_env *env)
+void	process_parsed(void)
 {
-	(void)env;
 	if (g_parsed)
 	{
-		printf("-------------------------------------\n");
+		dprintf(g_tree, "-------------------------------------\n");
 		ft_lstiter(g_parsed, ft_print_command);
-		printf("-------------------------------------\n");
+		dprintf(g_tree, "-------------------------------------\n");
 		// ft_exec(env, g_parsed);
 		ft_lstclear(&g_parsed, ft_free_command);
 	}
 }
 
-void	minishell(t_env *env)
+void	minishell(void)
 {
 	char		*command;
 	int			ret;
 
-	(void)env;
 	while (1)
 	{
 		ft_printf("%s", PROMPT);
@@ -60,37 +60,32 @@ void	minishell(t_env *env)
 		{
 			if (!ret)
 			{
-				ft_free_env(env);
 				free(command);
 				ft_exit();
 			}
 			continue ;
 		}
 		free(command);
-		process_parsed(env);
+		process_parsed();
 	}
 }
 
 int	main(int ac, char **av, char **ev)
 {
-	t_env		*env;
+	t_env		*g_env;
 
 	(void)ac;
 	(void)av;
-	(void)ev;
-
 	g_fd = open("/dev/pts/2", O_RDWR);
 	g_tree = open("/dev/pts/3", O_RDWR);
-
 	write(g_fd, "\033c\033[3J", 6);
 	write(g_tree, "\033c\033[3J", 6);
-
 	ft_signalhandler_enable();
-	env = ft_init_env(ev);
-	if (!env)
+	g_env = ft_init_env(ev);
+	if (!g_env)
 		return (1);
-	// minishell(env);
-	ft_free_env(env);
+	minishell();
+	ft_free_env();
 	return (0);
 }
 

@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 23:33:48 by gboucett          #+#    #+#             */
-/*   Updated: 2020/11/02 12:35:03 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-char	*getvar(t_env *env, char *var)
+char	*getvar(t_env *g_env, char *var)
 {
 	char	**splitted;
 	char	*result;
@@ -23,7 +23,7 @@ char	*getvar(t_env *env, char *var)
 		return (ft_itoa(g_exit_code));
 	result = NULL;
 	len = ft_strlen(var);
-	ev = env->env;
+	ev = g_env->env;
 	while (*ev)
 	{
 		splitted = ft_split(*ev, '=');
