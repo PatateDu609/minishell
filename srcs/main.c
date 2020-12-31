@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 04:54:09 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 16:06:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_exit(void)
 	ft_free_env();
 	close(g_fd);
 	close(g_tree);
+	ft_signalhandler_disable();
 	exit(0);
 }
 
@@ -41,7 +42,7 @@ void	process_parsed(void)
 		dprintf(g_tree, "-------------------------------------\n");
 		ft_lstiter(g_parsed, ft_print_command);
 		dprintf(g_tree, "-------------------------------------\n");
-		// ft_exec(env, g_parsed);
+		ft_exec(g_parsed);
 		ft_lstclear(&g_parsed, ft_free_command);
 	}
 }
@@ -84,10 +85,7 @@ int	main(int ac, char **av)
 	g_env = ft_init_env(environ);
 	if (!g_env)
 		return (1);
-
-	ft_printf("result = %s\n", ft_construct_path("zsh"));
-
-	// minishell();
+	minishell();
 	ft_free_env();
 	return (0);
 }

@@ -28,6 +28,8 @@ TERMCAP_PATH		=	termcaps
 
 EXEC_SRCS			=	signal_handling		\
 						ft_construct_path	\
+						ft_exec				\
+						ft_pipe				\
 
 PARSER_SRCS			=	array_utils			\
 						check				\
@@ -46,6 +48,7 @@ ENV_SRCS			=	ft_env				\
 						print				\
 						ft_env_var			\
 						ft_str_replace_var	\
+						ft_merge_env		\
 
 TERMCAP_SRCS		=	init				\
 						edit_line			\

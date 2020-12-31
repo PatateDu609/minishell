@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:23:51 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 05:00:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 13:03:47 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_construct_path(char *name)
 	char	*parts[3];
 
 	if (ft_strchr(name, '/'))
-		return (name);
+		return (ft_strdup(name));
 	folder = ft_find_file(name);
 	if (!folder)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 01:18:10 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 14:15:17 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_command
 	char				**args;
 	t_type				type;
 	t_redirect			**redirects;
+	int					pipe[2];
 }	t_command;
 
 typedef struct s_env
@@ -93,10 +94,13 @@ typedef struct s_env
 	char	**names;
 	char	**values;
 	char	**paths;
+	char	**merged;
 }	t_env;
 
 extern int		g_fd;
 extern int		g_tree;
 extern t_env	*g_env;
+extern int		g_exit_code;
+extern pid_t	g_pid;
 
 #endif

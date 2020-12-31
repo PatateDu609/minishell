@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 07:08:39 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 01:59:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 16:04:47 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	*ft_free_env(void);
 int		ft_modify_var(char *name, char *value);
 int		ft_add_var(char *var);
 int		ft_delete_var(char *name);
+void	ft_merge_env(void);
 
 char	*ft_str_replace_var(char *str);
 

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 07:08:30 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 02:16:33 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 13:24:14 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	*ft_free_env(void)
 	free_splitted(g_env->names);
 	free_splitted(g_env->values);
 	free_splitted(g_env->paths);
+	free_splitted(g_env->merged);
 	free(g_env);
 	return (NULL);
 }
@@ -69,6 +70,7 @@ t_env	*ft_init_env(char **ev)
 	g_env->names = ft_calloc(1, sizeof(char *));
 	g_env->values = ft_calloc(1, sizeof(char *));
 	g_env->paths = NULL;
+	g_env->merged = NULL;
 	if (!g_env->names || !g_env->values)
 	{
 		free(g_env->values);
