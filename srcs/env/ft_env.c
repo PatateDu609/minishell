@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 07:08:30 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 02:05:41 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:16:33 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_fill_env(char **ev)
 			return (ft_free_env() != NULL);
 		g_env->values = tmp;
 	}
-	return (ft_fill_paths(g_env));
+	return (ft_fill_paths());
 }
 
 t_env	*ft_init_env(char **ev)

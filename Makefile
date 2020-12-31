@@ -26,13 +26,7 @@ EXEC_PATH			=	exec
 ENV_PATH			=	env
 TERMCAP_PATH		=	termcaps
 
-EXEC_SRCS			=	ft_env				\
-						ft_modify_env		\
-						ft_construct_path	\
-						getvar				\
-						ft_exec				\
-						ft_exec_builtins	\
-						ft_builtins			\
+EXEC_SRCS			=	\
 
 PARSER_SRCS			=	array_utils			\
 						check				\
@@ -60,7 +54,7 @@ TERMCAP_SRCS		=	init				\
 
 
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
-# SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
+SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(ENV_PATH)/, $(ENV_SRCS))
 SRCS_BASENAME		+=	main				\
 						signal_handling
