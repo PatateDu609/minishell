@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 16:04:21 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 18:15:38 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	ft_execute_cmd(t_list *lst, char *path)
 	{
 		ft_redirect_pipe(lst);
 		execve(path, command->args, g_env->merged);
-		printf("(printed with printf)minishell: execve marche po");
+		printf("(printed with printf)minishell: execve marche po\n");
+		exit(1);
 	}
 }
 

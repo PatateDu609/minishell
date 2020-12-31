@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 11:16:17 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 01:03:04 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 19:46:15 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*ft_get_name(char *str)
 	str++;
 	if (ft_isdigit(*str))
 		return (ft_substr(str - 1, 0, 2));
+	if (*str == '?')
+		return (ft_strdup("$?"));
 	while (str[len] && (ft_isalnum(str[len]) || str[len] == '_'))
 		len++;
 	result = ft_substr(str, 0, len);
@@ -36,15 +38,17 @@ char	*ft_get_value(char *str)
 	char	*val;
 
 	if (!str)
-		return (str);
+		return (ft_strdup(str));
 	else if (ft_isdigit(str[1]))
-		return ("");
+		return (ft_strdup(""));
 	else if (!str[1])
-		return (str);
+		return (ft_strdup(str));
+	else if (str[1] == '?')
+		return (ft_itoa(g_exit_code));
 	val = ft_getvar(str + 1);
 	if (!val)
-		return ("");
-	return (val);
+		return (ft_strdup(""));
+	return (ft_strdup(val));
 }
 
 char	*ft_str_join_last(char *str, char *result)
@@ -75,6 +79,7 @@ char	*ft_str_replace_var(char *str)
 		value = ft_get_value(name);
 		tmp[0] = result;
 		tmp[1] = ft_str_replace_first(str, name, value, 0);
+		free(value);
 		result = ft_strjoin(result, tmp[1]);
 		free(tmp[0]);
 		free(tmp[1]);

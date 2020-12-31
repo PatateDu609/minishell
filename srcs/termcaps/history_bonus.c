@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:50:58 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 06:26:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 19:53:07 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	read_history(int fd, char **current)
 		if (g_last + 1 == HISTORY_SIZE)
 			break ;
 		res = get_next_line(fd, current);
+		if (res == 0)
+			free(*current);
 	}
 }
 

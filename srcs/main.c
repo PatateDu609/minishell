@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 16:06:10 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 19:57:53 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ void	minishell(void)
 		ft_printf("%s", PROMPT);
 		ret = get_next_line(STDIN_FILENO, &command);
 		g_parsed = ft_ternary(*command != 0, ft_parser(command), NULL);
+		dprintf(g_fd, "ret = %d, command = `%s`\n", ret, command);
 		if (*command == 0)
 		{
+			free(command);
 			if (!ret)
 			{
-				free(command);
 				ft_exit();
 			}
 			continue ;
