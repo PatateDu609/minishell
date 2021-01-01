@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 04:31:34 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 05:09:47 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 16:54:38 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ void	ft_env(t_command *command)
 	builtins = g_env->merged;
 	while (*builtins)
 		ft_printf("%s\n", *builtins++);
+	g_exit_code = 0;
 }

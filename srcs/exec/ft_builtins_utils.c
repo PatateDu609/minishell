@@ -6,11 +6,36 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 03:03:57 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 05:31:41 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 16:50:33 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
+
+static int	ft_check_arg(char *arg)
+{
+	if (*arg++ != '-')
+		return (0);
+	while (*arg && *arg == 'n')
+		arg++;
+	return (!*arg);
+}
+
+size_t	ft_get_echo_start(char **args)
+{
+	size_t	i;
+
+	i = 1;
+	args++;
+	while (*args)
+	{
+		if (ft_check_arg(*args++))
+			i++;
+		else
+			break ;
+	}
+	return (i);
+}
 
 int	ft_get_builtin_id(char *name)
 {
@@ -29,24 +54,6 @@ int	ft_get_builtin_id(char *name)
 	if (!ft_strcmp(name, "exit"))
 		return (BUILTIN_EXIT);
 	return (BUILTIN_DEFAULT);
-}
-
-size_t	ft_get_echo_start(char **args)
-{
-	char	*found;
-	size_t	i;
-
-	i = 1;
-	args++;
-	while (*args)
-	{
-		found = ft_strnstr(*args, "-n", ft_strlen(*args));
-		if (found && found == *args++)
-			i++;
-		else
-			break ;
-	}
-	return (i);
 }
 
 void	ft_init_builtin(t_list *lst)

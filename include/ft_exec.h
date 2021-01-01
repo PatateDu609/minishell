@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:13:36 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 05:22:22 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 16:51:54 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t	ft_get_echo_start(char **args);
 int		ft_check_shell_name(char *name);
 
 void	ft_init_builtin(t_list *lst);
-void	ft_execute_builtin(t_list *lst, void (*builtins)(t_command *));
+void	ft_execute_builtin(t_list *lst, t_builtin_func builtin);
 
 void	ft_apply_exit(void);
 

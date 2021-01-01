@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 04:57:50 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 05:01:57 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 16:54:20 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	ft_echo(t_command *command)
 		ft_printf(" %s", command->args[start++]);
 	if (newline)
 		ft_printf("\n");
+	g_exit_code = 0;
 }
