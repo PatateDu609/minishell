@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 05:21:07 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 23:21:43 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int ac, char **av)
 	g_tree = open("/dev/pts/3", O_RDWR);
 	write(g_fd, "\033c\033[3J", 6);
 	write(g_tree, "\033c\033[3J", 6);
-	ft_signalhandler_enable();
+	// ft_signalhandler_enable();
 	g_env = ft_init_env(environ);
 	if (!g_env)
 		return (1);

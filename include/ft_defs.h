@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 05:31:28 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 23:14:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,18 @@ typedef struct s_redirect
 {
 	int		type;
 	char	*filename;
+	int		fd;
 }	t_redirect;
 
 typedef struct s_command
 {
-	char				**args;
-	t_type				type;
-	t_redirect			**redirects;
-	int					pipe[2];
+	char		*name;
+	char		**args;
+	t_type		type;
+	t_redirect	**redirects;
+	int			pipe[2];
+	char		*input;
+	char		*output;
 }	t_command;
 
 typedef struct s_env

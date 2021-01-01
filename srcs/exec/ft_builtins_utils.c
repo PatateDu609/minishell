@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 03:03:57 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 16:50:33 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 19:55:02 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_init_builtin(t_list *lst)
 	builtins[BUILTIN_UNSET] = ft_unset;
 	builtins[BUILTIN_EXPORT] = ft_export;
 	builtins[BUILTIN_EXIT] = ft_exit;
-	id = ft_get_builtin_id(((t_command *)lst->content)->args[0]);
+	id = ft_get_builtin_id(((t_command *)lst->content)->name);
 	if (id == BUILTIN_DEFAULT)
 		return ;
 	ft_execute_builtin(lst, builtins[id]);

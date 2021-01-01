@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:13:36 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 16:51:54 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 23:35:07 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_env(t_command *command);
 void	ft_exit(t_command *command);
 
 char	*ft_construct_path(char *name);
+
+void	ft_init_exec(t_list *list);
 void	ft_exec(t_list *commands);
 
 #endif

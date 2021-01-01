@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 21:56:12 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/29 21:59:13 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 22:33:27 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	ft_print_command(void *cmdv)
 
 int	ft_print_error(char *error)
 {
-	write(2, "minishell: syntax error near unexpected token `", 47);
+	write(2, program_invocation_short_name,
+		ft_strlen(program_invocation_short_name));
+	write(2, ": syntax error near unexpected token `", 47);
 	write(2, error, ft_strlen(error));
 	write(2, "'\n", 2);
 	return (0);

@@ -30,6 +30,7 @@ EXEC_SRCS			=	signal_handling		\
 						ft_construct_path	\
 						ft_exec				\
 						ft_pipe				\
+						ft_init				\
 						error				\
 						ft_builtins_dir		\
 						ft_builtins_exit	\

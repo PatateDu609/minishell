@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 21:59:27 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 09:28:09 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 22:22:18 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ void	free_splitted(char **strs)
 	free(saved);
 }
 
+static void	ft_free_redir(t_redirect *redir)
+{
+	if (redir->fd != -1)
+		close(redir->fd);
+	free(redir->filename);
+	free(redir->content);
+	free(redir);
+}
+
 void	ft_free_command(void *cmdv)
 {
 	t_command	*cmd;
@@ -33,13 +42,9 @@ void	ft_free_command(void *cmdv)
 	free_splitted(cmd->args);
 	saved = cmd->redirects;
 	if (saved)
-	{
 		while (*saved)
-		{
-			free((*saved)->filename);
-			free(*saved++);
-		}
-	}
+			ft_free_redir(*saved++);
 	free(cmd->redirects);
+	free(cmd->name);
 	free(cmd);
 }

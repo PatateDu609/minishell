@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:17:20 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/29 22:24:03 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 23:03:23 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	ft_add_redir(t_list *lst, char *redir, char *target)
 		return (0);
 	new->filename = target;
 	new->type = ft_is_redirect(redir);
+	new->fd = -1;
 	if (cmd->redirects)
 		tmp = ft_append_redir(cmd->redirects, new);
 	else

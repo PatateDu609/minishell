@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 05:25:24 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 23:35:17 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-void	ft_execute_cmd(t_list *lst, char *path)
+static void	ft_execute_cmd(t_list *lst)
 {
 	int			status;
 	int			pipe_open;
@@ -33,43 +33,28 @@ void	ft_execute_cmd(t_list *lst, char *path)
 	else
 	{
 		ft_redirect_pipe(lst);
-		execve(path, command->args, g_env->merged);
+		execve(command->name, command->args, g_env->merged);
 		printf("(printed with printf)minishell: execve marche po\n");
 		exit(1);
 	}
 }
 
-void	ft_init_cmd(t_list *commands, int *valid)
-{
-	t_command	*command;
-	char		*path;
-
-	command = (t_command *)commands->content;
-	path = ft_construct_path(command->args[0]);
-	if (path && *valid)
-		ft_execute_cmd(commands, path);
-	else if (!path)
-	{
-		*valid = 0;
-		ft_print_error_exec(command->args[0]);
-	}
-	free(path);
-}
-
 void	ft_exec(t_list *commands)
 {
 	t_command	*command;
-	int			valid;
 
-	valid = 1;
+	ft_init_exec(commands);
 	while (commands)
 	{
 		command = (t_command *)commands->content;
-		ft_merge_env();
-		if (ft_get_builtin_id(command->args[0]) != BUILTIN_DEFAULT)
-			ft_init_builtin(commands);
-		else
-			ft_init_cmd(commands, &valid);
+		if (command->name)
+		{
+			ft_merge_env();
+			if (ft_get_builtin_id(command->name) != BUILTIN_DEFAULT)
+				ft_init_builtin(commands);
+			else
+				ft_execute_cmd(commands);
+		}
 		commands = commands->next;
 	}
 	g_pid = 0;
