@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 20:24:50 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 02:05:34 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	ft_execute_cmd(t_list *lst, char *path)
 	ft_open_pipe(lst, &pipe_open);
 	g_pid = fork();
 	if (g_pid == -1)
-	{
-		// TODO: error processing
-		return ;
-	}
+		ft_print_error_exec("fork");
 	else if (g_pid)
 	{
 		waitpid(g_pid, &status, 0);
@@ -46,14 +43,21 @@ void	ft_exec(t_list *commands)
 {
 	t_command	*command;
 	char		*path;
+	int			valid;
 
+	valid = 1;
 	while (commands)
 	{
 		command = (t_command *)commands->content;
 		ft_merge_env();
 		path = ft_construct_path(command->args[0]);
-		if (path)
+		if (path && valid)
 			ft_execute_cmd(commands, path);
+		else if (!path)
+		{
+			valid = 0;
+			ft_print_error_exec(command->args[0]);
+		}
 		free(path);
 		commands = commands->next;
 	}

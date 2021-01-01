@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:13:36 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 16:06:36 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 01:27:15 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "ft_env.h"
 
 # define SIGCAUGHT 128
+
+void	ft_print_error_exec(char *pathname);
 
 void	ft_sigquit(int sigquit);
 void	ft_sigint(int sigquit);

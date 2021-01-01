@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:00:47 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 06:22:43 by gboucett         ###   ########.fr       */
+/*   Updated: 2020/12/31 22:01:19 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ int	ft_check_validity(char **litteral)
 			break ;
 	}
 	if (*litteral)
+	{
+		free(op);
 		return (ft_print_error(*(litteral - 1)));
+	}
 	return (ft_check_last(*(litteral - 1), op, len));
 }

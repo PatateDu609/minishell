@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:58:34 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 16:03:38 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 02:16:58 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_open_pipe(t_list *list, int *pipe_open)
 	if (command->type == PIPE || (prev && prev->type == PIPE))
 	{
 		if (pipe(command->pipe))
-			perror("pipe(perror printed)");
+			ft_print_error_exec("pipe");
 		*pipe_open = 1;
 	}
 }
@@ -60,12 +60,12 @@ void	ft_redirect_pipe(t_list *list)
 		prev = (t_command *)list->previous->content;
 	if (command->type == PIPE && dup2(command->pipe[1], 1) < 0)
 	{
-		perror("dup2(perror printed)");
+		ft_print_error_exec("dup2");
 		exit(1);
 	}
 	if (prev && prev->type == PIPE && dup2(prev->pipe[0], 0) < 0)
 	{
-		perror("dup2(perror printed)");
+		ft_print_error_exec("dup2");
 		exit(1);
 	}
 }

@@ -30,6 +30,7 @@ EXEC_SRCS			=	signal_handling		\
 						ft_construct_path	\
 						ft_exec				\
 						ft_pipe				\
+						error				\
 
 PARSER_SRCS			=	array_utils			\
 						check				\

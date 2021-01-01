@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:23:51 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 13:03:47 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 01:59:36 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,46 @@ static char	*ft_find_file(const char *filename)
 	return (NULL);
 }
 
+int	ft_check_file(char *path, int to_free)
+{
+	struct stat	st;
+
+	errno = 0;
+	printf("path = %s\n", path);
+	if (stat(path, &st) != 0)
+		errno = ENOENT;
+	if (!errno && !S_ISREG(st.st_mode))
+		errno = EISDIR;
+	if (!errno && !(st.st_mode & S_IXUSR))
+		errno = EACCES;
+	if (errno && to_free)
+		free(path);
+	return (!errno);
+}
+
 char	*ft_construct_path(char *name)
 {
-	char	*folder;
-	char	*parts[3];
+	char		*folder;
+	char		*parts[3];
+	char		*result;
 
 	if (ft_strchr(name, '/'))
-		return (ft_strdup(name));
+	{
+		if (ft_check_file(name, 0))
+			return (ft_strdup(name));
+		return (NULL);
+	}
 	folder = ft_find_file(name);
 	if (!folder)
+	{
+		errno = ENOENT;
 		return (NULL);
+	}
 	parts[0] = folder;
 	parts[1] = name;
 	parts[2] = NULL;
-	return (ft_strjoin_arr(parts, '/'));
+	result = ft_strjoin_arr(parts, '/');
+	if (!ft_check_file(result, 1))
+		return (NULL);
+	return (result);
 }
