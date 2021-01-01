@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 01:17:05 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 19:51:31 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 04:54:25 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int		g_fd;
 t_env	*g_env;
 
-void	ft_exit(void)
+void	ft_apply_exit(void)
 {
 	write_commands();
 	ft_putendl_fd("exit", 1);
@@ -25,7 +25,7 @@ void	ft_exit(void)
 		ft_lstclear(&g_parsed, ft_free_command);
 	ft_free_env();
 	close(g_fd);
-	exit(0);
+	exit(g_exit_code);
 }
 
 void	minishell(t_caps *caps)
@@ -45,7 +45,7 @@ void	minishell(t_caps *caps)
 		if (*command == 0)
 		{
 			free(command);
-			ft_exit();
+			ft_apply_exit();
 		}
 		free(command);
 		dprintf(g_tree, "-------------------------------------\n");

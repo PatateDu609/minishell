@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 14:15:17 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 05:31:28 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_DEFS_H
 
 # define _GNU_SOURCE
-// #include <features.h>
 # include <sys/types.h>
 # include <dirent.h>
 # include <signal.h>
@@ -28,31 +27,6 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include "libft.h"
-
-# define COMMAND_STR				"COMMAND"
-# define REDIRECTION_STR			"REDIRECT"
-# define ARGUMENT_STR				"ARGUMENT"
-# define PIPELINE_STR				"PIPELINE"
-# define SEPARATOR_STR				"SEPARATOR"
-
-# define PARSER_TOKEN_CMD			0
-# define PARSER_TOKEN_ARGS			1
-# define PARSER_TOKEN_REDIRECT		2
-# define PARSER_TOKEN_PIPE			3
-
-# ifndef BONUS
-#  define PARSER_TOKEN_SEPARATOR	4
-# else
-// #  define PARSER_TOKEN_OPERATOR		4
-#  define PARSER_TOKEN_SEPARATOR	4
-# endif
-
-# define REDIRECT_TYPE_IN			0 //<
-# define REDIRECT_TYPE_OUT			1 //>>
-# define REDIRECT_TYPE_OUT_FLUSH	2 //>
-# ifdef BONUS
-#  define REDIRECT_TYPE_HERE_DOC	3 //<<
-# endif
 
 # define BUILTIN_DEFAULT	-1
 # define BUILTIN_ECHO		0
@@ -96,6 +70,8 @@ typedef struct s_env
 	char	**paths;
 	char	**merged;
 }	t_env;
+
+typedef void	(*t_builtin_func)(t_command *);
 
 extern int		g_fd;
 extern int		g_tree;

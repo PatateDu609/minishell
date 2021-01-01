@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 19:57:53 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 05:21:07 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,15 @@ t_env	*g_env;
 
 #ifndef BONUS
 
-void	ft_exit(void)
+void	ft_apply_exit(void)
 {
-	ft_putendl_fd("exit", 1);
 	if (g_parsed)
 		ft_lstclear(&g_parsed, ft_free_command);
 	ft_free_env();
 	close(g_fd);
 	close(g_tree);
 	ft_signalhandler_disable();
-	exit(0);
+	exit(g_exit_code);
 }
 
 void	process_parsed(void)
@@ -57,13 +56,13 @@ void	minishell(void)
 		ft_printf("%s", PROMPT);
 		ret = get_next_line(STDIN_FILENO, &command);
 		g_parsed = ft_ternary(*command != 0, ft_parser(command), NULL);
-		dprintf(g_fd, "ret = %d, command = `%s`\n", ret, command);
 		if (*command == 0)
 		{
 			free(command);
 			if (!ret)
 			{
-				ft_exit();
+				ft_putendl_fd("exit", 1);
+				ft_apply_exit();
 			}
 			continue ;
 		}

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:39:12 by rbourgea          #+#    #+#             */
-/*   Updated: 2020/12/31 02:46:52 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 04:55:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_sigquit(int sig)
 	}
 	kill(g_pid, g_exit_code);
 	g_sig = SIGCAUGHT + sig;
+	g_exit_code = g_sig;
 }
 
 void	ft_sigint(int sig)

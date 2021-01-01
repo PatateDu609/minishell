@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.h                                           :+:      :+:    :+:   */
+/*   ft_builtins_dir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/30 07:08:39 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 05:14:54 by gboucett         ###   ########.fr       */
+/*   Created: 2021/01/01 03:35:08 by gboucett          #+#    #+#             */
+/*   Updated: 2021/01/01 05:15:42 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ENV_H
-# define FT_ENV_H
+#include "ft_exec.h"
 
-# include "ft_defs.h"
+void	ft_cd(t_command *command)
+{
+	char	*cwd;
 
-void	ft_print_env(void);
+	if (!command->args[1])
+		return ;
+	if (chdir(command->args[1]))
+		ft_print_error_builtins("cd", command->args[1]);
+	cwd = getcwd(NULL, 0);
+	ft_modify_var(ft_strdup("PWD"), cwd);
+}
 
-t_env	*ft_init_env(char **ev);
-char	**ft_find_str(char **strs, char *str);
-char	*ft_getvar(char *name);
-void	*ft_free_env(void);
-
-int		ft_modify_var(char *name, char *value);
-int		ft_add_var(char *var);
-int		ft_delete_var(char *name);
-void	ft_merge_env(void);
-
-char	*ft_str_replace_var(char *str);
-
-#endif
+void	ft_pwd(t_command *command)
+{
+	(void)command;
+	ft_printf("%s\n", ft_getvar("PWD"));
+}

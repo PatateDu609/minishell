@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:23:51 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 01:59:36 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/01 05:11:12 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	ft_check_file(char *path, int to_free)
 	struct stat	st;
 
 	errno = 0;
-	printf("path = %s\n", path);
 	if (stat(path, &st) != 0)
 		errno = ENOENT;
 	if (!errno && !S_ISREG(st.st_mode))

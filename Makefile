@@ -31,6 +31,12 @@ EXEC_SRCS			=	signal_handling		\
 						ft_exec				\
 						ft_pipe				\
 						error				\
+						ft_builtins_dir		\
+						ft_builtins_exit	\
+						ft_builtins_env		\
+						ft_builtins_echo	\
+						ft_builtins			\
+						ft_builtins_utils	\
 
 PARSER_SRCS			=	array_utils			\
 						check				\
