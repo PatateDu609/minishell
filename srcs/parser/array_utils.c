@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:19:09 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 09:06:35 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/02 00:17:57 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	**ft_strs_append_str(char **strs, char *str)
 	size_t	len1;
 	char	**result;
 
+	if (!str)
+		str = "";
 	len1 = ft_size_splitted(strs);
 	result = ft_copy_splitted(strs, len1 + 1);
 	if (!result)

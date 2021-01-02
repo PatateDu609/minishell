@@ -6,11 +6,22 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 04:31:34 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 16:54:38 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/02 00:09:43 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
+
+static void	ft_export_var(char *arg)
+{
+	char	*result;
+
+	if (ft_strchr(arg, '='))
+		ft_add_var(arg);
+	result = ft_strjoin(arg, "=");
+	ft_add_var(arg);
+	free(result);
+}
 
 void	ft_export(t_command *command)
 {
@@ -21,7 +32,7 @@ void	ft_export(t_command *command)
 	while (*args)
 	{
 		if (ft_check_shell_name(*args))
-			ft_add_var(*args);
+			ft_export_var(*args);
 		else
 		{
 			g_exit_code = 1;
