@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 23:35:17 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/02 21:46:57 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	ft_execute_cmd(t_list *lst)
 	else
 	{
 		ft_redirect_pipe(lst);
+		ft_redirect_in(command);
 		execve(command->name, command->args, g_env->merged);
 		printf("(printed with printf)minishell: execve marche po\n");
 		exit(1);
@@ -49,6 +50,7 @@ void	ft_exec(t_list *commands)
 		command = (t_command *)commands->content;
 		if (command->name)
 		{
+			ft_init_redir(command);
 			ft_merge_env();
 			if (ft_get_builtin_id(command->name) != BUILTIN_DEFAULT)
 				ft_init_builtin(commands);
