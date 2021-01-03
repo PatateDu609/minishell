@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 16:41:54 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 00:37:24 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 01:41:22 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,40 @@ void	ft_redirect_in(t_command *command)
 		exit(0);
 	}
 	close(red[1]);
+}
+
+static void	ft_prep_redir_out(int red[2])
+{
+	if (pipe(red))
+	{
+		ft_print_error_exec("pipe");
+		exit(1);
+	}
+	if (dup2(red[1], 1) < 0)
+	{
+		ft_print_error_exec("dup2");
+		exit(1);
+	}
+}
+
+void	ft_redirect_out(t_command *command)
+{
+	int		red[2];
+	pid_t	pid;
+	char	*output;
+
+	if (command->out != 1)
+		return ;
+	ft_prep_redir_out(red);
+	close(red[1]);
+	pid = fork();
+	if (pid == 0)
+	{
+		close(1);
+		output = ft_load_pipe(red[0]);
+		ft_apply_redir_out(command, output);
+		close(red[0]);
+		exit(0);
+	}
+	close(red[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 23:51:13 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 00:09:43 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 01:05:30 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_apply_redir_out(t_command *command, char *output)
 		if ((*redirs)->type == 1)
 		{
 			redirs++;
-			continue;
+			continue ;
 		}
 		fd = ft_open(*redirs);
 		write(fd, output, outlen);

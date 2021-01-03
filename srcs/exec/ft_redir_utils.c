@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 15:29:45 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 00:37:18 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 01:40:19 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ int	ft_check_file(t_redirect *redir)
 	return (1);
 }
 
+static void	*ft_error_while_read(t_redirect *redir, char *result)
+{
+	ft_print_error_exec(redir->filename);
+	free(result);
+	return (NULL);
+}
+
 char	*ft_load_file(t_redirect *redir)
 {
 	char	*result;
@@ -48,22 +55,32 @@ char	*ft_load_file(t_redirect *redir)
 
 	fd = ft_open(redir);
 	if (fd == -1)
-	{
-		ft_print_error_exec(redir->filename);
 		return (NULL);
-	}
 	ret = 1;
 	result = NULL;
 	while (ret > 0)
 	{
 		ret = read(fd, buffer, 4095);
 		if (ret == -1)
-		{
-			ft_print_error_exec(redir->filename);
-			free(result);
-			return (NULL);
-		}
+			return (ft_error_while_read(redir, result));
 		buffer[ret] = 0;
+		tmp = result;
+		result = ft_strjoin(result, buffer);
+		free(tmp);
+	}
+	return (result);
+}
+
+char	*ft_load_pipe(int fdin)
+{
+	char	*result;
+	char	*tmp;
+	char	buffer[2];
+
+	result = NULL;
+	while (read(fdin, buffer, 1) == 1)
+	{
+		buffer[1] = 0;
 		tmp = result;
 		result = ft_strjoin(result, buffer);
 		free(tmp);
