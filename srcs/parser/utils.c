@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:13:40 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 06:17:47 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 23:57:03 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_is_operator(char *str, char **op)
 {
 	while (*op)
 	{
-		if (ft_strnstr(str, *op++, ft_strlen(str)))
+		if (ft_strstr_op(str, *op++))
 			return (1);
 	}
 	return (0);
