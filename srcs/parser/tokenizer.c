@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:02:25 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 15:02:41 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 15:08:23 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@ size_t	ft_count_tokens(char *str, char **op)
 
 	saved = str;
 	tokens = (ft_find_next_op(str, op, NULL) != str);
-	// dprintf(g_fd, "Yep : str = %s, tokens = %ld\n", str, tokens);
 	while (*str)
 	{
 		found = ft_find_next_op(str, op, &len);
 		if (found)
 		{
 			tokens += 1 + (str - found != 0);
-			// dprintf(g_fd, "Yo : str = %s, tokens = %ld\n", str, tokens);
 			str = found + len;
 		}
 		else
@@ -38,7 +36,6 @@ size_t	ft_count_tokens(char *str, char **op)
 		tokens--;
 	if (ft_strlen(str) && ft_strlen(str) != ft_strlen(saved))
 		tokens++;
-	dprintf(g_fd, "FINAL : str = `%s`(len = %ld), tokens = %ld\n", str, ft_strlen(str), tokens);
 	return (tokens);
 }
 
