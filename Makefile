@@ -31,7 +31,8 @@ EXEC_SRCS			=	signal_handling		\
 						ft_exec				\
 						ft_pipe				\
 						ft_init				\
-						ft_init_redir		\
+						ft_redir_utils		\
+						ft_apply_redir		\
 						ft_redirect			\
 						error				\
 						ft_builtins_dir		\

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:13:36 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/02 21:46:38 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 00:38:19 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ void	ft_sigint(int sigquit);
 void	ft_signalhandler_enable(void);
 void	ft_signalhandler_disable(void);
 
+void	ft_apply_redir_in(t_command *command, int fdout);
+void	ft_apply_redir_out(t_command *command, char *output);
+int		ft_open(t_redirect *redir);
 void	ft_redirect_in(t_command *command);
+
+char	*ft_load_file(t_redirect *redir);
+int		ft_check_file(t_redirect *redir);
 
 void	ft_open_pipe(t_list *list, int *pipe_open);
 void	ft_close_pipe(t_list *list, int pipe_open);

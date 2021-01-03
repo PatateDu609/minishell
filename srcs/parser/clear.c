@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 21:59:27 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/02 16:37:46 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 00:38:37 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,5 @@ void	ft_free_command(void *cmdv)
 			ft_free_redir(*saved++);
 	free(cmd->redirects);
 	free(cmd->name);
-	free(cmd->input);
 	free(cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:23:51 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 05:11:12 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 00:04:08 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*ft_find_file(const char *filename)
 	return (NULL);
 }
 
-int	ft_check_file(char *path, int to_free)
+int	ft_check_executable_file(char *path, int to_free)
 {
 	struct stat	st;
 
@@ -78,7 +78,7 @@ char	*ft_construct_path(char *name)
 
 	if (ft_strchr(name, '/'))
 	{
-		if (ft_check_file(name, 0))
+		if (ft_check_executable_file(name, 0))
 			return (ft_strdup(name));
 		return (NULL);
 	}
@@ -92,7 +92,7 @@ char	*ft_construct_path(char *name)
 	parts[1] = name;
 	parts[2] = NULL;
 	result = ft_strjoin_arr(parts, '/');
-	if (!ft_check_file(result, 1))
+	if (!ft_check_executable_file(result, 1))
 		return (NULL);
 	return (result);
 }
