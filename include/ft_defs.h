@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/02 23:43:22 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 21:29:35 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ extern int		g_tree;
 extern t_env	*g_env;
 extern int		g_exit_code;
 extern pid_t	g_pid;
+extern int		g_sig;
 
 #endif

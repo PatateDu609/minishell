@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 20:48:49 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 21:30:09 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_exec(t_list *commands)
 	while (commands)
 	{
 		command = (t_command *)commands->content;
+		if (g_sig != 0)
+			break ;
 		if (command->name)
 		{
 			ft_init_redir(command);
@@ -61,4 +63,5 @@ void	ft_exec(t_list *commands)
 		commands = commands->next;
 	}
 	g_pid = 0;
+	g_sig = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 21:56:12 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 20:54:54 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 21:32:34 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_print_splitted(char **strs)
 
 	i = 0;
 	while (strs[i])
-		printf("%s\n", strs[i++]);
+		ft_printf("%s\n", strs[i++]);
 }
 
 void	ft_print_redirs(t_redirect **redirs)
