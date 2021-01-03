@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 01:21:59 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 04:53:19 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 21:18:52 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_print_error_exec(char *pathname)
 	write(2, "\n", 1);
 }
 
-void	ft_print_error_builtins(char *builtin, char *arg)
+void	ft_print_error_builtins(char *builtin, char *arg, int err)
 {
 	char	*error;
 
@@ -37,8 +37,11 @@ void	ft_print_error_builtins(char *builtin, char *arg)
 	write(2, builtin, ft_strlen(builtin));
 	write(2, ": ", 2);
 	write(2, arg, ft_strlen(arg));
-	write(2, ": ", 2);
-	write(2, error, ft_strlen(error));
+	if (err)
+	{
+		write(2, ": ", 2);
+		write(2, error, ft_strlen(error));
+	}
 	write(2, "\n", 1);
 }
 

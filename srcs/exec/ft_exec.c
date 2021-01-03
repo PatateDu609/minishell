@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 01:05:36 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 20:48:49 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_exec(t_list *commands)
 		if (command->name)
 		{
 			ft_init_redir(command);
-			ft_merge_env();
+			ft_merge_env(NULL);
 			if (ft_get_builtin_id(command->name) != BUILTIN_DEFAULT)
 				ft_init_builtin(commands);
 			else

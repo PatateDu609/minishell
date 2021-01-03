@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:13:36 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 01:08:10 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 21:16:53 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define SIGCAUGHT 128
 
-void	ft_print_error_builtins(char *builtin, char *arg);
+void	ft_print_error_builtins(char *builtin, char *arg, int err);
 void	ft_print_error_exec(char *pathname);
 void	ft_print_error_env(char *builtin, char *var);
 
