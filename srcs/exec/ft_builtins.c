@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 05:02:30 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 23:16:42 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 23:41:00 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	ft_execute_builtin(t_list *lst, t_builtin_func builtin)
 	command = (t_command *)lst->content;
 	ft_open_pipe(lst, &pipe_open);
 	redir = command->in || command->out;
-	(void)builtin;
-	dprintf(g_fd, "name = %s, pipe_open = redir = %d\n", command->name, redir);
 	if (!pipe_open && !redir)
 		builtin(command);
 	else
