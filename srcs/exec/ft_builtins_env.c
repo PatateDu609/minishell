@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 04:31:34 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 21:18:13 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 22:15:14 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_export(t_command *command)
 		else
 		{
 			g_exit_code = 1;
-			ft_print_error_builtins("export", *args, 1);
+			ft_print_error_env("export", *args);
 		}
 		args++;
 	}
@@ -65,7 +65,7 @@ void	ft_unset(t_command *command)
 		else
 		{
 			g_exit_code = 1;
-			ft_print_error_builtins("unset", *args, 1);
+			ft_print_error_env("unset", *args);
 		}
 		args++;
 	}
@@ -73,11 +73,7 @@ void	ft_unset(t_command *command)
 
 void	ft_env(t_command *command)
 {
-	char	**builtins;
-
 	(void)command;
-	builtins = g_env->merged;
-	while (*builtins)
-		ft_printf("%s\n", *builtins++);
+	ft_print_splitted(g_env->merged);
 	g_exit_code = 0;
 }

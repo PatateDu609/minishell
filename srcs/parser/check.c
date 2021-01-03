@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:00:47 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 22:01:19 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 22:08:42 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	ft_check_last(char *last_token, char **op, size_t len)
 int	ft_check_validity(char **litteral)
 {
 	char	**op;
+	int		first;
 	int		mode;
 	int		old;
 	size_t	len;
@@ -72,9 +73,10 @@ int	ft_check_validity(char **litteral)
 	if (!*litteral)
 		return (0);
 	op = ft_generate_op();
-	mode = 0;
 	len = ft_size_splitted(litteral);
-	while (*litteral)
+	mode = ft_is_operator(*litteral++, op);
+	first = !mode;
+	while (*litteral && first)
 	{
 		old = mode;
 		mode = ft_is_operator(*litteral++, op);

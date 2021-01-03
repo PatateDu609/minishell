@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 01:21:59 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 21:18:52 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 22:16:27 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_print_error_env(char *builtin, char *var)
 			ft_strlen(program_invocation_short_name));
 	write(2, ": ", 2);
 	write(2, builtin, ft_strlen(builtin));
-	write(2, ": `", 2);
+	write(2, ": `", 3);
 	write(2, var, ft_strlen(var));
 	write(2, "': not a valid identifier\n", 26);
 }

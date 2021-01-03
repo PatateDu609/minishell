@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 21:30:09 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 21:51:15 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ft_execute_cmd(t_list *lst)
 		ft_redirect_in(command);
 		ft_redirect_out(command);
 		execve(command->name, command->args, g_env->merged);
-		printf("(printed with printf)minishell: execve marche po\n");
+		ft_print_error_exec(command->args[0]);
 		exit(1);
 	}
 }

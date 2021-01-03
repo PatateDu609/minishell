@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 07:08:30 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 13:24:14 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 22:24:30 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,31 @@ void	*ft_free_env(void)
 	free_splitted(g_env->merged);
 	free(g_env);
 	return (NULL);
+}
+
+static void	ft_update_shlvl(void)
+{
+	int		val;
+	char	*shlvl;
+	char	*tmp;
+	char	*parts[3];
+
+	shlvl = ft_getvar("SHLVL");
+	if (!shlvl)
+		val = 1;
+	else
+		val = ft_atoi(shlvl) + 1;
+	if (val < 0)
+		val = 0;
+	shlvl = ft_itoa(val);
+	parts[0] = "SHLVL";
+	parts[1] = shlvl;
+	parts[2] = NULL;
+	tmp = shlvl;
+	shlvl = ft_strjoin_arr(parts, '=');
+	ft_add_var(shlvl);
+	free(tmp);
+	free(shlvl);
 }
 
 static int	ft_fill_paths(void)
@@ -81,5 +106,6 @@ t_env	*ft_init_env(char **ev)
 	}
 	if (!ft_fill_env(ev))
 		return (NULL);
+	ft_update_shlvl();
 	return (g_env);
 }
