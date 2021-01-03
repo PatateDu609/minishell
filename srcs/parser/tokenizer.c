@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:02:25 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/29 22:06:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/03 14:21:19 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ size_t	ft_count_tokens(char *str, char **op)
 	size_t	tokens;
 	size_t	len;
 	char	*found;
+	char	*saved;
 
+	saved = str;
 	tokens = (ft_find_next_op(str, op, NULL) != str);
 	while (*str)
 	{
@@ -30,6 +32,9 @@ size_t	ft_count_tokens(char *str, char **op)
 		else
 			break ;
 	}
+
+	if (ft_is_operator(saved + (ft_strlen(saved) - 2), op))
+		tokens--;
 	return (tokens);
 }
 
