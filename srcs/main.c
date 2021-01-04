@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 20:10:08 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 16:08:34 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	process_parsed(void)
 		dprintf(g_tree, "-------------------------------------\n");
 		ft_lstiter(g_parsed, ft_print_command);
 		dprintf(g_tree, "-------------------------------------\n");
-		ft_exec(g_parsed);
+		// ft_exec(g_parsed);
 		ft_lstclear(&g_parsed, ft_free_command);
 	}
 }
@@ -77,7 +77,7 @@ int	main(int ac, char **av)
 
 	(void)ac;
 	(void)av;
-	g_fd = open("/dev/pts/1", O_RDWR);
+	g_fd = open("/dev/pts/3", O_RDWR);
 	g_tree = open("/dev/pts/2", O_RDWR);
 	write(g_fd, "\033c\033[3J", 6);
 	write(g_tree, "\033c\033[3J", 6);

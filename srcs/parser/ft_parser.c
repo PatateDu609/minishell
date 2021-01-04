@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 22:14:07 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 16:24:01 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,18 @@ t_list	*ft_syntax_analyser(char **tokens)
 	{
 		type = (ft_strcmp(";", *tokens) == 0);
 		if (!type && (!cmd || ((t_command *)cmd->content)->type > COMMAND))
-			ft_add_command(&cmd, ft_expand_quoted(*tokens));
+			ft_add_command(&cmd, ft_strdup(*tokens));
 		else if (type && cmd)
 			((t_command *)cmd->content)->type = BREAK;
 		else if (!ft_strcmp("|", *tokens))
 			((t_command *)cmd->content)->type = PIPE;
 		else if (ft_is_redirect(*tokens))
 		{
-			ft_add_redir(cmd, *tokens, ft_expand_quoted(*(tokens + 1)));
+			ft_add_redir(cmd, *tokens, ft_strdup(*(tokens + 1)));
 			tokens++;
 		}
 		else
-			ft_add_arg(cmd, ft_expand_quoted(*tokens));
+			ft_add_arg(cmd, ft_strdup(*tokens));
 		tokens++;
 	}
 	return (ft_syntax_analyser_return(cmd));
@@ -107,6 +107,7 @@ t_list	*ft_parser(char *command)
 
 	command = ft_strtrim(command, " ");
 	tokens = ft_split_lexical(command);
+	ft_print_splitted(tokens);
 	free(command);
 	if (!tokens)
 		return (NULL);
@@ -120,6 +121,6 @@ t_list	*ft_parser(char *command)
 	if (!parsed)
 		return (NULL);
 	free_splitted(tokens);
-	ft_expand_env(parsed);
+	ft_expand(parsed);
 	return (parsed);
 }

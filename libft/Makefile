@@ -38,6 +38,7 @@ SRCS_BASENAME		=	memset				\
 						atoi				\
 						calloc				\
 						strdup				\
+						strndup				\
 						substr				\
 						strjoin				\
 						strjoin_arr			\

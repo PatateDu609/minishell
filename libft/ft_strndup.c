@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes.c                                           :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/29 22:08:46 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:36:44 by gboucett         ###   ########.fr       */
+/*   Created: 2021/01/04 02:58:37 by gboucett          #+#    #+#             */
+/*   Updated: 2021/01/04 17:08:04 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parser.h"
+#include "libft.h"
 
-size_t	ft_skip_quotes(char **str, char quote)
+char	*ft_strndup(const char *str, size_t len)
 {
-	char	*current;
-	size_t	len;
+	char	*result;
 
-	current = *str;
-	current++;
-	while (*current && *current != quote)
-	{
-		if (*current == '\\')
-			current++;
-		current++;
-	}
-	len = current - *str;
-	*str = current;
-	return (len);
+	result = ft_calloc(len + 1, sizeof(char));
+	ft_memcpy(result, str, sizeof(char) * len);
+	return (result);
 }

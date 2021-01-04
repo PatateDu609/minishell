@@ -24,51 +24,58 @@ LIBFT				=	$(PATH_LIBS)/libft.a
 PARSER_PATH			=	parser
 EXEC_PATH			=	exec
 ENV_PATH			=	env
+EXPAND_PATH			=	expand
 TERMCAP_PATH		=	termcaps
 
-EXEC_SRCS			=	signal_handling		\
-						ft_construct_path	\
-						ft_exec				\
-						ft_pipe				\
-						ft_init				\
-						ft_redir_utils		\
-						ft_apply_redir		\
-						ft_redirect			\
-						error				\
-						ft_builtins_dir		\
-						ft_builtins_exit	\
-						ft_builtins_env		\
-						ft_builtins_echo	\
-						ft_builtins			\
-						ft_builtins_utils	\
+EXEC_SRCS			=	signal_handling			\
+						ft_construct_path		\
+						ft_exec					\
+						ft_pipe					\
+						ft_init					\
+						ft_redir_utils			\
+						ft_apply_redir			\
+						ft_redirect				\
+						error					\
+						ft_builtins_dir			\
+						ft_builtins_exit		\
+						ft_builtins_env			\
+						ft_builtins_echo		\
+						ft_builtins				\
+						ft_builtins_utils		\
 
-PARSER_SRCS			=	array_utils			\
-						check				\
-						clear				\
-						command_utils		\
-						ft_parser			\
-						print				\
-						quotes				\
-						size				\
-						tokenizer			\
-						utils				\
-						ft_expand_env		\
+PARSER_SRCS			=	array_utils				\
+						check					\
+						clear					\
+						command_utils			\
+						ft_parser				\
+						print					\
+						quotes					\
+						size					\
+						tokenizer				\
+						utils					\
 
-ENV_SRCS			=	ft_env				\
-						ft_getvar			\
-						print				\
-						ft_env_var			\
-						ft_str_replace_var	\
-						ft_merge_env		\
+ENV_SRCS			=	ft_env					\
+						ft_getvar				\
+						print					\
+						ft_env_var				\
+						ft_merge_env			\
 
-TERMCAP_SRCS		=	init				\
-						edit_line			\
-						edit_line_utils		\
-						getline				\
-						history				\
+EXPAND_SRCS			=	ft_expand				\
+						ft_expanded_str			\
+						ft_expand_env			\
+						ft_expand_backslashs	\
+						clear					\
+						utils					\
+
+TERMCAP_SRCS		=	init					\
+						edit_line				\
+						edit_line_utils			\
+						getline					\
+						history					\
 
 
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
+SRCS_BASENAME		+=	$(addprefix $(EXPAND_PATH)/, $(EXPAND_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(ENV_PATH)/, $(ENV_SRCS))
 SRCS_BASENAME		+=	main				\
@@ -129,6 +136,7 @@ $(PATH_OBJS):
 					@mkdir -p $(PATH_OBJS)/libft
 					@mkdir -p $(PATH_OBJS)/$(PARSER_PATH)
 					@mkdir -p $(PATH_OBJS)/$(ENV_PATH)
+					@mkdir -p $(PATH_OBJS)/$(EXPAND_PATH)
 					@mkdir -p $(PATH_OBJS)/$(EXEC_PATH)
 					@mkdir -p $(PATH_OBJS)/$(EXEC_BUILTIN_PATH)
 					@mkdir -p $(PATH_OBJS)/$(TERMCAP_PATH)

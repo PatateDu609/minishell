@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 21:29:35 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 01:55:25 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ typedef struct s_env
 	char	**paths;
 	char	**merged;
 }	t_env;
+
+typedef struct s_expansion
+{
+	char	*str;
+	int		expanded;
+}	t_expansion;
 
 typedef void	(*t_builtin_func)(t_command *);
 

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 05:02:30 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 23:41:00 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:05:48 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_execute_piped_builtin(t_list *lst, t_builtin_func builtin, int po)
 {
-	int		status;
+	int			status;
 	t_command	*command;
 
 	command = (t_command *)lst->content;

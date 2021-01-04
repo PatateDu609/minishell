@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_replace_var.c                               :+:      :+:    :+:   */
+/*   ft_expand_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/30 11:16:17 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 19:46:15 by gboucett         ###   ########.fr       */
+/*   Created: 2021/01/04 02:28:09 by gboucett          #+#    #+#             */
+/*   Updated: 2021/01/04 15:20:57 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_env.h"
+#include "ft_expand.h"
 
-char	*ft_get_name(char *str)
+static char	*ft_get_name(char *str)
 {
 	char	*result;
 	char	*tmp;
@@ -33,7 +33,7 @@ char	*ft_get_name(char *str)
 	return (result);
 }
 
-char	*ft_get_value(char *str)
+static char	*ft_get_value(char *str)
 {
 	char	*val;
 
@@ -51,40 +51,27 @@ char	*ft_get_value(char *str)
 	return (ft_strdup(val));
 }
 
-char	*ft_str_join_last(char *str, char *result)
+void	ft_expand_env(t_list **lst, char *str)
 {
-	char	*tmp;
-
-	tmp = result;
-	result = ft_strjoin(result, str);
-	free(tmp);
-	return (result);
-}
-
-char	*ft_str_replace_var(char *str)
-{
-	char	*result;
-	char	*tmp[2];
 	char	*found;
+	t_list	*node;
 	char	*name;
-	char	*value;
+	int		in_quotes;
 
-	result = NULL;
+	in_quotes = 0;
 	while (*str)
 	{
-		found = ft_strchr(str, '$');
+		found = ft_strchr_quoted(str, '$', &in_quotes);
 		if (!found)
-			return (ft_str_join_last(str, result));
+			break ;
 		name = ft_get_name(found);
-		value = ft_get_value(name);
-		tmp[0] = result;
-		tmp[1] = ft_str_replace_first(str, name, value, 0);
-		free(value);
-		result = ft_strjoin(result, tmp[1]);
-		free(tmp[0]);
-		free(tmp[1]);
+		node = ft_create_expansion(ft_strndup(str, found - str), 0);
+		ft_lstadd_back(lst, node);
+		node = ft_create_expansion(ft_get_value(name), 1);
+		ft_lstadd_back(lst, node);
 		str = found + ft_strlen(name);
 		free(name);
 	}
-	return (result);
+	if (*str)
+		ft_append_last(lst, str);
 }

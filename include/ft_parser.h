@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:29:53 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 00:58:41 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 01:57:50 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char		*ft_find_next_op(char *str, char **op, size_t *len);
 int			ft_is_operator(char *str, char **op);
 
 size_t		ft_skip_quotes(char **str, char quote);
-char		*ft_expand_quoted(char *str);
 
 size_t		ft_size_quoted(char *str);
 size_t		ft_size_splitted(char **strs);
@@ -56,8 +55,6 @@ int			ft_check_validity(char **litteral);
 int			ft_add_command(t_list **lst, char *name);
 int			ft_add_arg(t_list *lst, char *arg);
 int			ft_add_redir(t_list *lst, char *redir, char *target);
-
-void		ft_expand_env(t_list *parsed);
 
 t_list		*ft_syntax_analyser(char **tokens);
 char		**ft_split_lexical(char *str);

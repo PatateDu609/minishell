@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:49:32 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 00:08:19 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 03:03:40 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int				ft_atoi(const char *str);
 
 void			*ft_calloc(size_t nitems, size_t size);
 char			*ft_strdup(const char *s1);
+char			*ft_strndup(const char *str, size_t len);
 
 char			*ft_substr(const char *s, unsigned int start, size_t len);
 char			*ft_strjoin(const char *s1, const char *s2);

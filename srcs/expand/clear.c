@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes.c                                           :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/29 22:08:46 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:36:44 by gboucett         ###   ########.fr       */
+/*   Created: 2021/01/04 15:27:56 by gboucett          #+#    #+#             */
+/*   Updated: 2021/01/04 15:28:14 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parser.h"
+#include "ft_expand.h"
 
-size_t	ft_skip_quotes(char **str, char quote)
+void	ft_free_expansion(void *expv)
 {
-	char	*current;
-	size_t	len;
+	t_expansion		*expansion;
 
-	current = *str;
-	current++;
-	while (*current && *current != quote)
-	{
-		if (*current == '\\')
-			current++;
-		current++;
-	}
-	len = current - *str;
-	*str = current;
-	return (len);
+	expansion = (t_expansion *)expv;
+	free(expansion->str);
+	free(expansion);
 }
