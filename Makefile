@@ -64,6 +64,7 @@ EXPAND_SRCS			=	ft_expand				\
 						ft_expanded_str			\
 						ft_expand_env			\
 						ft_expand_backslashs	\
+						ft_quote_removal		\
 						clear					\
 						utils					\
 

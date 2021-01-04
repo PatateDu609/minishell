@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 02:05:46 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 16:26:23 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:57:38 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	ft_expand_str(char **str)
 	expansion = NULL;
 	ft_expand_env(&expansion, *str);
 	ft_expand_backslashs(&expansion);
+	ft_quote_removal(expansion);
 	tmp = *str;
 	*str = ft_expanded_str(expansion);
 	free(tmp);

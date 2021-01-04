@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:08:46 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:36:44 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:52:30 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_skip_quotes(char **str, char quote)
 	current++;
 	while (*current && *current != quote)
 	{
-		if (*current == '\\')
+		if (quote == '\"' && *current == '\\')
 			current++;
 		current++;
 	}

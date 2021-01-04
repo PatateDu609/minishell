@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 01:49:09 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:03:04 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:56:31 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 void	ft_expand_backslashs(t_list **lst);
 void	ft_expand_env(t_list **lst, char *str);
+void	ft_quote_removal(t_list *lst);
 
 void	ft_free_expansion(void *expv);
 

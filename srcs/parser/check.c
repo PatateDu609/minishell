@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:00:47 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 16:22:21 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 19:29:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_check_quotes(char *token)
 		{
 			token++;
 			if (!*token)
-				return (0);
+				return (ft_print_error("newline"));
 		}
 		else if (*token == '\'' || *token == '"')
 			ft_check_quote_case(&token, &result);
@@ -42,6 +42,8 @@ int	ft_check_quotes(char *token)
 			break ;
 		token++;
 	}
+	if (result)
+		ft_print_error("newline");
 	return (!result);
 }
 

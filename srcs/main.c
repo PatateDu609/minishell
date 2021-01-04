@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 16:08:34 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 19:11:47 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	process_parsed(void)
 		dprintf(g_tree, "-------------------------------------\n");
 		ft_lstiter(g_parsed, ft_print_command);
 		dprintf(g_tree, "-------------------------------------\n");
-		// ft_exec(g_parsed);
+		ft_exec(g_parsed);
 		ft_lstclear(&g_parsed, ft_free_command);
 	}
 }

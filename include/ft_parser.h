@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:29:53 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 01:57:50 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:40:07 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int			ft_is_operator(char *str, char **op);
 
 size_t		ft_skip_quotes(char **str, char quote);
 
-size_t		ft_size_quoted(char *str);
 size_t		ft_size_splitted(char **strs);
 size_t		ft_size_redirs(t_redirect **redirs);
 size_t		ft_wordlen(char *str);

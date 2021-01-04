@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 02:20:43 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 02:26:48 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 19:20:55 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_expanded_str(t_list *lst)
 	char		*tmp;
 	t_expansion	*expanded;
 
-	result = ft_strdup("");
+	result = ft_calloc(1, sizeof(char));
 	while (lst)
 	{
 		expanded = (t_expansion *)lst->content;

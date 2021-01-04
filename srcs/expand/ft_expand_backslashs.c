@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 03:49:04 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:10:51 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/04 19:30:43 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
-static t_list *ft_get_backslashed(int in_quotes, char *found)
+static t_list	*ft_get_backslashed(int in_quotes, char *found)
 {
 	t_list	*node;
 
