@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:02:45 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 19:30:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:34:52 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_list	*ft_parser(char *command)
 	int		valid;
 	t_list	*parsed;
 
-	command = ft_strtrim(command, " ");
+	command = ft_init_parsing(command);
 	tokens = ft_split_lexical(command);
 	free(command);
 	if (!tokens)

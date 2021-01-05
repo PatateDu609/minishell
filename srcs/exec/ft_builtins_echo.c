@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 04:57:50 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 16:54:20 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/05 18:14:41 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	ft_echo(t_command *command)
 	int		newline;
 
 	start = ft_get_echo_start(command->args);
-	if (!command->args[start])
-		return ;
 	newline = (start == 1);
-	ft_printf("%s", command->args[start++]);
-	while (command->args[start])
-		ft_printf(" %s", command->args[start++]);
+	if (command->args[start])
+	{
+		ft_printf("%s", command->args[start++]);
+		while (command->args[start])
+			ft_printf(" %s", command->args[start++]);
+	}
 	if (newline)
 		ft_printf("\n");
 	g_exit_code = 0;

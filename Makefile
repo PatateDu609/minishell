@@ -53,6 +53,7 @@ PARSER_SRCS			=	array_utils				\
 						size					\
 						tokenizer				\
 						utils					\
+						ft_init_parsing			\
 
 ENV_SRCS			=	ft_env					\
 						ft_getvar				\
@@ -93,7 +94,7 @@ CFLAGS				=	-Wall -Wextra -Werror -g -I$(PATH_INCLUDES)
 LDFLAGS				=	-L$(PATH_LIBS) -lft
 
 # DEBUG LDFLAGS :
-LDFLAGS				+=	-fsanitize=address -g -fstack-protector
+# LDFLAGS				+=	-fsanitize=address -g -fstack-protector
 
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #
