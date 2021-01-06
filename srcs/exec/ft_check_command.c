@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 04:18:24 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 04:36:51 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:42:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_get_cmd_name(t_command *cmd)
 	return (!!cmd->name);
 }
 
-int	ft_check_command(t_command *command, t_list **commands)
+int			ft_check_command(t_command *command, t_list **commands)
 {
 	t_list	*current;
 	int		result;

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:34:15 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/24 21:55:08 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:33:51 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_print_prec_null(t_flags flags)
 	}
 }
 
-void	ft_putunsigned(unsigned int n, int *size, t_flags flags)
+void		ft_putunsigned(unsigned int n, int *size, t_flags flags)
 {
 	int		len;
 	int		precision;

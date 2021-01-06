@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 16:41:54 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 18:50:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:44:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-int	ft_init_redir(t_command *command)
+int			ft_init_redir(t_command *command)
 {
 	t_redirect	**redirs;
 
@@ -39,7 +39,7 @@ int	ft_init_redir(t_command *command)
 	return (command->out != -1 && command->in != -1);
 }
 
-void	ft_redirect_in(t_command *command)
+void		ft_redirect_in(t_command *command)
 {
 	int		red[2];
 	pid_t	pid;
@@ -81,7 +81,7 @@ static void	ft_prep_redir_out(int red[2])
 	}
 }
 
-void	ft_redirect_out(t_command *command)
+void		ft_redirect_out(t_command *command)
 {
 	int		red[2];
 	pid_t	pid;

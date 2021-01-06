@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 02:34:27 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:04:12 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:41:06 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ t_list	*ft_create_expansion(char *str, int expanded)
 	return (node);
 }
 
-int	ft_has_special_meaning(int quoted, char c)
+int		ft_has_special_meaning(int quoted, char c)
 {
 	return (c == '$' || (!quoted && c == '\'') || c == '"' || c == '\\');
 }
 
-void	ft_append_last(t_list **lst, char	*str)
+void	ft_append_last(t_list **lst, char *str)
 {
 	t_list	*node;
 

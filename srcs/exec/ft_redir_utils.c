@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 15:29:45 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 01:40:19 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:46:11 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-int	ft_open(t_redirect *redir)
+int			ft_open(t_redirect *redir)
 {
 	int		fd;
 
@@ -27,7 +27,7 @@ int	ft_open(t_redirect *redir)
 	return (fd);
 }
 
-int	ft_check_file(t_redirect *redir)
+int			ft_check_file(t_redirect *redir)
 {
 	int		fd;
 
@@ -45,7 +45,7 @@ static void	*ft_error_while_read(t_redirect *redir, char *result)
 	return (NULL);
 }
 
-char	*ft_load_file(t_redirect *redir)
+char		*ft_load_file(t_redirect *redir)
 {
 	char	*result;
 	char	*tmp;
@@ -71,7 +71,7 @@ char	*ft_load_file(t_redirect *redir)
 	return (result);
 }
 
-char	*ft_load_pipe(int fdin)
+char		*ft_load_pipe(int fdin)
 {
 	char	*result;
 	char	*tmp;

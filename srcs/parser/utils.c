@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:13:40 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 23:57:03 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:52:30 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_operator(char *str, char **op)
+int		ft_is_operator(char *str, char **op)
 {
 	while (*op)
 	{
@@ -22,7 +22,7 @@ int	ft_is_operator(char *str, char **op)
 	return (0);
 }
 
-int	ft_is_redirect(char *str)
+int		ft_is_redirect(char *str)
 {
 	if (!ft_strcmp(str, "<"))
 		return (1);

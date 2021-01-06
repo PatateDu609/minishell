@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 18:26:03 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:27:47 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@
 
 # define PROMPT				"\033[31m\033[1mminishell :>\033[0m\033[35m\033[0m "
 
-typedef enum e_type
+typedef enum	e_type
 {
 	COMMAND,
 	PIPE,
 	BREAK
-}	t_type;
+}				t_type;
 
-typedef struct s_redirect
+typedef struct	s_redirect
 {
-	int		type;
-	char	*filename;
-}	t_redirect;
+	int			type;
+	char		*filename;
+}				t_redirect;
 
-typedef struct s_command
+typedef struct	s_command
 {
 	char		*name;
 	char		**args;
@@ -65,21 +65,21 @@ typedef struct s_command
 	int			piped;
 	int			in;
 	int			out;
-}	t_command;
+}				t_command;
 
-typedef struct s_env
+typedef struct	s_env
 {
-	char	**names;
-	char	**values;
-	char	**paths;
-	char	**merged;
-}	t_env;
+	char		**names;
+	char		**values;
+	char		**paths;
+	char		**merged;
+}				t_env;
 
-typedef struct s_expansion
+typedef struct	s_expansion
 {
-	char	*str;
-	int		expanded;
-}	t_expansion;
+	char		*str;
+	int			expanded;
+}				t_expansion;
 
 typedef void	(*t_builtin_func)(t_command *);
 

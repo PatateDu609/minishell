@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 19:14:16 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/24 21:18:27 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:33:28 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_update_flags(t_flags *flags, int waiting)
+void		ft_update_flags(t_flags *flags, int waiting)
 {
 	if (waiting == W_NOTHING && flags->length < 0)
 	{
@@ -50,7 +50,7 @@ static int	ft_print(t_flags flags, va_list args)
 	return (result);
 }
 
-int	ft_printf(const char *str, ...)
+int			ft_printf(const char *str, ...)
 {
 	va_list		args;
 	int			printed;

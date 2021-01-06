@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 01:17:05 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 18:59:39 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:39:27 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	minishell(t_caps *caps)
 	}
 }
 
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_caps		caps;
 

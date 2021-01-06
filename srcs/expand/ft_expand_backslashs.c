@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 03:49:04 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 19:30:43 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:40:37 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static t_list	*ft_expand_backslashs_str(char *str)
 	return (result);
 }
 
-void	ft_expand_backslashs(t_list **lst)
+void			ft_expand_backslashs(t_list **lst)
 {
 	t_list			*current;
 	t_expansion		*expansion;

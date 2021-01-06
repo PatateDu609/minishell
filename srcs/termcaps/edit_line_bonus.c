@@ -6,14 +6,14 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:03:02 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 18:59:18 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:54:25 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 #include <stdio.h>
 
-int	max_int(int a, int b)
+int			max_int(int a, int b)
 {
 	return (ft_ternaryi(a > b, a, b));
 }
@@ -46,7 +46,7 @@ static void	ft_loop_history(t_caps *caps, t_line *line, int mode, int *cur)
 	write(1, line->buffer, ft_strlen(line->buffer));
 }
 
-void	ft_move_line(t_caps *caps, t_line *line, char *command)
+void		ft_move_line(t_caps *caps, t_line *line, char *command)
 {
 	static int	current = -1;
 	int			mode;
@@ -75,7 +75,7 @@ void	ft_move_line(t_caps *caps, t_line *line, char *command)
 		ft_loop_history(caps, line, mode, &current);
 }
 
-char	*ft_add_char(char *str, int i, char *c)
+char		*ft_add_char(char *str, int i, char *c)
 {
 	char	*substr;
 	char	*substr1;
@@ -91,7 +91,7 @@ char	*ft_add_char(char *str, int i, char *c)
 	return (substr);
 }
 
-char	*ft_delete_char(char *str, int i)
+char		*ft_delete_char(char *str, int i)
 {
 	char	*substr;
 	char	*tmp;

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:33:41 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/24 21:50:15 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:31:12 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	ft_disp(int len, const char *str, t_flags flags)
 	}
 }
 
-int	ft_putstrr(const char *str, t_flags flags)
+int			ft_putstrr(const char *str, t_flags flags)
 {
 	int		len;
 

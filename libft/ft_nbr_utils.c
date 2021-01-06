@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 22:24:55 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/24 21:15:32 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:36:27 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_size_base(long long n, size_t size, int base)
+int		ft_size_base(long long n, size_t size, int base)
 {
 	if (n < 0)
 	{
@@ -33,7 +33,7 @@ void	ft_print_nbr(unsigned int n)
 	ft_putchar_fd(n % 10 + '0', 1);
 }
 
-int	ft_size_prefix(t_flags flags, int len)
+int		ft_size_prefix(t_flags flags, int len)
 {
 	int		size;
 	int		precision;

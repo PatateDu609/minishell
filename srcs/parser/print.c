@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 21:56:12 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 18:26:53 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:52:40 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_print_splitted(char **strs)
 		ft_printf("%s\n", strs[i++]);
 }
 
-int	ft_print_error(char *error)
+int		ft_print_error(char *error)
 {
 	write(2, program_invocation_short_name,
 		ft_strlen(program_invocation_short_name));

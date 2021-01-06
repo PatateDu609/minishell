@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 22:50:58 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 18:58:31 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:53:50 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	read_history(int fd, char **current)
 	}
 }
 
-void	load_history(void)
+void		load_history(void)
 {
 	char	**current;
 	int		fd;
@@ -53,7 +53,7 @@ void	load_history(void)
 	close(fd);
 }
 
-void	add_command(char *command)
+void		add_command(char *command)
 {
 	if (!(command && ft_strlen(command)))
 		return ;
@@ -69,7 +69,7 @@ void	add_command(char *command)
 		g_history[++g_last] = ft_strdup(command);
 }
 
-void	write_commands(void)
+void		write_commands(void)
 {
 	int		fd;
 	int		i;

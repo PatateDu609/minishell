@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 12:49:54 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/31 00:16:28 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:34:41 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static size_t	ft_count_matches(const char *str, const char *substr)
 	return (count);
 }
 
-char	*ft_str_replace(char *str, char *substr, char *rep)
+char			*ft_str_replace(char *str, char *substr, char *rep)
 {
 	size_t	matches;
 	char	*result;
@@ -74,7 +74,7 @@ static size_t	ft_get_len(char *str, char *sub, char *rep, int af)
 			- ft_strlen(after) + 1);
 }
 
-char	*ft_str_replace_first(char *str, char *sub, char *rep, int af)
+char			*ft_str_replace_first(char *str, char *sub, char *rep, int af)
 {
 	char	*result;
 	char	*found;

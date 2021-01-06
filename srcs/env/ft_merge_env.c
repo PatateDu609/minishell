@@ -6,14 +6,14 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 13:15:33 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 21:04:38 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:42:03 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_env.h"
 #include "ft_parser.h"
 
-void	ft_merge_env(char **names)
+void		ft_merge_env(char **names)
 {
 	char	**merged;
 	char	**source;
@@ -49,7 +49,7 @@ static void	ft_swap(char **a, char **b)
 	*b = tmp;
 }
 
-char	**ft_sort_env(void)
+char		**ft_sort_env(void)
 {
 	char	**sorted;
 	size_t	i;

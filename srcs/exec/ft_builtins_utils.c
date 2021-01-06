@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 03:03:57 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/01 19:55:02 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:49:26 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_check_arg(char *arg)
 	return (!*arg);
 }
 
-size_t	ft_get_echo_start(char **args)
+size_t		ft_get_echo_start(char **args)
 {
 	size_t	i;
 
@@ -37,7 +37,7 @@ size_t	ft_get_echo_start(char **args)
 	return (i);
 }
 
-int	ft_get_builtin_id(char *name)
+int			ft_get_builtin_id(char *name)
 {
 	if (!ft_strcmp(name, "echo"))
 		return (BUILTIN_ECHO);
@@ -56,7 +56,7 @@ int	ft_get_builtin_id(char *name)
 	return (BUILTIN_DEFAULT);
 }
 
-void	ft_init_builtin(t_list *lst)
+void		ft_init_builtin(t_list *lst)
 {
 	t_builtin_func	builtins[7];
 	int				id;
@@ -74,7 +74,7 @@ void	ft_init_builtin(t_list *lst)
 	ft_execute_builtin(lst, builtins[id]);
 }
 
-int	ft_check_shell_name(char *name)
+int			ft_check_shell_name(char *name)
 {
 	size_t	i;
 

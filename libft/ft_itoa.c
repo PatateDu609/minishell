@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 20:34:38 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/24 21:06:04 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:35:05 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static size_t	ft_size(unsigned int n, size_t size)
 	return (ft_size(n / 10, size + 1));
 }
 
-char	*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
 	char			*result;
 	size_t			size;

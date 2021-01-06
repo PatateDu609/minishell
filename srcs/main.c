@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 18:29:52 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:39:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_env	*g_env;
 
 #ifndef BONUS
 
-void	ft_apply_exit(void)
+void		ft_apply_exit(void)
 {
 	if (g_parsed)
 		ft_lstclear(&g_parsed, ft_free_command);
@@ -30,7 +30,7 @@ void	ft_apply_exit(void)
 	exit(g_exit_code);
 }
 
-void	process_parsed(void)
+void		process_parsed(void)
 {
 	if (g_parsed)
 	{
@@ -56,7 +56,7 @@ static char	*get_command(int *ret)
 	return (command);
 }
 
-void	minishell(void)
+void		minishell(void)
 {
 	char	*command;
 	int		ret;
@@ -77,7 +77,7 @@ void	minishell(void)
 	}
 }
 
-int	main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_env		*g_env;
 

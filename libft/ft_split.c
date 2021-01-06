@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 14:41:18 by rbourgea          #+#    #+#             */
-/*   Updated: 2020/12/25 12:17:19 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:30:41 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	cs(char const *s, char c)
+static int		cs(char const *s, char c)
 {
 	int		strings;
 	size_t	i;
@@ -44,7 +44,7 @@ static size_t	to_sep(char const *s, char c)
 	return (i);
 }
 
-static void	*free_result(char **result)
+static void		*free_result(char **result)
 {
 	char	**saved;
 
@@ -58,7 +58,7 @@ static void	*free_result(char **result)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c)
 {
 	char	**res;
 	size_t	nbs[3];

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:47:24 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/25 12:13:47 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:38:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static unsigned int	ft_trimedlen(const char *s1, const char *set)
 	return (size + 1);
 }
 
-char	*ft_strtrim(const char *s1, const char *set)
+char				*ft_strtrim(const char *s1, const char *set)
 {
 	unsigned int	size;
 	char			*result;

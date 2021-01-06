@@ -6,14 +6,14 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 07:08:30 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 22:24:30 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:42:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_env.h"
 #include "ft_parser.h"
 
-void	*ft_free_env(void)
+void		*ft_free_env(void)
 {
 	free_splitted(g_env->names);
 	free_splitted(g_env->values);
@@ -87,7 +87,7 @@ static int	ft_fill_env(char **ev)
 	return (ft_fill_paths());
 }
 
-t_env	*ft_init_env(char **ev)
+t_env		*ft_init_env(char **ev)
 {
 	g_env = ft_calloc(1, sizeof(t_env));
 	if (!g_env)

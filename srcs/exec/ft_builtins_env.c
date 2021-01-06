@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 04:31:34 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 22:15:14 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:48:10 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_export_var(char *arg)
 	free(result);
 }
 
-void	ft_export(t_command *command)
+void		ft_export(t_command *command)
 {
 	char	**args;
 
@@ -52,7 +52,7 @@ void	ft_export(t_command *command)
 	}
 }
 
-void	ft_unset(t_command *command)
+void		ft_unset(t_command *command)
 {
 	char	**args;
 
@@ -71,7 +71,7 @@ void	ft_unset(t_command *command)
 	}
 }
 
-void	ft_env(t_command *command)
+void		ft_env(t_command *command)
 {
 	(void)command;
 	ft_print_splitted(g_env->merged);

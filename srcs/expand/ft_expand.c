@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 02:05:46 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 18:57:38 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:40:27 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_expand_redirs(t_redirect **redirs)
 	}
 }
 
-void	ft_expand(t_list *parsed)
+void		ft_expand(t_list *parsed)
 {
 	t_command	*command;
 

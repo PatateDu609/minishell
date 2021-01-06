@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:58:34 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 05:11:20 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:45:48 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ size_t	ft_size_pipeline(t_list *list)
 	return (result);
 }
 
-int	ft_is_pipe(t_list *list)
+int		ft_is_pipe(t_list *list)
 {
 	t_command	*command;
 	t_command	*prev;

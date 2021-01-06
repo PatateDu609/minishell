@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:22:24 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/05 16:55:28 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:51:08 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*ft_prepare_return(char *command, char *found)
 	return (result);
 }
 
-char	*ft_init_parsing(char *command)
+char		*ft_init_parsing(char *command)
 {
 	char	*found;
 

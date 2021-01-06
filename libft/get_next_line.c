@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 14:52:24 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/25 13:28:57 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:37:13 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	ft_read(int fd, char *buffer, char **line)
 	return (0);
 }
 
-int	get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	static char		buffer[100][BUFFER_SIZE + 1];
 	int				pos;

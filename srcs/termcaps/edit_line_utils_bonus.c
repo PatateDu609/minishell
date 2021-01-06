@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 22:47:54 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/30 06:24:53 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:54:11 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-void	ft_cursor_home_end(t_caps *caps, t_line *line, int mode)
+void		ft_cursor_home_end(t_caps *caps, t_line *line, int mode)
 {
 	if (!mode)
 	{
@@ -58,7 +58,7 @@ static void	ft_move_word(t_caps *caps, t_line *line, int mode, long *pos)
 	}
 }
 
-void	ft_cursor_move_word(t_caps *caps, t_line *line, int mode)
+void		ft_cursor_move_word(t_caps *caps, t_line *line, int mode)
 {
 	long	pos;
 
@@ -82,7 +82,7 @@ void	ft_cursor_move_word(t_caps *caps, t_line *line, int mode)
 	line->cursor = pos;
 }
 
-int	ft_parse_arrow(char *command)
+int			ft_parse_arrow(char *command)
 {
 	command += 2;
 	if (('A' <= *command && *command <= 'D'))

@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 02:28:09 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 15:20:57 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:41:17 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*ft_get_value(char *str)
 	return (ft_strdup(val));
 }
 
-void	ft_expand_env(t_list **lst, char *str)
+void		ft_expand_env(t_list **lst, char *str)
 {
 	char	*found;
 	t_list	*node;

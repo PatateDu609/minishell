@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:00:47 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 19:29:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:51:31 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_check_quote_case(char **token, int *result)
 		*result = 0;
 }
 
-int	ft_check_quotes(char *token)
+int			ft_check_quotes(char *token)
 {
 	int	result;
 
@@ -47,7 +47,7 @@ int	ft_check_quotes(char *token)
 	return (!result);
 }
 
-int	ft_check_last(char *last_token, char **op, size_t len)
+int			ft_check_last(char *last_token, char **op, size_t len)
 {
 	int	result;
 
@@ -64,7 +64,7 @@ int	ft_check_last(char *last_token, char **op, size_t len)
 	return (result);
 }
 
-int	ft_check_validity(char **litteral)
+int			ft_check_validity(char **litteral)
 {
 	char	**op;
 	int		first;

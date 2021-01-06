@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:19:09 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/02 00:17:57 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:52:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_copy_splitted(char **strs, size_t new_len)
+char		**ft_copy_splitted(char **strs, size_t new_len)
 {
 	char	**result;
 	size_t	len;
@@ -26,7 +26,7 @@ char	**ft_copy_splitted(char **strs, size_t new_len)
 	return (result);
 }
 
-char	**ft_strs_append(char **strs1, char **to_append)
+char		**ft_strs_append(char **strs1, char **to_append)
 {
 	size_t	len1;
 	size_t	len2;
@@ -42,7 +42,7 @@ char	**ft_strs_append(char **strs1, char **to_append)
 	return (result);
 }
 
-char	**ft_strs_append_str(char **strs, char *str)
+char		**ft_strs_append_str(char **strs, char *str)
 {
 	size_t	len1;
 	char	**result;
@@ -57,7 +57,7 @@ char	**ft_strs_append_str(char **strs, char *str)
 	return (result);
 }
 
-char	**ft_strs_remove(char **strs, size_t index)
+char		**ft_strs_remove(char **strs, size_t index)
 {
 	size_t	len;
 

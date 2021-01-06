@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 08:06:34 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/02 00:17:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:41:51 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_update_paths(char *val)
 	return (0);
 }
 
-int	ft_modify_var(char *name, char *value)
+int			ft_modify_var(char *name, char *value)
 {
 	char	**found;
 	size_t	index;
@@ -40,7 +40,7 @@ int	ft_modify_var(char *name, char *value)
 	return (1);
 }
 
-int	ft_add_var(char *var)
+int			ft_add_var(char *var)
 {
 	char	*name;
 	char	*value;
@@ -68,7 +68,7 @@ int	ft_add_var(char *var)
 	return (1);
 }
 
-int	ft_delete_var(char *name)
+int			ft_delete_var(char *name)
 {
 	char	**found;
 	char	**tmp;

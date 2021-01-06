@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 03:35:08 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 21:25:23 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:44:33 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*ft_get_target(char *arg)
 	return (target);
 }
 
-void	ft_cd(t_command *command)
+void		ft_cd(t_command *command)
 {
 	char	*cwd;
 	char	*target;
@@ -52,7 +52,7 @@ void	ft_cd(t_command *command)
 	g_exit_code = 0;
 }
 
-void	ft_pwd(t_command *command)
+void		ft_pwd(t_command *command)
 {
 	(void)command;
 	ft_printf("%s\n", ft_getvar("PWD"));

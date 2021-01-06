@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:09:24 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/24 21:27:19 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:35:55 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	ft_print_nbr_hexa(int mode, unsigned long n)
 {
 	if (n / 16)
 		ft_print_nbr_hexa(mode, n / 16);
-	ft_putchar_fd(ft_ternaryi(mode, "0123456789abcdef" [n % 16],
-			"0123456789ABCDEF" [n % 16]), 1);
+	ft_putchar_fd(ft_ternaryi(mode, "0123456789abcdef"[n % 16],
+			"0123456789ABCDEF"[n % 16]), 1);
 }
 
 static void	ft_print_precision(int precision, int len)
@@ -45,7 +45,7 @@ static void	ft_print_nb(unsigned long n, t_flags flags, int len, int mode)
 	}
 }
 
-void	ft_puthexa(int mode, unsigned long n, int *size, t_flags flags)
+void		ft_puthexa(int mode, unsigned long n, int *size, t_flags flags)
 {
 	int		len;
 	int		precision;

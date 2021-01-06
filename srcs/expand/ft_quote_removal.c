@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:50:24 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 19:33:46 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:40:18 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static size_t	ft_count_quotes(char *str)
 	return (result);
 }
 
-static void	ft_skip_quote_char(char **str, int *mode)
+static void		ft_skip_quote_char(char **str, int *mode)
 {
 	if ((!*mode || *mode == 1) && **str == '\'')
 	{
@@ -54,7 +54,7 @@ static void	ft_skip_quote_char(char **str, int *mode)
 	}
 }
 
-static char	*ft_remove_quotes(char *str)
+static char		*ft_remove_quotes(char *str)
 {
 	char	*result;
 	char	*saved;
@@ -78,7 +78,7 @@ static char	*ft_remove_quotes(char *str)
 	return (result);
 }
 
-void	ft_quote_removal(t_list *lst)
+void			ft_quote_removal(t_list *lst)
 {
 	t_expansion		*expansion;
 

@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 19:15:07 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:43:55 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-static void	ft_execute_cmd(t_list *lst)
+static void		ft_execute_cmd(t_list *lst)
 {
 	int			status;
 	t_command	*command;
@@ -39,7 +39,7 @@ static void	ft_execute_cmd(t_list *lst)
 	}
 }
 
-static void	ft_wait_all(pid_t *pids, size_t len)
+static void		ft_wait_all(pid_t *pids, size_t len)
 {
 	size_t	count;
 	size_t	i;
@@ -57,7 +57,7 @@ static void	ft_wait_all(pid_t *pids, size_t len)
 	}
 }
 
-static void	ft_exec_pipeline(t_list **commands)
+static void		ft_exec_pipeline(t_list **commands)
 {
 	size_t		len;
 	size_t		i;
@@ -81,7 +81,7 @@ static void	ft_exec_pipeline(t_list **commands)
 	ft_wait_all(pids, len);
 }
 
-void	ft_exec(t_list *commands)
+void			ft_exec(t_list *commands)
 {
 	t_command	*command;
 	int			piped;

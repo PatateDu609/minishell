@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:33:57 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/24 21:41:59 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:33:01 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_maxcar_prec_null(int n, t_flags flags, int len, int mode)
+static int		ft_maxcar_prec_null(int n, t_flags flags, int len, int mode)
 {
 	if (mode)
 	{
@@ -36,7 +36,7 @@ static int	ft_maxcar_prec_null(int n, t_flags flags, int len, int mode)
 	}
 }
 
-static void	ft_print_spaces(int n, t_flags flags, int len, int fix)
+static void		ft_print_spaces(int n, t_flags flags, int len, int fix)
 {
 	int		total;
 	int		spaces;
@@ -65,7 +65,7 @@ static void	ft_print_spaces(int n, t_flags flags, int len, int fix)
 	}
 }
 
-static void	ft_print_zeroes_d(int len, t_flags flags, int sign)
+static void		ft_print_zeroes_d(int len, t_flags flags, int sign)
 {
 	int		zeroes;
 
@@ -77,7 +77,7 @@ static void	ft_print_zeroes_d(int len, t_flags flags, int sign)
 	}
 }
 
-static void	ft_print_pre_nbr(int n, t_flags flags, int len)
+static void		ft_print_pre_nbr(int n, t_flags flags, int len)
 {
 	if (flags.alignment == F_RIGHT)
 	{
@@ -99,7 +99,7 @@ static void	ft_print_pre_nbr(int n, t_flags flags, int len)
 	}
 }
 
-int	ft_putnbr(int n, t_flags flags)
+int				ft_putnbr(int n, t_flags flags)
 {
 	int		maxcar;
 	int		len;
