@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:13:36 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 21:16:53 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 04:33:44 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int		ft_check_file(t_redirect *redir);
 void	ft_open_pipe(t_list *list, int *pipe_open);
 void	ft_close_pipe(t_list *list, int pipe_open);
 void	ft_redirect_pipe(t_list *list);
+size_t	ft_size_pipeline(t_list *list);
+int		ft_is_pipe(t_list *list);
 
 int		ft_get_builtin_id(char *name);
 size_t	ft_get_echo_start(char **args);
@@ -60,7 +62,8 @@ void	ft_exit(t_command *command);
 
 char	*ft_construct_path(char *name);
 
-void	ft_init_exec(t_list *list);
+int		ft_check_command(t_command *command, t_list **commands);
+
 int		ft_init_redir(t_command *command);
 void	ft_exec(t_list *commands);
 

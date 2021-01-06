@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 00:20:54 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 04:35:24 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,45 @@ static void	ft_execute_cmd(t_list *lst)
 	}
 }
 
+static void	ft_exec_pipeline(t_list **commands)
+{
+	size_t		len;
+	t_command	*command;
+
+	len = ft_size_pipeline(*commands);
+	dprintf(g_fd, "len of pipeline = %ld\n", len);
+	while (*commands && ft_is_pipe(*commands))
+	{
+		command = (t_command *)(*commands)->content;
+		dprintf(g_fd, " - %s (type = %s)\n", command->name, command->type == PIPE ? "Piped" : "End");
+		*commands = (*commands)->next;
+	}
+}
+
 void	ft_exec(t_list *commands)
 {
 	t_command	*command;
+	int			piped;
 
-	ft_init_exec(commands);
 	while (commands)
 	{
 		command = (t_command *)commands->content;
-		if (command->name && ft_init_redir(command))
+		piped = 0;
+		if (ft_check_command(command, &commands) && ft_init_redir(command))
 		{
 			ft_merge_env(NULL);
-			if (ft_get_builtin_id(command->name) != BUILTIN_DEFAULT)
+			if (ft_is_pipe(commands))
+			{
+				ft_exec_pipeline(&commands);
+				piped = 1;
+			}
+			else if (ft_get_builtin_id(command->name) != BUILTIN_DEFAULT)
 				ft_init_builtin(commands);
 			else
 				ft_execute_cmd(commands);
 		}
-		commands = commands->next;
+		if (commands && !piped)
+			commands = commands->next;
 	}
 	g_pid = 0;
 }

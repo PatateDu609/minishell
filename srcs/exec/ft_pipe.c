@@ -69,3 +69,32 @@ void	ft_redirect_pipe(t_list *list)
 		exit(1);
 	}
 }
+
+size_t	ft_size_pipeline(t_list *list)
+{
+	t_command	*command;
+	size_t		result;
+
+	result = 1;
+	while (list)
+	{
+		command = (t_command *)list->content;
+		if (command->type != PIPE)
+			break ;
+		result++;
+		list = list->next;
+	}
+	return (result);
+}
+
+int		ft_is_pipe(t_list *list)
+{
+	t_command	*command;
+	t_command	*prev;
+
+	command = (t_command *)list->content;
+	prev = NULL;
+	if (list->previous)
+		prev = (t_command *)list->previous->content;
+	return (command->type == PIPE || (prev && prev->type == PIPE));
+}
