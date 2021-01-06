@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:03:02 by gboucett          #+#    #+#             */
-/*   Updated: 2020/12/26 15:10:48 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 18:59:18 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	ft_loop_history(t_caps *caps, t_line *line, int mode, int *cur)
 		*cur += 1;
 	if (*cur > g_last)
 		*cur = -1;
-	dprintf(g_fd, "current = %d, g_last = %d\n", *cur, g_last);
 	if (*cur == -1 && line->old_buffer)
 	{
 		free(line->buffer);

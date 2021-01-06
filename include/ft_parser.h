@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:29:53 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 03:42:58 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 18:34:17 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "ft_defs.h"
 
 void		ft_print_splitted(char **strs);
-void		ft_print_redirs(t_redirect **redirs);
-void		ft_print_command(void *cmdv);
 int			ft_print_error(char *error);
 
 void		free_splitted(char **strs);

@@ -57,7 +57,6 @@ PARSER_SRCS			=	array_utils				\
 
 ENV_SRCS			=	ft_env					\
 						ft_getvar				\
-						print					\
 						ft_env_var				\
 						ft_merge_env			\
 
@@ -90,11 +89,11 @@ BONUS_BASENAME		+=	main_bonus
 ################################################################################
 RM					=	@rm -f
 GCC					=	@gcc
-CFLAGS				=	-Wall -Wextra -Werror -g -I$(PATH_INCLUDES)
+CFLAGS				=	-Wall -Wextra -Werror -I$(PATH_INCLUDES)
 LDFLAGS				=	-L$(PATH_LIBS) -lft
 
 # DEBUG LDFLAGS :
-LDFLAGS				+=	-fsanitize=address -g -fstack-protector
+# LDFLAGS				+=	-fsanitize=address -g -fstack-protector
 
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #
@@ -109,12 +108,6 @@ SRCS_EXT			=	$(addsuffix .c, $(SRCS_BASENAME))
 
 SRCS				=	$(addprefix $(PATH_SRCS)/, $(SRCS_EXT))
 OBJS				=	$(addprefix $(PATH_OBJS)/, $(SRCS_EXT:.c=.o))
-
-OS					=	$(shell uname)
-ifeq ($(OS), Linux)
-	CFLAGS			+=	-DLINUX
-	LDFLAGS			+=	-fsanitize=leak
-endif
 
 $(PATH_OBJS)/%.o:	$(PATH_SRCS)/%.c
 					$(GCC) $(CFLAGS) -c $< -o $@

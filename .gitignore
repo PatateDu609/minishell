@@ -7,3 +7,4 @@ Makefile.copy*
 a.out
 keys.txt
 .minishell_history
+test.sh
