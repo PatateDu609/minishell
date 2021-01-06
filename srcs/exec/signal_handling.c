@@ -6,13 +6,12 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:39:12 by rbourgea          #+#    #+#             */
-/*   Updated: 2021/01/01 04:55:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 00:28:34 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		g_sig;
 int		g_exit_code;
 pid_t	g_pid;
 
@@ -20,27 +19,29 @@ void	ft_sigquit(int sig)
 {
 	g_exit_code = 3;
 	if (g_pid == 0)
-	{
 		g_exit_code = 0;
-	}
 	kill(g_pid, g_exit_code);
-	g_sig = SIGCAUGHT + sig;
-	g_exit_code = g_sig;
+	g_exit_code = SIGCAUGHT + sig;
 }
 
 void	ft_sigint(int sig)
 {
+	int		stdin;
+
+	stdin = dup(0);
 	g_exit_code = 2;
 	ft_putchar_fd('\n', 2);
 	if (g_pid == 0)
 	{
+		close(0);
 		g_exit_code = 130;
 		ft_printf("%s", PROMPT);
 	}
 	else
 		kill(g_pid, g_exit_code);
-	g_sig = SIGCAUGHT + sig;
-	g_exit_code = g_sig;
+	g_exit_code = SIGCAUGHT + sig;
+	dup2(stdin, 0);
+	close(stdin);
 }
 
 void	ft_signalhandler_enable(void)

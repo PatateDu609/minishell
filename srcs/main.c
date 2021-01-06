@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/05 16:33:41 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 00:19:21 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,38 @@ void	process_parsed(void)
 	}
 }
 
+static char	*get_command(int *ret)
+{
+	char	*command;
+	int		first;
+
+	*ret = 0;
+	first = 1;
+	while (!*ret && first)
+	{
+		*ret = get_next_line(STDIN_FILENO, &command);
+		if (!*ret && *command)
+			free(command);
+		first = 0;
+	}
+	return (command);
+}
+
 void	minishell(void)
 {
-	char		*command;
-	int			ret;
+	char	*command;
+	int		ret;
 
 	while (1)
 	{
 		ft_printf("%s", PROMPT);
-		ret = get_next_line(STDIN_FILENO, &command);
+		command = get_command(&ret);
 		g_parsed = ft_ternary(*command != 0, ft_parser(command), NULL);
-		if (*command == 0)
+		if (!ret)
 		{
 			free(command);
-			if (!ret)
-			{
-				ft_putendl_fd("exit", 1);
-				ft_apply_exit();
-			}
-			continue ;
+			ft_putendl_fd("exit", 1);
+			ft_apply_exit();
 		}
 		free(command);
 		process_parsed();
