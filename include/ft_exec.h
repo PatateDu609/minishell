@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:13:36 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 04:33:44 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 05:10:42 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ char	*ft_load_file(t_redirect *redir);
 char	*ft_load_pipe(int fdin);
 int		ft_check_file(t_redirect *redir);
 
-void	ft_open_pipe(t_list *list, int *pipe_open);
-void	ft_close_pipe(t_list *list, int pipe_open);
+void	ft_open_pipe(t_list *list);
+void	ft_close_pipe(t_list *list);
 void	ft_redirect_pipe(t_list *list);
 size_t	ft_size_pipeline(t_list *list);
 int		ft_is_pipe(t_list *list);

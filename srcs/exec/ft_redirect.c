@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 16:41:54 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 01:41:22 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 05:13:22 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_init_redir(t_command *command)
 	t_redirect	**redirs;
 
 	redirs = command->redirects;
+	command->in = 0;
+	command->out = 0;
 	if (!redirs)
 		return (1);
 	while (*redirs)

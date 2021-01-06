@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 05:02:30 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:05:48 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 05:21:51 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-void	ft_execute_piped_builtin(t_list *lst, t_builtin_func builtin, int po)
+void	ft_execute_piped_builtin(t_list *lst, t_builtin_func builtin)
 {
 	int			status;
 	t_command	*command;
@@ -24,31 +24,40 @@ void	ft_execute_piped_builtin(t_list *lst, t_builtin_func builtin, int po)
 	else if (g_pid)
 	{
 		waitpid(g_pid, &status, 0);
-		ft_close_pipe(lst, po);
+		ft_close_pipe(lst);
 		if (WIFEXITED(status))
 			g_exit_code = WEXITSTATUS(status);
 	}
 	else
 	{
 		ft_redirect_pipe(lst);
-		ft_redirect_in(command);
-		ft_redirect_out(command);
-		builtin((t_command *)lst->content);
+		builtin(command);
 		exit(g_exit_code);
 	}
 }
 
 void	ft_execute_builtin(t_list *lst, t_builtin_func builtin)
 {
-	int			pipe_open;
 	int			redir;
 	t_command	*command;
+	int			fds[2];
 
 	command = (t_command *)lst->content;
-	ft_open_pipe(lst, &pipe_open);
+	ft_open_pipe(lst);
 	redir = command->in || command->out;
-	if (!pipe_open && !redir)
+	if (!command->piped)
+	{
+		fds[0] = dup(0);
+		fds[1] = dup(1);
+		if (redir)
+		{
+			ft_redirect_in(command);
+			ft_redirect_out(command);
+		}
 		builtin(command);
+		dup2(fds[0], 0);
+		dup2(fds[1], 1);
+	}
 	else
-		ft_execute_piped_builtin(lst, builtin, pipe_open);
+		ft_execute_piped_builtin(lst, builtin);
 }

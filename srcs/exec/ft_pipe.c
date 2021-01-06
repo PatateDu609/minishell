@@ -6,13 +6,13 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:58:34 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 04:44:10 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 05:11:20 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
 
-void	ft_open_pipe(t_list *list, int *pipe_open)
+void	ft_open_pipe(t_list *list)
 {
 	t_command	*command;
 	t_command	*prev;
@@ -21,16 +21,15 @@ void	ft_open_pipe(t_list *list, int *pipe_open)
 	prev = NULL;
 	if (list->previous)
 		prev = (t_command *)list->previous->content;
-	*pipe_open = 0;
 	if (command->type == PIPE || (prev && prev->type == PIPE))
 	{
 		if (pipe(command->pipe))
 			ft_print_error_exec("pipe");
-		*pipe_open = 1;
+		command->piped = 1;
 	}
 }
 
-void	ft_close_pipe(t_list *list, int pipe_open)
+void	ft_close_pipe(t_list *list)
 {
 	t_command	*command;
 	t_command	*prev;
@@ -39,7 +38,7 @@ void	ft_close_pipe(t_list *list, int pipe_open)
 	prev = NULL;
 	if (list->previous)
 		prev = (t_command *)list->previous->content;
-	if (pipe_open)
+	if (command->piped)
 	{
 		close(command->pipe[1]);
 		if (command->type == BREAK)

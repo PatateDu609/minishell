@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:31:37 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 00:21:08 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 05:10:52 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_command
 	t_type		type;
 	t_redirect	**redirects;
 	int			pipe[2];
+	int			piped;
 	int			in;
 	int			out;
 }	t_command;

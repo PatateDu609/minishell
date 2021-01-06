@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 04:35:24 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 05:20:18 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,17 @@
 static void	ft_execute_cmd(t_list *lst)
 {
 	int			status;
-	int			pipe_open;
 	t_command	*command;
 
 	command = (t_command *)lst->content;
-	ft_open_pipe(lst, &pipe_open);
+	dprintf(g_fd, "command->name = %s, pipe[0] = %d, pipe[1] = %d\n", command->name, command->pipe[0], command->pipe[1]);
 	g_pid = fork();
 	if (g_pid == -1)
 		ft_print_error_exec("fork");
 	else if (g_pid)
 	{
 		waitpid(g_pid, &status, 0);
-		ft_close_pipe(lst, pipe_open);
+		ft_close_pipe(lst);
 		if (WIFEXITED(status))
 			g_exit_code = WEXITSTATUS(status);
 	}
@@ -44,15 +43,26 @@ static void	ft_execute_cmd(t_list *lst)
 static void	ft_exec_pipeline(t_list **commands)
 {
 	size_t		len;
-	t_command	*command;
+	size_t		i;
+	pid_t		pid;
 
 	len = ft_size_pipeline(*commands);
-	dprintf(g_fd, "len of pipeline = %ld\n", len);
 	while (*commands && ft_is_pipe(*commands))
 	{
-		command = (t_command *)(*commands)->content;
-		dprintf(g_fd, " - %s (type = %s)\n", command->name, command->type == PIPE ? "Piped" : "End");
+		ft_open_pipe(*commands);
+		pid = fork();
+		if (pid == 0)
+		{
+			ft_execute_cmd(*commands);
+			exit(0);
+		}
 		*commands = (*commands)->next;
+	}
+	i = 0;
+	while (i < len)
+	{
+		wait(NULL);
+		i++;
 	}
 }
 

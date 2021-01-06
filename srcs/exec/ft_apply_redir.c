@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 23:51:13 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/03 01:05:30 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 05:13:07 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_apply_redir_in(t_command *command, int fdout)
 	t_redirect	**redirs;
 	char		*input;
 
-	if (command->in != 1)
+	if (command->in == 1)
 		return ;
 	redirs = command->redirects;
 	while (*redirs)
