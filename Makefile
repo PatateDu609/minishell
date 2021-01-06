@@ -29,9 +29,9 @@ TERMCAP_PATH		=	termcaps
 
 EXEC_SRCS			=	signal_handling			\
 						ft_construct_path		\
+						ft_check_command		\
 						ft_exec					\
 						ft_pipe					\
-						ft_init					\
 						ft_redir_utils			\
 						ft_apply_redir			\
 						ft_redirect				\
@@ -94,7 +94,7 @@ CFLAGS				=	-Wall -Wextra -Werror -g -I$(PATH_INCLUDES)
 LDFLAGS				=	-L$(PATH_LIBS) -lft
 
 # DEBUG LDFLAGS :
-# LDFLAGS				+=	-fsanitize=address -g -fstack-protector
+LDFLAGS				+=	-fsanitize=address -g -fstack-protector
 
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #

@@ -90,8 +90,8 @@ int	main(int ac, char **av)
 
 	(void)ac;
 	(void)av;
-	g_fd = open("/dev/pts/1", O_RDWR);
-	g_tree = open("/dev/pts/2", O_RDWR);
+	g_fd = open("/dev/pts/7", O_RDWR);
+	g_tree = open("/dev/pts/8", O_RDWR);
 	write(g_fd, "\033c\033[3J", 6);
 	write(g_tree, "\033c\033[3J", 6);
 	ft_signalhandler_enable();
