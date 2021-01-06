@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 05:20:18 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 05:36:31 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	ft_execute_cmd(t_list *lst)
 	t_command	*command;
 
 	command = (t_command *)lst->content;
-	dprintf(g_fd, "command->name = %s, pipe[0] = %d, pipe[1] = %d\n", command->name, command->pipe[0], command->pipe[1]);
 	g_pid = fork();
 	if (g_pid == -1)
 		ft_print_error_exec("fork");
@@ -44,25 +43,34 @@ static void	ft_exec_pipeline(t_list **commands)
 {
 	size_t		len;
 	size_t		i;
-	pid_t		pid;
+	size_t		count;
+	pid_t		*pids;
 
 	len = ft_size_pipeline(*commands);
+	pids = ft_calloc(len, sizeof(pid_t));
+	i = 0;
 	while (*commands && ft_is_pipe(*commands))
 	{
 		ft_open_pipe(*commands);
-		pid = fork();
-		if (pid == 0)
+		pids[i] = fork();
+		if (pids[i] == 0)
 		{
 			ft_execute_cmd(*commands);
 			exit(0);
 		}
+		i++;
 		*commands = (*commands)->next;
 	}
-	i = 0;
-	while (i < len)
+	count = 0;
+	while (count < len)
 	{
-		wait(NULL);
-		i++;
+		i = 0;
+		while (i < len)
+		{
+			if (waitpid(pids[i], NULL, WNOHANG) != 0)
+				count++;
+			i++;
+		}
 	}
 }
 
