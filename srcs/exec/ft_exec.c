@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 05:36:31 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/06 19:15:07 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,28 @@ static void	ft_execute_cmd(t_list *lst)
 	}
 }
 
+static void	ft_wait_all(pid_t *pids, size_t len)
+{
+	size_t	count;
+	size_t	i;
+
+	count = 0;
+	while (count < len)
+	{
+		i = 0;
+		while (i < len)
+		{
+			if (waitpid(pids[i], NULL, WNOHANG) != 0)
+				count++;
+			i++;
+		}
+	}
+}
+
 static void	ft_exec_pipeline(t_list **commands)
 {
 	size_t		len;
 	size_t		i;
-	size_t		count;
 	pid_t		*pids;
 
 	len = ft_size_pipeline(*commands);
@@ -61,17 +78,7 @@ static void	ft_exec_pipeline(t_list **commands)
 		i++;
 		*commands = (*commands)->next;
 	}
-	count = 0;
-	while (count < len)
-	{
-		i = 0;
-		while (i < len)
-		{
-			if (waitpid(pids[i], NULL, WNOHANG) != 0)
-				count++;
-			i++;
-		}
-	}
+	ft_wait_all(pids, len);
 }
 
 void	ft_exec(t_list *commands)
