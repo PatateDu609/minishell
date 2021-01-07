@@ -89,11 +89,11 @@ BONUS_BASENAME		+=	main_bonus
 ################################################################################
 RM					=	@rm -f
 GCC					=	@gcc
-CFLAGS				=	-Wall -Wextra -Werror -I$(PATH_INCLUDES)
+CFLAGS				=	-Wall -Wextra -Werror -g -I$(PATH_INCLUDES)
 LDFLAGS				=	-L$(PATH_LIBS) -lft
 
 # DEBUG LDFLAGS :
-# LDFLAGS				+=	-fsanitize=address -g -fstack-protector
+LDFLAGS				+=	-fsanitize=address -g -fstack-protector
 
 ################################################################################
 #                         DO NOT MODIFY BELOW THIS POINT                       #
