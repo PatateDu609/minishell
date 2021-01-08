@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:39:12 by rbourgea          #+#    #+#             */
-/*   Updated: 2021/01/06 00:28:34 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 12:37:23 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ void	ft_signalhandler_disable(void)
 {
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
+	signal(SIGCHLD, SIG_IGN);
 }

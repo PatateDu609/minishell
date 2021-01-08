@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/08 03:54:39 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 13:45:49 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ static void		ft_execute_cmd(t_list *lst)
 		waitpid(g_pid, &status, 0);
 		if (WIFEXITED(status))
 			g_exit_code = WEXITSTATUS(status);
+		ft_close_pipe(lst);
 	}
 	else
 	{
-		// ft_redirect_in(command);
-		// ft_redirect_out(command);
+		ft_redirect_in(command);
+		ft_redirect_out(command);
 		execve(command->name, command->args, g_env->merged);
 		ft_print_error_exec(command->args[0]);
 		exit(1);
@@ -41,17 +42,20 @@ static void		ft_wait_all(pid_t *pids, size_t len)
 {
 	size_t	count;
 	size_t	i;
+	int		status;
+	pid_t ret;
 
-	count = 0;
-	while (count < len)
+	i = 0;
+	while (i < len)
 	{
-		i = 0;
-		while (i < len)
+		ret = waitpid(pids[i], &status, 0);
+		if (ret != 0)
 		{
-			if (waitpid(pids[i], NULL, WNOHANG) != 0)
-				count++;
-			i++;
+			if (WIFEXITED(status))
+				g_exit_code = WEXITSTATUS(status);
+			count++;
 		}
+		i++;
 	}
 	free(pids);
 }
@@ -61,31 +65,33 @@ static void		ft_exec_pipeline(t_list **commands)
 	size_t		len;
 	size_t		i;
 	pid_t		*pids;
+	int			fd[2];
 
 	len = ft_size_pipeline(*commands);
 	pids = ft_calloc(len, sizeof(pid_t));
 	i = 0;
+	fd[0] = dup(0);
+	fd[1] = dup(1);
 	while (*commands && ft_is_pipe(*commands))
 	{
 		ft_open_pipe(*commands);
+		ft_redirect_pipe(*commands);
 		pids[i] = fork();
 		if (pids[i] == 0)
 		{
-			ft_redirect_pipe(*commands);
 			if (ft_get_builtin_id(((t_command *)(*commands)->content)->name)
 				== BUILTIN_DEFAULT)
-			{
 				ft_execute_cmd(*commands);
-			}
 			else
-			{
-				ft_printf("builtin...\n");
 				ft_init_builtin(*commands);
-			}
-			ft_close_pipe(*commands);
-			exit(0);
+			exit(g_exit_code);
 		}
+		else if (pids[i] == -1)
+			ft_print_error_exec("fork");
 		i++;
+		close(1);
+		dup2(fd[0], 0);
+		dup2(fd[1], 1);
 		*commands = (*commands)->next;
 	}
 	ft_wait_all(pids, len);

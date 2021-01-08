@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 07:08:30 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 19:42:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 13:50:06 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,12 @@ static void	ft_update_shlvl(void)
 static int	ft_fill_paths(void)
 {
 	char	*path_val;
+	char	*def;
 
 	path_val = ft_getvar("PATH");
+	def = "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
+	if (!path_val)
+		return (ft_add_var(def));
 	g_env->paths = ft_split(path_val, ':');
 	if (g_env->paths)
 		return (1);
