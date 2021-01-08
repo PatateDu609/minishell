@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 03:35:08 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/07 22:29:09 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 18:47:16 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void		ft_cd(t_command *command)
 	if (chdir(target))
 	{
 		g_exit_code = 1;
+		free(cwd);
 		if (target)
 			ft_print_error_builtins("cd", target, 1);
 		return ;

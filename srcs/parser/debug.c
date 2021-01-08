@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 18:26:57 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 18:31:37 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 19:05:36 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,11 @@ void	ft_print_command(void *cmdv)
 		dprintf(g_tree, "  - \033[38;5;229m%s\033[0m\n", *args++);
 	ft_print_redirs(cmd->redirects);
 	dprintf(g_tree, "\n");
+}
+
+void	ft_print_cmd(t_list *list)
+{
+	dprintf(g_tree, "------------------------------------------------------\n");
+	ft_lstiter(list, ft_print_command);
+	dprintf(g_tree, "------------------------------------------------------\n");
 }

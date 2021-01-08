@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 18:27:22 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 19:15:25 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 19:05:49 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ extern int	g_tree;
 void		ft_print_redirs(t_redirect **redirs);
 void		ft_print_command(void *cmdv);
 void		ft_print_env(void);
+void		ft_print_cmd(t_list *list);
 void		ft_init_debug(void);
+
 
 #endif

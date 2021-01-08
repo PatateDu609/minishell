@@ -6,11 +6,12 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 04:18:24 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 19:42:45 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 19:10:04 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
+#include "ft_expand.h"
 
 static int	ft_get_cmd_name(t_command *cmd)
 {
@@ -35,6 +36,7 @@ int			ft_check_command(t_command *command, t_list **commands)
 	while (current && ft_is_pipe(current))
 	{
 		command = (t_command *)current->content;
+		ft_expand(command);
 		if (!ft_get_cmd_name(command))
 			result = 0;
 		current = current->next;
