@@ -6,11 +6,12 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/08 13:45:49 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 17:34:48 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_exec.h"
+#include "ft_expand.h"
 
 static void		ft_execute_cmd(t_list *lst)
 {
@@ -106,6 +107,7 @@ void			ft_exec(t_list *commands)
 	{
 		command = (t_command *)commands->content;
 		piped = 0;
+		ft_expand(command);
 		if (ft_check_command(command, &commands) && ft_init_redir(command))
 		{
 			ft_merge_env(NULL);

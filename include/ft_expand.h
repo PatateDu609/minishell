@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 01:49:09 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/04 18:56:31 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 17:34:17 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	ft_append_last(t_list **lst, char	*str);
 t_list	*ft_create_expansion(char *str, int expanded);
 
 char	*ft_expanded_str(t_list *lst);
-void	ft_expand(t_list *parsed);
+void	ft_expand(t_command *command);
 
 #endif
