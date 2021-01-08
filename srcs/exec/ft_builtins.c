@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 05:02:30 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 05:21:51 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 03:30:47 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_execute_builtin(t_list *lst, t_builtin_func builtin)
 	int			fds[2];
 
 	command = (t_command *)lst->content;
-	ft_open_pipe(lst);
 	redir = command->in || command->out;
 	if (!command->piped)
 	{

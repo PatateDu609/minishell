@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:23:51 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/08 00:48:50 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 03:28:52 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int			ft_check_executable_file(char *path, int to_free)
 		errno = EACCES;
 	if (errno && to_free)
 		free(path);
+	if (errno)
+		g_exit_code = 127;
 	return (!errno);
 }
 
@@ -88,6 +90,7 @@ char		*ft_construct_path(char *name)
 	if (!folder)
 	{
 		errno = ENOENT;
+		g_exit_code = 127;
 		return (NULL);
 	}
 	parts[0] = folder;
