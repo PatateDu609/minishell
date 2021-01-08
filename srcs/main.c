@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/08 19:06:11 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 20:01:23 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #else
 # include "minishell_bonus.h"
 #endif
-
-#include "ft_debug.h"
 
 t_list	*g_parsed = NULL;
 t_env	*g_env;
@@ -37,7 +35,6 @@ void		process_parsed(void)
 	if (g_parsed)
 	{
 		ft_exec(g_parsed);
-		ft_print_cmd(g_parsed);
 		ft_lstclear(&g_parsed, ft_free_command);
 	}
 }
@@ -90,7 +87,6 @@ int			main(int ac, char **av)
 
 	(void)ac;
 	(void)av;
-	ft_init_debug();
 	ft_signalhandler_enable();
 	g_env = ft_init_env(environ);
 	if (!g_env)

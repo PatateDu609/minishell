@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 03:35:08 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/08 18:47:16 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 23:30:05 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void		ft_cd(t_command *command)
 
 	target = ft_get_target(command->args[1]);
 	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		ft_print_error_builtins("cd", "getcwd", 1);
+		return ;
+	}
 	if (chdir(target))
 	{
 		g_exit_code = 1;
@@ -49,13 +54,34 @@ void		ft_cd(t_command *command)
 	}
 	ft_modify_var(ft_strdup("OLDPWD"), cwd);
 	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		ft_print_error_builtins("cd", "getcwd", 1);
+		return ;
+	}
 	ft_modify_var(ft_strdup("PWD"), cwd);
 	g_exit_code = 0;
 }
 
 void		ft_pwd(t_command *command)
 {
+	char	*pwd;
+
 	(void)command;
-	ft_printf("%s\n", ft_getvar("PWD"));
+	pwd = ft_getvar("PWD");
+	if (pwd)
+		ft_printf("%s\n", pwd);
+	else
+	{
+		pwd = getcwd(NULL, 0);
+		if (!pwd)
+		{
+			g_exit_code = 1;
+			ft_print_error_builtins("pwd", "getcwd", 1);
+			return ;
+		}
+		ft_printf("%s\n", pwd);
+		free(pwd);
+	}
 	g_exit_code = 0;
 }

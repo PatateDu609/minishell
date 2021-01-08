@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 02:34:27 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/07 18:55:07 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/09 00:16:27 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ t_list	*ft_create_expansion(char *str, int expanded)
 int		ft_has_special_meaning(int quoted, char c)
 {
 	return (c == '$' || (!quoted && c == '\'') || c == '"' || c == '\\'
-			|| (!quoted && c == '#'));
+			|| (!quoted && c == '#') || (!quoted && c == '|')
+			|| (!quoted && c == ';') || (!quoted && c == '<')
+			|| (!quoted && c == '>'));
 }
 
 void	ft_append_last(t_list **lst, char *str)

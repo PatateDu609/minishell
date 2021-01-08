@@ -45,7 +45,6 @@ EXEC_SRCS			=	signal_handling			\
 
 PARSER_SRCS			=	array_utils				\
 						check					\
-						debug					\
 						clear					\
 						command_utils			\
 						ft_parser				\
@@ -55,6 +54,7 @@ PARSER_SRCS			=	array_utils				\
 						tokenizer				\
 						utils					\
 						ft_init_parsing			\
+						# debug					\
 
 ENV_SRCS			=	ft_env					\
 						ft_getvar				\
@@ -74,7 +74,6 @@ TERMCAP_SRCS		=	init					\
 						edit_line_utils			\
 						getline					\
 						history					\
-						debug					\
 
 
 SRCS_BASENAME		+=	$(addprefix $(PARSER_PATH)/, $(PARSER_SRCS))
@@ -82,7 +81,7 @@ SRCS_BASENAME		+=	$(addprefix $(EXPAND_PATH)/, $(EXPAND_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(EXEC_PATH)/, $(EXEC_SRCS))
 SRCS_BASENAME		+=	$(addprefix $(ENV_PATH)/, $(ENV_SRCS))
 SRCS_BASENAME		+=	main				\
-						init_debug			\
+						# init_debug			\
 
 BONUS_BASENAME		+=	$(addprefix $(TERMCAP_PATH)/, $(addsuffix _bonus, $(TERMCAP_SRCS)))
 BONUS_BASENAME		+=	main_bonus
