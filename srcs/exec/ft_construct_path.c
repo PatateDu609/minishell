@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:23:51 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/06 19:43:11 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/08 00:48:50 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static char	*ft_find_file(const char *filename)
 	DIR				*dir;
 
 	paths = g_env->paths;
+	if (!paths)
+		return (NULL);
 	while (*paths)
 	{
 		dir = opendir(*paths++);
