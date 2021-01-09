@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 22:13:40 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/09 00:14:32 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/09 00:33:59 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,9 @@ char	*ft_strstr_op(char *str, char *op)
 	{
 		if (*str == '\\')
 			str += 2;
-		else if (*str == '\'')
+		else if (*str == '\'' || *str == '"')
 		{
-			ft_skip_quotes(&str, '\'');
-			str++;
-		}
-		else if (*str == '"')
-		{
-			ft_skip_quotes(&str, '"');
+			ft_skip_quotes(&str, ft_ternaryi(*str == '\'', '\'', '"'));
 			str++;
 		}
 		if (!*str)

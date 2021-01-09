@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 02:51:10 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/08 19:09:49 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/09 00:45:45 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		ft_wait_all(pid_t *pids, size_t len)
 	size_t	count;
 	size_t	i;
 	int		status;
-	pid_t ret;
+	pid_t	ret;
 
 	i = 0;
 	while (i < len)
@@ -59,6 +59,22 @@ static void		ft_wait_all(pid_t *pids, size_t len)
 		i++;
 	}
 	free(pids);
+}
+
+static void		ft_lauch_piped(t_list **commands, pid_t *pids, int i)
+{
+	pids[i] = fork();
+	if (pids[i] == 0)
+	{
+		if (ft_get_builtin_id(((t_command *)(*commands)->content)->name)
+			== BUILTIN_DEFAULT)
+			ft_execute_cmd(*commands);
+		else
+			ft_init_builtin(*commands);
+		exit(g_exit_code);
+	}
+	else if (pids[i] == -1)
+		ft_print_error_exec("fork");
 }
 
 static void		ft_exec_pipeline(t_list **commands)
@@ -77,25 +93,11 @@ static void		ft_exec_pipeline(t_list **commands)
 	{
 		ft_open_pipe(*commands);
 		ft_redirect_pipe(*commands);
-		pids[i] = fork();
-		if (pids[i] == 0)
-		{
-			if (ft_get_builtin_id(((t_command *)(*commands)->content)->name)
-				== BUILTIN_DEFAULT)
-				ft_execute_cmd(*commands);
-			else
-				ft_init_builtin(*commands);
-			exit(g_exit_code);
-		}
-		else if (pids[i] == -1)
-			ft_print_error_exec("fork");
-		i++;
+		ft_lauch_piped(commands, pids, i++);
 		close(1);
 		dup2(fd[0], 0);
 		dup2(fd[1], 1);
 		*commands = (*commands)->next;
-		// if (i < len)
-		// 	ft_expand((*commands)->content);
 	}
 	ft_wait_all(pids, len);
 }

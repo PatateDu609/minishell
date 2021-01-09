@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 17:15:04 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/08 20:01:23 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/09 00:58:39 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ void		minishell(void)
 			ft_putendl_fd("exit", 1);
 			ft_apply_exit();
 		}
-		g_parsed = ft_ternary(command && *command != 0, ft_parser(command), NULL);
+		g_parsed = NULL;
+		if (command && *command != 0)
+			g_parsed = ft_parser(command);
 		free(command);
 		process_parsed();
 	}

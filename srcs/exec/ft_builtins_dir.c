@@ -6,7 +6,7 @@
 /*   By: gboucett <gboucett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 03:35:08 by gboucett          #+#    #+#             */
-/*   Updated: 2021/01/08 23:30:05 by gboucett         ###   ########.fr       */
+/*   Updated: 2021/01/09 00:51:22 by gboucett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ static char	*ft_get_target(char *arg)
 	return (target);
 }
 
+static int	ft_check_cwd(char *cwd)
+{
+	if (!cwd)
+	{
+		ft_print_error_builtins("cd", "getcwd", 1);
+		g_exit_code = 1;
+		return (0);
+	}
+	return (1);
+}
+
 void		ft_cd(t_command *command)
 {
 	char	*cwd;
@@ -39,11 +50,8 @@ void		ft_cd(t_command *command)
 
 	target = ft_get_target(command->args[1]);
 	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		ft_print_error_builtins("cd", "getcwd", 1);
+	if (!ft_check_cwd(cwd))
 		return ;
-	}
 	if (chdir(target))
 	{
 		g_exit_code = 1;
@@ -54,11 +62,8 @@ void		ft_cd(t_command *command)
 	}
 	ft_modify_var(ft_strdup("OLDPWD"), cwd);
 	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		ft_print_error_builtins("cd", "getcwd", 1);
+	if (!ft_check_cwd(cwd))
 		return ;
-	}
 	ft_modify_var(ft_strdup("PWD"), cwd);
 	g_exit_code = 0;
 }
